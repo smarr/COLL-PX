@@ -1,3 +1,6 @@
+%% White space:
+%% sentence parts on separate lines
+
 \documentclass[sigconf, 10pt, review]{acmart}
 % \documentclass[sigconf, 10pt, authordraft]{acmart}
 \settopmatter{printfolios=true,printccs=false,printacmref=false}
@@ -164,10 +167,106 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 
 \end{note}
 
+\section{Collection Libraries in the Wild, A Brief Excursion}
+
+\begin{note}
+- having a brief look around, informally, just getting a flavor
+ - what collections do they contain
+ - how large (num classes/concepts) are libraries
+ - any particularly interesting things?
+
+- C/C++ (boost?)
+- Java, C\#, Guava, Eclipse Collections
+
+- Ruby, JavaScript, Python
+
+- Dart, Smalltalk, Lisp
+
+- Eiffel, Pascal, Ada, ... other old-school stuff
+- Oz, Prolog, Erlang, ... 
+
+- Haskell, ML, Ocam, Ocaml, ...
+- other non-conventioanl languages
+
+- which collections are actually used?
+ -> there is a 2017 paper on it for Java
+ -> ArrayList on top, there are some numbers for a Smalltalk paper
+
+\end{note}
+
+\section{Design Dimensions for Collection Libraries}
+
+\begin{note}
+  - language style
+    - object-oriented, procedural, functional, ...
+  
+  - mutability (mutable, immutable)
+  - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
+  - processing of bulk operations (sequential, parallel)
+  
+  
+  Where do streams fit it?
+  What are streams? finite or infinite sequences of values?
+  Are they collections? Are they relevant? should they be mentioned?
+\end{note}
+
+
+\section{Techniques for Efficient Implementations}
+
+
+
+Discussion Points:
+ 
+
+ - is small and versatile bad design because it violates the `one thing does one thing good premise'
+   - it's a god object design smell/anti-pattern?
+    \url{https://en.wikipedia.org/wiki/God_object}
+    \todoref{anti-pattern book?}
+    - do they do to much? is this an issue?
+     -> yes, it's an issue, the code is not clear about what kind of 
+        interactions one wants to allow on the collection
+     -> complexity of implementation is a real issue (concurrency issues,
+        strategies, JIT DS...)
+
+Practical Implementation Concerns
+ How to realize all this with same efficiency as when using special purpose
+ collections?
+ - probably not getting there 100\%, but 90\% or even 80\% are sufficient
+   when it improves developer productivity (which still has to be proven of course)
+  
+ - to get to the 80-90\% mark
+  -> strategies (seq, par)
+  -> JIT Data Structures
+     -> the other paper about collections I saw (something from a german university)
+  ->
+
+How to design so that specialized collections remain possible?
+And are easily adopted?
+ -> ensure subset of collection APIs are polymorphic
+   -> ideally, one just changes the constructor, or adds a conversion
+   -> idea would be that this gives the last 10-20\% of performance when needed
+   -> leave door open for improving performance by restricting flexibility
+
+
+
+
+
+
 \section{Related Work}
 \sm{not sure we need this section}
 
 \section{Conclusion}
+
+
+
+While I have convinced myself
+that I do prefer the programming style offered
+by a small and versatile collections library,
+I cannot shake the feeling
+that this is a post hoc justification
+for the complexity we add to VMs.
+
+\section{Notes}
 
 \begin{note}
 TODO:
@@ -290,48 +389,7 @@ CGO 2018 (to appear)
 
 
 
-Dimensions of collections
-- mutability (mutable, immutable)
-- processing (sequential, parallel)
-- persistence?
 
-Discussion Points:
-- which collections are actually used?
- -> there is a 2017 paper on it for Java
- -> ArrayList on top, there are some numbers for a Smalltalk paper
- 
-
- - is small and versatile bad design because it violates the `one thing does one thing good premise'
-   - it's a god object design smell/anti-pattern?
-    \url{https://en.wikipedia.org/wiki/God_object}
-    \todoref{anti-pattern book?}
-    - do they do to much? is this an issue?
-     -> yes, it's an issue, the code is not clear about what kind of 
-        interactions one wants to allow on the collection
-     -> complexity of implementation is a real issue (concurrency issues,
-        strategies, JIT DS...)
-
-Practical Implementation Concerns
- How to realize all this with same efficiency as when using special purpose
- collections?
- - probably not getting there 100\%, but 90\% or even 80\% are sufficient
-   when it improves developer productivity (which still has to be proven of course)
-  
- - to get to the 80-90\% mark
-  -> strategies (seq, par)
-  -> JIT Data Structures
-     -> the other paper about collections I saw (something from a german university)
-  ->
-
-How to design so that specialized collections remain possible?
-And are easily adopted?
- -> ensure subset of collection APIs are polymorphic
-   -> ideally, one just changes the constructor, or adds a conversion
-   -> idea would be that this gives the last 10-20\% of performance when needed
-   -> leave door open for improving performance by restricting flexibility
-
-
-Is this just an attempt to justify the complexity in the VM?
 
 \end{note} 
 
