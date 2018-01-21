@@ -1,9 +1,23 @@
 \documentclass[sigconf, 10pt, review]{acmart}
 % \documentclass[sigconf, 10pt, authordraft]{acmart}
-\settopmatter{printfolios=true}
+\settopmatter{printfolios=true,printccs=false,printacmref=false}
+
+\def\Title{Small and Versatile vs. Large and Specialized}
+% \def\ShortTitle{}
+\def\SubTitle{How to design a collection library for exploratory programming?}
+\def\PdfTitle{\Title: \SubTitle}
+\def\PdfSubject{TODO}
+\def\PdfAuthors{{Stefan Marr, Benoit Daloze}}
+\def\PdfKeywords{TODO}
+
+
+\include{scripts/init}
+
+
+\collabAuthor{bd}{green!60!black}{Benoit}
+\collabAuthor{sm}{red}{Stefan}
 
 \usepackage{booktabs} % For formal tables
-
 
 % Copyright
 %\setcopyright{none}
@@ -15,98 +29,50 @@
 %\setcopyright{cagov}
 %\setcopyright{cagovmixed}
 
-
-% DOI
-\acmDOI{10.475/123_4}
-
-% ISBN
-\acmISBN{123-4567-24-567/08/06}
+\acmDOI{10.475/123_4} % TODO
+\acmISBN{123-4567-24-567/08/06} % TODO
 
 %Conference
-\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El
-  Paso, Texas USA}
-\acmYear{1997}
-\copyrightyear{2016}
+\acmConference[PX/18]{Programming Experience Workshop}{April 2018}{Nice, France}
+\acmYear{2018}
+\copyrightyear{2018}
 
 \acmPrice{15.00}
-
 \acmSubmissionID{123-A12-B3}
 
 \begin{document}
-\title{SIG Proceedings Paper in LaTeX Format}
-\titlenote{Produces the permission block, and
-  copyright information}
-\subtitle{Extended Abstract}
-\subtitlenote{The full version of the author's guide is available as
-  \texttt{acmart.pdf} document}
+\title{\Title}
+% \titlenote{Produces the permission block, and
+%   copyright information}
+\subtitle{\SubTitle}
+% \subtitlenote{The full version of the author's guide is available as
+%   \texttt{acmart.pdf} document}
 
-
-\author{Ben Trovato}
-\authornote{Dr.~Trovato insisted his name be first.}
-\orcid{1234-5678-9012}
-\affiliation{%
-  \institution{Institute for Clarity in Documentation}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \postcode{43017-6221}
-}
-\email{trovato@corporation.com}
-
-\author{G.K.M. Tobin}
-\authornote{The secretary disavows any knowledge of this author's actions.}
-\affiliation{%
-  \institution{Institute for Clarity in Documentation}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \postcode{43017-6221}
-}
-\email{webmaster@marysville-ohio.com}
-
-\author{Lars Th{\o}rv{\"a}ld}
-\authornote{This author is the
-  one who did all the really hard work.}
-\affiliation{%
-  \institution{The Th{\o}rv{\"a}ld Group}
-  \streetaddress{1 Th{\o}rv{\"a}ld Circle}
-  \city{Hekla}
-  \country{Iceland}}
-\email{larst@affiliation.org}
-
-\author{Lawrence P. Leipuner}
+\author{Stefan Marr}
+\orcid{0000-0001-9059-5180}
 \affiliation{
-  \institution{Brookhaven Laboratories}
-  \streetaddress{P.O. Box 5000}}
-\email{lleipuner@researchlabs.org}
+    \department{School of Computing}
+    \institution{University of Kent}
+    \city{Canterbury}
+    \postcode{CT2 7NZ}
+    \country{United Kingdom}
+}
+\email{s.marr@kent.ac.uk}
 
-\author{Sean Fogarty}
-\affiliation{%
-  \institution{NASA Ames Research Center}
-  \city{Moffett Field}
-  \state{California}
-  \postcode{94035}}
-\email{fogartys@amesres.org}
+\author{Benoit Daloze}
+\affiliation{
+    \department{Institute for System Software}
+    \institution{Johannes Kepler University Linz}
+    \streetaddress{Altenbergerstraße, 69}
+    \city{Linz}
+    \postcode{4040}
+    \country{Austria}
+}
+\email{benoit.daloze@jku.at}
 
-\author{Charles Palmer}
-\affiliation{%
-  \institution{Palmer Research Laboratories}
-  \streetaddress{8600 Datapoint Drive}
-  \city{San Antonio}
-  \state{Texas}
-  \postcode{78229}}
-\email{cpalmer@prl.com}
-
-\author{John Smith}
-\affiliation{\institution{The Th{\o}rv{\"a}ld Group}}
-\email{jsmith@affiliation.org}
-
-\author{Julius P.~Kumquat}
-\affiliation{\institution{The Kumquat Consortium}}
-\email{jpkumquat@consortium.net}
 
 % The default list of authors is too long for headers.
-\renewcommand{\shortauthors}{B. Trovato et al.}
+% \renewcommand{\shortauthors}{B. Trovato et al.}
 
 
 \begin{abstract}
@@ -120,6 +86,7 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 % http://dl.acm.org/ccs.cfm
 % Please copy and paste the code instead of the example below.
 %
+% TODO
 \begin{CCSXML}
 <ccs2012>
  <concept>
@@ -145,20 +112,187 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 </ccs2012>
 \end{CCSXML}
 
+% TODO
 \ccsdesc[500]{Computer systems organization~Embedded systems}
 \ccsdesc[300]{Computer systems organization~Redundancy}
 \ccsdesc{Computer systems organization~Robotics}
 \ccsdesc[100]{Networks~Network reliability}
 
-
+% TODO
 \keywords{ACM proceedings, \LaTeX, text tagging}
 
 
 \maketitle
 
-\input{samplebody-conf}
+\begin{note}
+TODO:
+- Scala
+  - has collection framework with mutable and immutable collections
+    -> do they have the same structure 
+    -> are immutable collections persistent?
+    -> are APIs adapted to facilitate different style?
+      -> perhaps not necessary since Scala embraces FP
+  - uniform return type principle
+  - \url{https://www.scala-lang.org/blog/2017/02/28/collections-rework.html}
+ - \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html} 
+   The Architecture of Scala Collections  
+
+- Goldman Sachs Collections, now Eclipse Collections
+\url{https://www.eclipse.org/collections/}
+ - mutable and immutable collections
+ - specializations for primitive types
+
+- how do templates (expanding ones, as in C++) fit in here?
+- compiler-level specialization as with miniboxing?
+
+further reading:
+
+- just in time data structure de wael et al.
+- concurrency strategy paper
+
+ - \url{https://www.microsoft.com/en-us/research/publication/bulk-types-with-class/}
+
+ - \url{http://www.cs.ox.ac.uk/people/hongseok.yang/talk/2013-IP2/Lecture12.pdf}
+   from \url{http://www.cs.ox.ac.uk/people/hongseok.yang/Public/Courses.html}
+ 
+ - \url{http://web.cecs.pdx.edu/~black/publications/refactoringsACM.pdf}
+   Applying Traits to the Smalltalk Collection Classes[/url]
+ 
+ - Storage strategies for collections in dynamically typed languages \citep{Bolz:2013:SSC}
+
+Interfaces and specifications for the Smalltalk-80 collection classes
+\url{https://dl.acm.org/citation.cfm?id=141938}
+
+
+There is also this for C++:
+ \url{https://www.youtube.com/watch?v=1-CmNNp5eag}
+ \url{http://stepanovpapers.com/stl.ppt}
+... but it is ~15 years old.
+
+
+
+Dominic:
+
+Perhaps the following paper and thread of work might be relevant here:
+
+* A Comparative Study of Language Support for Generic Programming, Garcia et al. OOPSLA 2003
+\url{https://pdfs.semanticscholar.org/1cb3/a5ab80477e3f14e29a23b655a6acfb94957d.pdf}
+
+This paper compared parameterised graph libraries in several languages with static polymorphism: (C++, SML, Haskell, Eiffel, Java, C\#). It was noted that C++ has the abilities to provide type-based refine implementations using the template mechanism, which Haskell could not do. This might be useful for you as it includes more of the OO side.
+
+Perhaps relevant (though not in the OO space) is the following two papers which were motivated by the above:
+
+* Associated Types with Class, Chakravarty et al. POPL 2005
+\url{https://pdfs.semanticscholar.org/22d9/fa7835ae91047790dafcd61e30a7d9bd47bd.pdf}
+
+and
+
+* "Associated Type Synonyms" by Chakravarty et al. ICFP 2005.
+\url{https://www.microsoft.com/en-us/research/wp-content/uploads/2005/01/at-syns.pdf}
+
+These papers proposed and detailed a new type system feature for GHC/Haskell: primitive recursive type-level functions, motivated by features in C++ that made it more flexible for doing generic collections. I think the first few pages of each paper will be most useful as they explain how this can be used for doing generic collections, and also contain comparison with C++.
+
+Papers potentially for:
+ - Eiffel
+
+@inproceedings{odersk2009,
+	Address = {Dagstuhl, Germany},
+	Author = {Martin Odersky and Adriaan Moors},
+	Booktitle = {IARCS Annual Conference on Foundations of Software Technology and Theoretical Computer Science (FSTTCS 2009)},
+	Editor = {Ravi Kannan and K Narayan Kumar},
+	Pages = {427--451},
+	Publisher = {Schloss Dagstuhl--Leibniz-Zentrum {f\"{u}r} Informatik},
+	Series = {Leibniz International Proceedings in Informatics (LIPIcs)},
+	Title = {Fighting Bit Rot with Types (Experience Report: Scala Collections)},
+	Volume = {4},
+	Year = {2009}}
+
+@article{krogda2009,
+	Author = {Stein Krogdahl and Birger M{\o}ller-Pedersen and Fredrik S{\o}rensen},
+	Journal = {JoT},
+	Month = {Nov},
+	Number = {7},
+	Pages = {59-85},
+	Title = {Exploring the use of Package Templates for flexible re-use of Collections of related Classes},
+	Volume = {8},
+	Year = {2009}}
+  
+  
+Newspeak related design questions (by Gilad)
+is the map API compatible with single argument closures? It should be; are keys and values lists, and what order guarantees do we get for these, if any? Can lists be seen as maps with integer keys? Do we support slices? External vs. internal iteration? I feel I could keep going for a long time. One can even consider doing APL style vector operations - but that seems to me a whole different language.
+
+
+Energy profiles of Java collections classes
+https://dl.acm.org/citation.cfm?id=2884869
+
+Reducing resource consumption of expandable collections: The Pharo case
+- some data on collection use in Pharo
+- the interesting bit seems to be on the implementation of Lua tables
+
+https://www.sciencedirect.com/science/article/pii/S0167642317302940
+
+Empirical Study of Usage and Performance of Java Collections
+https://dl.acm.org/citation.cfm?id=3030221
+
+
+CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection
+DOI 10.1145/3168825
+CGO 2018 (to appear)
+% \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
+
+
+
+
+
+
+Dimensions of collections
+- mutability (mutable, immutable)
+- processing (sequential, parallel)
+- persistence?
+
+Discussion Points:
+- which collections are actually used?
+ -> there is a 2017 paper on it for Java
+ -> ArrayList on top, there are some numbers for a Smalltalk paper
+ 
+
+ - is small and versatile bad design because it violates the `one thing does one thing good premise'
+   - it's a god object design smell/anti-pattern?
+    \url{https://en.wikipedia.org/wiki/God_object}
+    \todoref{anti-pattern book?}
+    - do they do to much? is this an issue?
+     -> yes, it's an issue, the code is not clear about what kind of 
+        interactions one wants to allow on the collection
+     -> complexity of implementation is a real issue (concurrency issues,
+        strategies, JIT DS...)
+
+Practical Implementation Concerns
+ How to realize all this with same efficiency as when using special purpose
+ collections?
+ - probably not getting there 100\%, but 90\% or even 80\% are sufficient
+   when it improves developer productivity (which still has to be proven of course)
+  
+ - to get to the 80-90\% mark
+  -> strategies (seq, par)
+  -> JIT Data Structures
+     -> the other paper about collections I saw (something from a german university)
+  ->
+
+How to design so that specialized collections remain possible?
+And are easily adopted?
+ -> ensure subset of collection APIs are polymorphic
+   -> ideally, one just changes the constructor, or adds a conversion
+   -> idea would be that this gives the last 10-20\% of performance when needed
+   -> leave door open for improving performance by restricting flexibility
+
+
+Is this just an attempt to justify the complexity in the VM?
+
+\end{note} 
+
+% \input{samplebody-conf}
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{sample-bibliography}
+\bibliography{references}
 
 \end{document}
