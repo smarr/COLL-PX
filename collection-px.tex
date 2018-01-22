@@ -217,7 +217,7 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 \section{Techniques for Efficient Implementations}
 
 
-
+\begin{note}
 Discussion Points:
  
 
@@ -225,7 +225,7 @@ Discussion Points:
    - it's a god object design smell/anti-pattern?
     \url{https://en.wikipedia.org/wiki/God_object}
     \todoref{anti-pattern book?}
-    - do they do to much? is this an issue?
+    - do they do too much? is this an issue?
      -> yes, it's an issue, the code is not clear about what kind of 
         interactions one wants to allow on the collection
      -> complexity of implementation is a real issue (concurrency issues,
@@ -249,8 +249,7 @@ And are easily adopted?
    -> ideally, one just changes the constructor, or adds a conversion
    -> idea would be that this gives the last 10-20\% of performance when needed
    -> leave door open for improving performance by restricting flexibility
-
-
+\end{note}
 
 
 
