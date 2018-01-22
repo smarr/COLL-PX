@@ -1,0 +1,42 @@
+%!TEX root = ../paper.tex
+
+%% paper independent setup
+
+% \usepackage[square,numbers]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{fixltx2e} % for \textsubscript
+% \usepackage[authoryear,comma,square,sort&compress]{natbib}
+\usepackage{ifpdf}
+\usepackage{graphicx}
+
+\newif\ifhtml
+\ifpdf
+\htmlfalse
+\else
+\htmltrue
+\fi
+
+\usepackage{scripts/collab}  % [hideall]
+\input{scripts/hyperref-init.tex}
+
+% \input{scripts/listings-init.tex}
+\input{scripts/misc-macros.tex}
+% \input{scripts/knitr-init.tex}
+
+\usepackage[nameinlink]{cleveref}
+\Crefformat{lstlisting}{#2Lst.\,#1#3}
+\crefformat{lstlisting}{#2lst.\,#1#3}
+
+
+%% Determine Latex Fonts:
+% TEXTTT: \texttt{tt \expandafter\show\the\font tt}
+% textbf \textbf{bf \expandafter\show\the\font bf}
+% normal text { text \expandafter\show\the\font text }
+% sans serif \textsf{sf \expandafter\show\the\font sf }
+
+% ACMART:
+%% texttt: font t1-zi4r-4.  -> Inconsolata
+%% textbf: font LinLibertineTB-tlf-t1.
+%% text:   font LinLibertineT-tlf-t1.
+%% sans serif: font LinBiolinumT-tlf-t1

@@ -1,0 +1,40 @@
+%% random stuff
+
+\newcommand{\ie}{i.e.\xspace}
+\newcommand{\eg}{e.g.\xspace}
+
+\usepackage{letltxmacro}
+\LetLtxMacro{\OrgCitep}{\citep}
+\renewcommand{\citep}[1]{\,\OrgCitep{#1}}
+
+\newcommand{\code}[1]{\lstinline!#1!}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily
+}
+
+% define \citeurl
+%  #1 link text (for HTML version)
+%  #2 title
+%  #3 author
+%  [#4] date of retrival
+%  #5  url
+% Example:
+%   \citeurl{linktext}{Welcome to the Jungle}{Herb Sutter}{27 June 2012}{http://herbsutter.com/welcome-to-the-jungle/}
+% Result:
+%   \footnote{\emph{Welcome to the Jungle}, Herb Sutter, access date: 27 June 2012
+%     \url{http://herbsutter.com/welcome-to-the-jungle/}}
+\usepackage{ifthen}
+\newcommand{\citeurl}[5]{%
+#1\footnote{\emph{#2}%
+          \ifthenelse{\equal{#3}{}}
+                     {}%          then i.e. empty #3
+                     {, #3}% else i.e. non-empty #3
+          \ifthenelse{\equal{#4}{}}
+                     {}%          then i.e. empty #4
+                     {, access date: #4}% else i.e. non-empty #4
+          , \url{#5}}}
+
+\newcommand{\inlinequote}[1]{\emph{``#1''}}
+
+\newcommand{\circled}[1]{\textcircled{\scriptsize\textsf{#1}}}
