@@ -126,8 +126,8 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 % TODO
 \keywords{ACM proceedings, \LaTeX, text tagging}
 
-
 \maketitle
+
 
 \section{Introduction}
 
@@ -205,6 +205,33 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
   - mutability (mutable, immutable)
   - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
   - processing of bulk operations (sequential, parallel)
+
+
+  - Generalization vs. Specialization  
+  - small set of generalized collection types 
+  - or large set of specialized types
+  
+  - is small and versatile bad design because it violates the `one thing does   one thing good premise'
+    - are those classes blobs? \citep{brown1998antipatterns}
+    - do they do too much? is this an issue?
+     -> yes, it's an issue, the code is not clear about what kind of 
+        interactions one wants to allow on the collection
+     -> complexity of implementation is a real issue (concurrency issues,
+        strategies, JIT DS...)
+     -> this means, it can be a burden for maintaining large systems
+     -> it is a burden for VM maintenance
+     -> however, The Blob anti-pattern combines complex state and behavior
+        such collection design is not a direct instance of it, because
+        the contained data is usually still used for a single purpose and
+        it is merely that the collections themselves offer too much
+        functionality
+        
+    - drawback of too specialized classes:
+      - can become inflexible
+        -> need conversion or adapters to perform certain operations
+        -> large class hierarchies, hard to chose one, might not even be
+           clear what options are available, or appropriate for problem
+     
   
   
 \end{note}
@@ -217,15 +244,6 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 Discussion Points:
  
 
- - is small and versatile bad design because it violates the `one thing does one thing good premise'
-   - it's a god object design smell/anti-pattern?
-    \url{https://en.wikipedia.org/wiki/God_object}
-    \todoref{anti-pattern book?}
-    - do they do too much? is this an issue?
-     -> yes, it's an issue, the code is not clear about what kind of 
-        interactions one wants to allow on the collection
-     -> complexity of implementation is a real issue (concurrency issues,
-        strategies, JIT DS...)
 
 Practical Implementation Concerns
  How to realize all this with same efficiency as when using special purpose
