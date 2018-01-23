@@ -16,7 +16,11 @@ ifeq ($(CI_SERVER),yes)
 	GIT_MSG=$(shell git log -1 --pretty=%B | grep -v Signed-off)
 	# GV=curl -F file=@$(NAME).pdf -F filename=$(NAME).pdf -F title="$(NAME)" -F initial_comment="$(GIT_MSG)" -F channels="\#writing" -F token= https://slack.com/api/files.upload && touch
 else
-	GV=@open -a Skim.app 
+	ifeq ($(TRAVIS),true)
+		GV=echo 
+	else
+		GV=@open -a Skim.app 
+	endif
 endif
 
 
