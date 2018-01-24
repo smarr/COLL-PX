@@ -191,8 +191,11 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 - other non-conventioanl languages
 
 - which collections are actually used?
- -> there is a 2017 paper on it for Java
- -> ArrayList on top, there are some numbers for a Smalltalk paper
+ -> \code{ArrayList} overwhelmingly so with 47\% of all collections
+    Then come \code{HashMap} at 23\% and \code{HashSet} with 10\% \citep{Costa:2017:ESU} 
+    - everything else is 
+ -> \citet[sec. 9.2]{Bergel:2018} report that \code{OrderedCollection} and \code{Dictionary} are the frequently used collections in some Pharo.
+ While the study is less comprehensive than the Java one, it confirms the general trend. Interestingly, it also considers arrays and find that they are used slightly more than \code{Dictionary}.
 
 \end{note}
 
@@ -389,10 +392,9 @@ Reducing resource consumption of expandable collections: The Pharo case
 - some data on collection use in Pharo
 - the interesting bit seems to be on the implementation of Lua tables
 
-https://www.sciencedirect.com/science/article/pii/S0167642317302940
+\citep{Bergel:2018}
 
-Empirical Study of Usage and Performance of Java Collections
-https://dl.acm.org/citation.cfm?id=3030221
+Empirical Study of Usage and Performance of Java Collections \citep{Costa:2017:ESU}
 
 
 CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection

@@ -37,3 +37,45 @@
   year = 1998
 }
 
+@inproceedings{Costa:2017:ESU,
+  abstract = {Collection data structures have a major impact on the performance of applications, especially in languages such as Java, C#, or C++. This requires a developer to select an appropriate collection from a large set of possibilities, including different abstractions (e.g. list, map, set, queue), and multiple implementations. In Java, the default implementation of collections is provided by the standard Java Collection Framework (JCF). However, there exist a large variety of less known third-party collection libraries which can provide substantial performance benefits with minimal code changes. In this paper, we first study the popularity and usage patterns of collection implementations by mining a code corpus comprised of 10,986 Java projects. We use the results to evaluate and compare the performance of the six most popular alternative collection libraries in a large variety of scenarios. We found that for almost every scenario and JCF collection type there is an alternative implementation that greatly decreases memory consumption while offering comparable or even better execution time. Memory savings range from 60% to 88% thanks to reduced overhead and some operations execute 1.5x to 50x faster. We present our results as a comprehensive guideline to help developers in identifying the scenarios in which an alternative implementation can provide a substantial performance improvement. Finally, we discuss how some coding patterns result in substantial performance differences of collections.},
+  acmid = {3030221},
+  added-at = {2018-01-15T17:31:16.000+0100},
+  address = {New York, NY, USA},
+  author = {Costa, Diego and Andrzejak, Artur and Seboek, Janos and Lo, David},
+  biburl = {https://www.bibsonomy.org/bibtex/2b41a078eda7211c5a0225eb1c7cbfeb0/gron},
+  booktitle = {Proceedings of the 8th ACM/SPEC on International Conference on Performance Engineering},
+  description = {Empirical Study of Usage and Performance of Java Collections},
+  doi = {10.1145/3030207.3030221},
+  interhash = {d4ad4eeaa3bf151508506d442199f037},
+  intrahash = {b41a078eda7211c5a0225eb1c7cbfeb0},
+  isbn = {978-1-4503-4404-3},
+  keywords = {ArrayList Collections DataStructures Java JustInTime Optimization Performance Survey Usage},
+  location = {L'Aquila, Italy},
+  numpages = {12},
+  pages = {389--400},
+  publisher = {ACM},
+  series = {ICPE '17},
+  timestamp = {2018-01-15T17:31:16.000+0100},
+  title = {{Empirical Study of Usage and Performance of Java Collections}},
+  url = {http://doi.acm.org/10.1145/3030207.3030221},
+  year = 2017
+}
+
+@article{Bergel:2018,
+  abstract = {Expandable collections are collections whose size may vary as elements are added and removed. Hash maps and ordered collections are popular expandable collections. Expandable collection classes offer an easy-to-use API, however this apparent simplicity is accompanied by a significant amount of wasted resources. We describe some improvements of the collection library to reduce the amount of waste associated with collection expansions. We have designed two new collection libraries for the Pharo programming language that exhibit better resource management than the standard library. We improved the Pharo collection library using two complementary perspectives. First, across a basket of 5 applications, our optimized collection library significantly reduces the memory footprint of the collections: (i) the amount of intermediary internal array storage by 73%, (ii) the number of allocated bytes by 67% and (iii) the number of unused bytes by 72%. This reduction of memory is accompanied by a speedup of about 3% for most of our benchmarks. Second, we looked for an alternative to the classical expandable collection. The Lua programming language offers a unique abstract data type called table. We designed, implemented, and introduced this data type in the Pharo programming language and we ran a number of micro and macro-benchmarks. Overall, replacing the standard Pharo collection library by one inspired on Lua's table data type results in an execution speedup of up to 15% and a reduction of the memory consumption by up to 19%. We analyzed the collection implementations of Java, C#, Scala, and Ruby: these implementations largely behave like Pharo's, therefore with the same limitations. Our results are thus likely to benefit designers of future programming languages and collection libraries.},
+  added-at = {2018-01-24T00:35:27.000+0100},
+  author = {Bergel, Alexandre and Infante, Alejandro and Maass, Sergio and Alcocer, Juan Pablo Sandoval},
+  biburl = {https://www.bibsonomy.org/bibtex/2d141399f43fc26c2c1acb99d1603b801/gron},
+  description = {Reducing resource consumption of expandable collections: The Pharo case - ScienceDirect},
+  doi = {10.1016/j.scico.2017.12.009},
+  interhash = {555ccfacedaceaba41eec65699aaa0de},
+  intrahash = {d141399f43fc26c2c1acb99d1603b801},
+  issn = {0167-6423},
+  journal = {Science of Computer Programming},
+  keywords = {ArrayList Collections Lua OrderedCollection Smalltalk Survey Table},
+  timestamp = {2018-01-24T00:35:27.000+0100},
+  title = {Reducing Resource Consumption of Expandable Collections: The Pharo Case},
+  year = 2018
+}
+
