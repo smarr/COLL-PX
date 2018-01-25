@@ -131,6 +131,9 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 
 \section{Introduction}
 
+\sm{should we involve michael steindorfer?}
+
+
 \begin{note}
 % Context: What is the broad context of the work? What is the importance of the general research area?
 - collection libraries
@@ -178,7 +181,14 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
  - any particularly interesting things?
 
 - C/C++ (boost?)
-- Java, C\#, Guava, Eclipse Collections
+- Java, C\#, Guava
+
+  - Goldman Sachs Collections, now Eclipse Collections
+  \url{https://www.eclipse.org/collections/} %\citeurl
+   - mutable and immutable collections
+   - specializations for primitive types
+   - rich iteration operation, incl. lazy and parallel itertion
+  
 
 - Ruby, JavaScript, Python
 
@@ -260,6 +270,13 @@ Practical Implementation Concerns
      -> the other paper about collections I saw (something from a german university)
   ->
 
+CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection
+DOI 10.1145/3168825
+CGO 2018 (to appear)
+% \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
+
+
+
 How to design so that specialized collections remain possible?
 And are easily adopted?
  -> ensure subset of collection APIs are polymorphic
@@ -273,6 +290,13 @@ And are easily adopted?
 
 \section{Related Work}
 \sm{not sure we need this section}
+
+\citet{Odersky:2009} describe their experience
+redesigning the collection library in Scala.
+Their focus is mostly on how they achieved an implementation and design
+that is more principled, structured, and avoids code duplication
+to avoid bit rot during future maintenance.
+The library itself falls into the category of large and specialized (cf. \cref{sec:scala-col}). 
 
 \section{Conclusion}
 
@@ -300,10 +324,6 @@ TODO:
  - \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html} 
    The Architecture of Scala Collections  
 
-- Goldman Sachs Collections, now Eclipse Collections
-\url{https://www.eclipse.org/collections/}
- - mutable and immutable collections
- - specializations for primitive types
 
 - how do templates (expanding ones, as in C++) fit in here?
 - compiler-level specialization as with miniboxing?
@@ -355,55 +375,10 @@ and
 
 These papers proposed and detailed a new type system feature for GHC/Haskell: primitive recursive type-level functions, motivated by features in C++ that made it more flexible for doing generic collections. I think the first few pages of each paper will be most useful as they explain how this can be used for doing generic collections, and also contain comparison with C++.
 
-Papers potentially for:
- - Eiffel
 
-@inproceedings{odersk2009,
-	Address = {Dagstuhl, Germany},
-	Author = {Martin Odersky and Adriaan Moors},
-	Booktitle = {IARCS Annual Conference on Foundations of Software Technology and Theoretical Computer Science (FSTTCS 2009)},
-	Editor = {Ravi Kannan and K Narayan Kumar},
-	Pages = {427--451},
-	Publisher = {Schloss Dagstuhl--Leibniz-Zentrum {f\"{u}r} Informatik},
-	Series = {Leibniz International Proceedings in Informatics (LIPIcs)},
-	Title = {Fighting Bit Rot with Types (Experience Report: Scala Collections)},
-	Volume = {4},
-	Year = {2009}}
-
-@article{krogda2009,
-	Author = {Stein Krogdahl and Birger M{\o}ller-Pedersen and Fredrik S{\o}rensen},
-	Journal = {JoT},
-	Month = {Nov},
-	Number = {7},
-	Pages = {59-85},
-	Title = {Exploring the use of Package Templates for flexible re-use of Collections of related Classes},
-	Volume = {8},
-	Year = {2009}}
-  
   
 Newspeak related design questions (by Gilad)
 is the map API compatible with single argument closures? It should be; are keys and values lists, and what order guarantees do we get for these, if any? Can lists be seen as maps with integer keys? Do we support slices? External vs. internal iteration? I feel I could keep going for a long time. One can even consider doing APL style vector operations - but that seems to me a whole different language.
-
-
-Energy profiles of Java collections classes
-https://dl.acm.org/citation.cfm?id=2884869
-
-Reducing resource consumption of expandable collections: The Pharo case
-- some data on collection use in Pharo
-- the interesting bit seems to be on the implementation of Lua tables
-
-\citep{Bergel:2018}
-
-Empirical Study of Usage and Performance of Java Collections \citep{Costa:2017:ESU}
-
-
-CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection
-DOI 10.1145/3168825
-CGO 2018 (to appear)
-% \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
-
-
-
 
 
 
