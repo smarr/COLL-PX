@@ -189,6 +189,16 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
    - specializations for primitive types
    - rich iteration operation, incl. lazy and parallel itertion
   
+  
+  - Scala
+    - has collection framework with mutable and immutable collections
+      -> do they have the same structure?
+      -> are immutable collections always persistent?
+      -> are APIs adapted to facilitate different style?
+        -> perhaps not necessary since Scala embraces FP
+    - uniform return type principle \smtodo{was this in \citet{Odersky:2009}?} \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html} 
+     The Architecture of Scala Collections  
+  
 
 - Ruby, JavaScript, Python
 
@@ -198,7 +208,11 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 - Oz, Prolog, Erlang, ... 
 
 - Haskell, ML, Ocam, Ocaml, ...
-- other non-conventioanl languages
+- other unconventional languages
+
+
+
+
 
 - which collections are actually used?
  -> \code{ArrayList} overwhelmingly so with 47\% of all collections
@@ -206,6 +220,8 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
     - everything else is 
  -> \citet[sec. 9.2]{Bergel:2018} report that \code{OrderedCollection} and \code{Dictionary} are the frequently used collections in some Pharo.
  While the study is less comprehensive than the Java one, it confirms the general trend. Interestingly, it also considers arrays and find that they are used slightly more than \code{Dictionary}.
+
+
 
 \end{note}
 
@@ -217,8 +233,14 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
   
   - mutability (mutable, immutable)
   - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
-  - processing of bulk operations (sequential, parallel)
-
+  - bulk operation
+    - order guarantees (everything modeled as lists)
+    - processing (sequential, parallel, lazy)
+    - slices
+    - internal/external iteration
+  - polymorphism 
+    - compatibility of collections
+      - maps as lists (iteration), lists as maps (int->T maps)
 
   - Generalization vs. Specialization  
   - small set of generalized collection types 
@@ -296,8 +318,6 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 \begin{note}
 Discussion Points:
  
-
-
 Practical Implementation Concerns
  How to realize all this with same efficiency as when using special purpose
  collections?
@@ -317,7 +337,9 @@ CGO 2018 (to appear)
   -> cameleon, ... (JIT DS references)
 % \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
 
-
+- compiler for static languages can do certain optimizations ahead of time:
+  - compiler-level specialization as with miniboxing \citep{Ureche:2013:MIS}
+  - C++ templates (expanding ones), eager specialization
 
 How to design so that specialized collections remain possible?
 And are easily adopted?
@@ -326,8 +348,6 @@ And are easily adopted?
    -> idea would be that this gives the last 10-20\% of performance when needed
    -> leave door open for improving performance by restricting flexibility
 \end{note}
-
-
 
 
 \section{Related Work}
@@ -355,35 +375,6 @@ by a small and versatile collections library,
 I cannot shake the feeling
 that this is a post hoc justification
 for the complexity we add to VMs.
-
-\section{Notes}
-
-\begin{note}
-TODO:
-- Scala
-  - has collection framework with mutable and immutable collections
-    -> do they have the same structure 
-    -> are immutable collections persistent?
-    -> are APIs adapted to facilitate different style?
-      -> perhaps not necessary since Scala embraces FP
-  - uniform return type principle
-  - \url{https://www.scala-lang.org/blog/2017/02/28/collections-rework.html}
- - \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html} 
-   The Architecture of Scala Collections  
-
-
-- how do templates (expanding ones, as in C++) fit in here?
-- compiler-level specialization as with miniboxing?
-
-  
-Newspeak related design questions (by Gilad)
-is the map API compatible with single argument closures? It should be; are keys and values lists, and what order guarantees do we get for these, if any? Can lists be seen as maps with integer keys? Do we support slices? External vs. internal iteration? I feel I could keep going for a long time. One can even consider doing APL style vector operations - but that seems to me a whole different language.
-
-
-
-
-
-\end{note} 
 
 
 %% ATTIC, Notes on Things Considered, but not included
