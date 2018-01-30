@@ -15,6 +15,7 @@
 \def\PdfAuthors{{Stefan Marr, Benoit Daloze}}
 \def\PdfKeywords{TODO}
 
+\def\SOMns{SOM{\sc ns}\xspace}
 
 \include{scripts/init}
 
@@ -123,59 +124,108 @@
 \ccsdesc[100]{Networks~Network reliability}
 
 % TODO
-\keywords{ACM proceedings, \LaTeX, text tagging}
+\keywords{Collection Libraries, Design, Implementation, Exploratory Programming}
 
 \maketitle
 
 
-\section{Introduction}
+\section{Collections for Exploratory Programming}
 
-\sm{should we involve michael steindorfer?}
-
-
-\begin{note}
 % Context: What is the broad context of the work? What is the importance of the general research area?
-- collection libraries
-  essential part of any general purpose language
-  - C doesn't have one?
+% - collection libraries
+%   essential part of any general purpose language
+%   - C doesn't have one?
+
+One of the basic concepts of programming languages are collections or containers, i.e.,
+data structures that abstract over the number of data items
+and allow operations over the contained items as a whole or individually.
+As such, they are part a fundamental aspect of general purpose languages.
 
 % Inquiry: What problem or question does the paper address? How has this problem or question been addressed by others (if at all)?
-- library design has major influence on
-  - language style/idioms
-  - programmer productivity (assumed)
-  - feeling of the language
-- as far as we are aware no systematic study
+
+The design of collection libraries varies greatly between languages,
+and sometimes there are even multiple libraries
+to facilitate different programming styles, application scenarios, or performance requirements.
+They can range from having only arrays,
+as the exclusive basic abstraction as in C,
+to systems such as Java,
+where the standard library includes hundreds of collection abstractions.
+% - library design has major influence on
+%   - language style/idioms
+%   - programmer productivity (assumed)
+%   - feeling of the language
+% - as far as we are aware no systematic study
+To the best of our knowledge,
+there is not systemic study on how the design of a collection library
+influences programmer productivity
+or a language's suitability for exploratory programming.
 
 % Approach: What was done that unveiled new knowledge?
-- explore design space
-  - which aspects need to be considered
-  - which design dimensions are there
-
+% - explore design space
+%   - which aspects need to be considered
+%   - which design dimensions are there
+The goal of this study is to identify the aspects
+that need to be considered for the design of collection libraries
+for exploratory and live programming.
+%
+%
 % Knowledge: What new facts were uncovered? If the research was not results oriented, what new capabilities are enabled by the work?
-
-- reason about design space for a language designed for exploration
- - high flexibility
- - low friction
-   - avoid making unnecessary decisions,
-   - performance not important
-   - problem first needs to be understood
- - interactive program development
- -> live programming
+%- reason about design space for a language designed for exploration
+% - high flexibility
+% - low friction
+%   - avoid making unnecessary decisions,
+%   - performance not important
+%   - problem first needs to be understood
+% - interactive program development
+% -> live programming
+Thus, we reason about the design space for collections
+and how different design choices may influence the programming experience.
+We focus specifically on how different design choices related to the main
+programming task\sm{avoid making unnecessary decisions}, performance, and the liveness of the programming experience\sm{feedback potential}.
 
 % Grounding: What argument, feasibility proof, artifacts, or results and evaluation support this work?
-- argue for feasibility based on existing techniques
+%- argue for feasibility based on existing techniques
+In order to get an overview of the design space,
+we discuss the high-level design of collection libraries for
+\smtodo{add list of languages}, Java, JavaScript, Python, and Ruby.
+From this overview, we extract the concrete design dimensions
+and present arguments for and against design choices
+in the context of exploratory programming.
+Finally, we review implementation techniques
+to judge whether design choices can be practical
+in terms of achieving the same performance as alternative choices.
+
+Therefore, this paper\sm{somewhat a contribution statement, but also redundant with the above. Revisit before submission.}
+
+\begin{itemize}
+  \item describes the design space for collection libraries
+  \item discusses design choices and their suitability for exploratory programming
+  \item review implementation techniques to ensure practical performance
+\end{itemize}
 
 % Importance: Why does this work matter?
-- collections are complex but essential parts of our languages
-  - better understanding will enable more principled design
+% - collections are complex but essential parts of our languages
+%   - better understanding will enable more principled design
+We hope this analysis provides an insight
+into the complex design space of collection libraries
+and their relation to the programming experience itself.
+Our immediate goal was to better understand the tension between design choices
+for the design of a collection library for \SOMns, a Newspeak implementation\citep{Bracha:10:NS,OptCELWithTruffle}.
+Newspeak follows in many ways previous Smalltalk systems
+and as such has a large and specialize collection library.
+However, based on the arguments presented here,
+we believe that a small and versatile library would a more suitable design
+for a language as dynamic and \ugh{aimed at exploratory programming} as Newspeak.\sm{not sure about this bit, need to think about it}
 
-\end{note}
 
 \section{Live and/or Exploratory Programming}
 \begin{note}
+  
+  TODO: http://liveprogramming.github.io/2013/papers/liveness.pdf
+   --> can we use criticism, update perspective?
   - need a brief discussion of what our assumptions are
   - what are the ``requirements''?
-  - four levels: \citep{Tanimoto:1990:Viva}
+  - four levels: \citep{Tanimoto:1990:Viva,Tanimoto:2013:PEL}
     level 3:
      - changes update programs
        -> system might attempt reexecution, possibly only relevant parts
@@ -377,6 +427,9 @@ CGO 2018 (to appear)
   -> cameleon, ... (JIT DS references)
 % \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
 
+- Tobias Pape's paper, for functional data structures
+
+
 - compiler for static languages can do certain optimizations ahead of time:
   - compiler-level specialization as with miniboxing \citep{Ureche:2013:MIS}
   - C++ templates (expanding ones), eager specialization
@@ -412,6 +465,7 @@ Live Data Structure Programming \citep{Oka:2017:LDS}
 
 \section{Conclusion}
 
+C has the most minimal collection library, 
 
 
 While I have convinced myself
