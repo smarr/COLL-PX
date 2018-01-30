@@ -81,9 +81,8 @@
 
 
 \begin{abstract}
-This paper provides a sample of a \LaTeX\ document which conforms,
-somewhat loosely, to the formatting guidelines for
-ACM SIG Proceedings.\footnote{This is an abstract footnote}
+
+
 \end{abstract}
 
 %
@@ -169,6 +168,47 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 % Importance: Why does this work matter?
 - collections are complex but essential parts of our languages
   - better understanding will enable more principled design
+
+\end{note}
+
+\section{Live and/or Exploratory Programming}
+\begin{note}
+  - need a brief discussion of what our assumptions are
+  - what are the ``requirements''?
+  - four levels: \citep{Tanimoto:1990:Viva}
+    level 3:
+     - changes update programs
+       -> system might attempt reexecution, possibly only relevant parts
+    level 4:
+     - continuous feedback in time-varying results based on current program
+  
+
+Criteria reported by:
+   \citep{McDirmid:2007:LUL,Burckhardt:2013:ACF}
+  - feedback on valid programs
+  - feedback on execution
+  - reducing friction
+   - implicit over explicit, for types
+   - error recovery, robustness, non-interference of irrelevant parts
+   - edit/feedback latency
+  - state snapshots, reexecution, redisplay
+
+
+So, what do we want?
+ - we want to support exploratory programming with either level 3 or 4 support for liveness 
+ - collections are presumed to be integral part of any program
+ - want feedback on valid operations in terms of
+   - code completion, documentation
+   - error highlighting (unsupported methods)
+ - possibility of continuous feedback
+   (seems to be orthogonal, but should not be prevented)
+ - focus decision making on problem and domain
+   - performance secondary concern
+   - types inferred or dynamic
+   - program errors in unrelated/unexecuted parts need to be ignored
+ - feedback should be fast, overall execution fast enough
+ - should not prevent state snapshots (seems orthogonal)
+   
 
 \end{note}
 
@@ -364,6 +404,11 @@ The library itself falls into the category of large and specialized (cf. \cref{s
 They discuss the benefits and drawbacks of builtin or library-based designs and favor library-based designs for their extensibility.
 \sm{discussion in paper context: assume we have good knowledge from the various languages and libraries what is necessary, assume that extensibility is not a problem either, because the languages could be dynamic and therefore lent itself naturally to simply changing the collection implementation if required.
 Though, there might be limitations to what can be changed without interfering with optimizations such as strategies\todoref{}.}
+
+
+Live Data Structure Programming \citep{Oka:2017:LDS}
+- visualization
+- generic data structures
 
 \section{Conclusion}
 
