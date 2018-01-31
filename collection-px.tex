@@ -328,7 +328,7 @@ it should also not impede live feedback.
  - array
 - C++
  - sequences
-  - array, vector, deque, forward_list (singly linked list), list (double)
+  - array, vector, deque, forward\_list (singly linked list), list (double)
 
  - associative
   - set, map
@@ -349,7 +349,15 @@ boost C++
  -> indicates that here performance is main driver for variability
 \url{http://www.boost.org/doc/libs/1_66_0/doc/html/}
 
+- Go
+ - arrays, slices, maps
+ - heap, list, ring
+ - no sets
+
+
+
 - Java
+ - arrays
  - map, list, set, deque
  - hash map/set, tree map/set
  - lists: linked, array
@@ -361,11 +369,7 @@ boost C++
  - concurrent collections
  - identity hashmap
  - readonly/unmodifiable collections
-
-- Go
- - arrays, slices, maps
- - heap, list, ring
- - no sets
+ - iterators
 
 
 - Guava
@@ -385,6 +389,7 @@ boost C++
    - rich iteration operation, incl. lazy and parallel iteration
 
 - C\#
+ - arrays
  - ArrayList, BitArray, Dictionary (hashtable), queue, stack, HashSet,
    LinkedList
  - ordered collections
@@ -393,24 +398,106 @@ boost C++
  - iterators, query support
 
   
-  - Scala
+- Scala
+ - maps, sets, sequences
+ - arrays
+ - BitSets, HashMap, HashSet, TreeMap, ListMap, LinkedHashMap/Set, MultiMap, Queue, Range, Stack, Stream, Vector, WeakHashMap
+   DoubleLinkedLit
+ - iterators 
+ - concurrent
+ - mutable
+ - immutable/persistent
+ - sorted collections
+ - parallel
     - has collection framework with mutable and immutable collections
-      -> do they have the same structure?
-      -> are immutable collections always persistent?
-      -> are APIs adapted to facilitate different style?
-        -> perhaps not necessary since Scala embraces FP
+      -> the have the same basic structure
+      -> APIs facilitate the same programming style
+      -> since Scala embraces OO and FP, this seems not surprising
+
     - uniform return type principle \smtodo{was this in \citet{Odersky:2009}?} \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html} 
      The Architecture of Scala Collections  
+
+- Ruby
+  - Array
+  - Queue, SizedQueue
+  - Range
+  - Hash, WeakMap
+  - freeze, sort
+
+- JavaScript
+  - Array
+  - primitive arrays (TypedArray), views for byte-based ArrayBuffers
+  - Object/map
+  - set
+  - WeakMap/WeakSet
+
+- Python
+ - ChainMap
+ - deque
+ - queue (synchronized)
+ - dict, OrderedDict (going to be default)
+ - set, frozenset
+ - list, tuple, range
+ - bytes, bytearray (imm vs mutable)
+ - typed primitive arrays
+ - iteration
+ 
+
+- Dart
+ - lists, primitive type lists, LinkedList
+ - sets HashSet, LinkedHashSet, SplayTreeSet
+ - maps, HashMap, LinkedHashMap, SplayTreeMap
+ - DoubleLinkedQueue, ListQueue, Queue
+ - unmodifiable collection
   
 
-- Ruby, JavaScript, Python
+- Smalltalk
+ - Pharo 6
+   - HashedCollection, SequenceableCollection, ArrayedCollection
+   - Array
+   - primitive arrays
+   - concurrent collections (LIFOQueue, WaitfreeQueue, AtomicSharedQueue)
+   - DoubleLinkedList
+   - OrderedCollection
+   - SortedCollection
+   - OrderedDictionary
+   - IdentityDictionary
+   - stack
+   - bag, IdentityBag
+   - set, IdentitySet
+   - SmallDictionary, SmallIdentityDictionary
+   - Matrix
+   - weak collections
+   
+   
 
-- Dart, Smalltalk, Lisp
+- Lisp
+ - Pairs and Lists (immutable versions prefered)
+ - Vectors
+ - Boxes (1-elem vector)
+ - Hash Tables
+ - Dictionaries
+ - Sets
+ - immutable versions
+ - channels (synchronized)
+  
 
 - Eiffel, Pascal, Ada, ... other old-school stuff
 - Oz, Prolog, Erlang, ... 
 
-- Haskell, ML, Ocam, Ocaml, ...
+- Haskell
+  - immutable collections
+    - lists basic builtin type
+    - tuples
+  - concurrent queue (Chan)
+  - containers library
+    - sequences (different performance than lists)
+    - map, graphs, sets, tree
+    - integer collections (sets, maps)
+    - lazy or strict
+    - BitQueue
+
+- ML, Ocam, Ocaml, ...
 - other unconventional languages
 
 
