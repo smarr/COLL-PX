@@ -324,15 +324,74 @@ it should also not impede live feedback.
  - how large (num classes/concepts) are libraries
  - any particularly interesting things?
 
-- C/C++ (boost?)
-- Java, C\#, Guava
+- C
+ - array
+- C++
+ - sequences
+  - array, vector, deque, forward_list (singly linked list), list (double)
 
-  - Goldman Sachs Collections, now Eclipse Collections
+ - associative
+  - set, map
+  - also unordered
+
+ - adapters
+   - stack, queue
+
+boost C++
+ - expands with specialized containers,
+   mostly specific to C++ language constrains
+   - and different representation tradeoffs
+   - different vector classes (stable, static, small)
+   - flat sets/maps (instead of using trees)
+     - worse at insertion but faster lookup
+   - heap (priority queues)
+   - collections packing objects by type (for performance) PolyCollection
+ -> indicates that here performance is main driver for variability
+\url{http://www.boost.org/doc/libs/1_66_0/doc/html/}
+
+- Java
+ - map, list, set, deque
+ - hash map/set, tree map/set
+ - lists: linked, array
+ - stack, priority queue
+ - skip list, CopyOnWriteArrayList
+ - ordered collections
+   - navigable collections
+ - weak collections
+ - concurrent collections
+ - identity hashmap
+ - readonly/unmodifiable collections
+
+- Go
+ - arrays, slices, maps
+ - heap, list, ring
+ - no sets
+
+
+- Guava
+ - extension, keeps compatibility and set of concepts (for many elements)
+ - immutable collections (more optimized over unmodifiable)
+ - multiset, multimap, bimap, table (2 nested maps),
+ - RangeSet, RangeMap
+ \url{https://github.com/google/guava/wiki/CollectionUtilitiesExplained}
+ - iterators
+
+- Goldman Sachs Collections, now Eclipse Collections
   \url{https://www.eclipse.org/collections/} %\citeurl
+   - extension, keeps compatibility and set of concepts (for many elements)
+   - BiMap, Bag, Multimap
    - mutable and immutable collections
    - specializations for primitive types
-   - rich iteration operation, incl. lazy and parallel itertion
-  
+   - rich iteration operation, incl. lazy and parallel iteration
+
+- C\#
+ - ArrayList, BitArray, Dictionary (hashtable), queue, stack, HashSet,
+   LinkedList
+ - ordered collections
+ - concurrent collections
+ - read only collections
+ - iterators, query support
+
   
   - Scala
     - has collection framework with mutable and immutable collections
