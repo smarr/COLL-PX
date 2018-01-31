@@ -218,49 +218,103 @@ we believe that a small and versatile library would a more suitable design
 for a language as dynamic and \ugh{aimed at exploratory programming} as Newspeak.\sm{not sure about this bit, need to think about it}
 
 
-\section{Live and/or Exploratory Programming}
-\begin{note}
-  
-  TODO: http://liveprogramming.github.io/2013/papers/liveness.pdf
-   --> can we use criticism, update perspective?
-  - need a brief discussion of what our assumptions are
-  - what are the ``requirements''?
-  - four levels: \citep{Tanimoto:1990:Viva,Tanimoto:2013:PEL}
-    level 3:
-     - changes update programs
-       -> system might attempt reexecution, possibly only relevant parts
-    level 4:
-     - continuous feedback in time-varying results based on current program
-  
+\section{Background: Live and Exploratory Programming}
 
-Criteria reported by:
-   \citep{McDirmid:2007:LUL,Burckhardt:2013:ACF}
-  - feedback on valid programs
-  - feedback on execution
-  - reducing friction
-   - implicit over explicit, for types
-   - error recovery, robustness, non-interference of irrelevant parts
-   - edit/feedback latency
-  - state snapshots, reexecution, redisplay
+Before diving into the details of designing collection libraries,
+we discuss the terms live and exploratory programming
+to clarify our assumptions and the context of this analysis.
 
+% - need a brief discussion of what our assumptions are
+% - what are the ``requirements''?
+% - four levels: \citep{Tanimoto:1990:Viva,Tanimoto:2013:PEL}
+%   level 3:
+%    - changes update programs
+%      -> system might attempt reexecution, possibly only relevant parts
+%   level 4:
+%    - continuous feedback in time-varying results based on current program
 
-So, what do we want?
- - we want to support exploratory programming with either level 3 or 4 support for liveness 
- - collections are presumed to be integral part of any program
- - want feedback on valid operations in terms of
-   - code completion, documentation
-   - error highlighting (unsupported methods)
- - possibility of continuous feedback
-   (seems to be orthogonal, but should not be prevented)
- - focus decision making on problem and domain
-   - performance secondary concern
-   - types inferred or dynamic
-   - program errors in unrelated/unexecuted parts need to be ignored
- - feedback should be fast, overall execution fast enough
- - should not prevent state snapshots (seems orthogonal)
-   
+For the term \emph{live programming}, we will rely on \citeauthor{Tanimoto:1990:Viva}'s notion.
+Specifically, our aim is to support programming that is supported
+by immediate updates and feedback from the programming environment.
+This might be either triggered by edits or presented as continuous event streams,
+which corresponds to liveness of level 3 or 4\citep{Tanimoto:1990:Viva}.
+While generally desirable, we forgo considering more advanced liveness levels
+that include predictive features, \ie, level 5 and 6\citep{Tanimoto:2013:PEL}.
 
-\end{note}
+%  - feedback on valid programs
+%  - feedback on execution
+Based on these liveness level and on the work of others\citep{McDirmid:2007:LUL,Burckhardt:2013:ACF,Rein:2016:LLP},
+we expect programming environments and languages
+to improve the programming experience by providing immediate feedback on
+the validity of programs and code execution.
+This feedback should be meant to reduce the friction
+that is inherent in the communication between humans and machines,
+which is constrained by artificial languages and machines
+that still neither perceive the context of a conversation nor learn from interaction.
+To work around these limitations in our communication,
+we expect machines to support the communication with feedback,
+limited forms of understanding,
+and a basic robustness to invalid communication.
+
+%% Feedback
+% - want feedback on valid operations in terms of
+Feedback should be provided in form of
+%   - code completion, documentation
+code completion, contextual documentation,
+%   - error highlighting (unsupported methods)
+syntax errors, possibly invalid method calls or operations,
+and style errors or undesirable patterns.
+% - edit/feedback latency
+%   - feedback should be fast, overall execution fast enough
+% - state snapshots, reexecution, redisplay
+% - should not prevent state snapshots (seems orthogonal)
+% - possibility of continuous feedback
+%   (seems to be orthogonal, but should not be prevented)
+The analyses that enable such feedback need to be implementable
+in an efficient manner to give the illusion of instantaneous feedback.
+%
+%% Understanding
+% - implicit over explicit, for types
+%   - types inferred or dynamic
+With limited forms of understanding,
+we refer essentially to analyses
+that allow programmers to be more implicit than explicit in their programming.
+One aspect of this is typing.
+Traditionally, languages that use type inference
+or tool-based feedback seem to facilitate exploratory programming better
+than languages that require us to make such aspect explicit.
+%   
+%% Robustness
+% - error recovery, robustness, non-interference of irrelevant parts
+% - program errors in unrelated/unexecuted parts need to be ignored
+The overall system should also be robust with respect to programming errors.
+Especially errors in unrelated program parts,
+or parts that are not actually executed
+should not inhibit our ability to interact with the system,
+explore and extend it.
+
+%% 
+Generally, when exploring a problem and experimenting with solutions,
+we want to focus on the problem domain and prioritize the core aspects
+while deferring for instance overall application performance,
+handling of exceptional cases,
+or the completeness of a solution to a later point.
+Thus, the programming environment should not force us to make decisions,
+which we cannot yet make because of our incomplete understanding of the problem
+or inaccurate predictions of how an algorithm is used in production scenarios.
+Types or structural elements often help exploring
+the problem and organizing thoughts,
+but should not prevent or hinder us from exploring it.
+
+% - focus decision making on problem and domain
+%   - application performance secondary concern,
+%    as long as feedback is not impaired 
+% - types or at least structure might still be helpful to organize ones thoughts
+Since collections are frequently used for bulk operations
+that might end up being relevant for acceptable performance,
+run-time performance is a relevant aspect and needs to be considered.
+While it is not of highest priority for application performance,
+it should also not impede live feedback.
 
 \section{Collection Libraries in the Wild, A Brief Excursion}
 
