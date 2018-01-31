@@ -47,14 +47,22 @@ html5:
 	~/Projects/misc/latex-to-html5/ht-latex $(NAME).tex tmp-html/
 
 zip:
-	zip paper.zip $(TEXSRCS) $(BIBTEXSRCS) scripts/collab.sty ACM-Reference-Format.bst acmart.cls paper.bbl figures/process-view.pdf figures/protocol-class-diagram.pdf figures/protocol-overview.pdf figures/stm-example.pdf figures/system-view.pdf
+	zip paper.zip $(TEXSRCS) $(BIBTEXSRCS) scripts/collab.sty ACM-Reference-Format.bst acmart.cls $(NAME).bbl figures/process-view.pdf figures/protocol-class-diagram.pdf figures/protocol-overview.pdf figures/stm-example.pdf figures/system-view.pdf
 
 latexdiff:
 	-mkdir submission-latex
 	git archive --format=tar --prefix=submission-latex/ dls-2017 | tar xf -
-	latexdiff submission-latex/paper.tex paper.tex > diff.tex
+	latexdiff submission-latex/$(NAME).tex $(NAME).tex > diff.tex
 	pdflatex diff
 	pdflatex diff
 	bibtex diff
 	pdflatex diff
 	pdflatex diff
+
+lacheck:
+	lacheck $(NAME).tex
+
+chktex:
+	chktex $(NAME).tex
+
+lint: chktex lacheck
