@@ -354,7 +354,7 @@ So, what do we want?
     - benefits of specialized classes:
       - chose specific implementation/algorithm/data structure
       - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
-        -> """The type of the object does not specify its invariant (e.g. in a set there are no duplicates) and its expected operations (e.g. lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
+        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
         -> generic data structures (lists in case of Haskell) might not be optimal
          -> PJ already talks about 2.3 Adaptive representations
          A probabilistic approach to the problem of automatic selection of data representations \citep{Chuang:1996:PAP}
@@ -406,6 +406,12 @@ So, what do we want?
 
 
 \begin{note}
+  what is required in terms of efficiency?
+  compilation-time feedback - needs to be fast to compile
+  run-time performance - needs to be fast to execute
+
+  \citep{Rein:2016:LLP} should look a little more into this one for terminology
+  
 Discussion Points:
  
 Practical Implementation Concerns
