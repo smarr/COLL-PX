@@ -318,43 +318,97 @@ it should also not impede live feedback.
 
 \section{Collection Libraries in the Wild, A Brief Excursion}
 
+% - having a brief look around, informally, just getting a flavor
+%  - what collections do they contain
+%  - how large (num classes/concepts) are libraries
+%  - any particularly interesting things?
+
+Collection library design seems to be as diverse as languages are different.
+There is a multitude of design dimensions that can be varied.
+Some of them are influenced by the underlying language,
+its basic abstractions,
+as well as what is considered desirable programming style, \ie, idiomatic code.
+Other dimensions include the set of offered collection types,
+implementation strategies (usually differing in space/time tradeoffs),
+or general properties such as synchronization, modifiability, ordering, sorting, and constraints in general.
+
+In the remainder of this section,
+we briefly and informally analyze the collection libraries
+of a number of languages to highlight design dimensions and possible tradeoffs.
+
+\paragraph{C11}
+
+% - C
+%   - array
+% - GNU libc: hsearch, tsearch
+
+C, one of the most widely used languages is a somewhat interesting corner case.
+The C11 standard only includes a single collection-like abstraction: arrays.
+In comparison to other languages, C arrays are merely raw memory.
+They neither include a length nor any form of safety checks,
+and thus represents the minimal possible abstraction that could be provided.
+The \citeurl{GNU C Library}{The GNU C Library (glibc)}{GNU Project}{2018-02-01}{https://www.gnu.org/software/libc/}
+expands only minimally on arrays
+by providing hash table and tree-based abstractions
+mainly design for searching and sorted access.
+
+\paragraph{C++17 and boost}
+
+% - C++
+%  - sequences
+%   - array, vector, deque, forward\_list (singly linked list), list (double)
+% 
+%  - associative
+%   - set, map
+%   - also unordered
+% 
+%  - adapters
+%    - stack, queue
+
+C++17\citep{Cpp17} expands on C
+by providing a template-based standard library (STL).
+It includes C arrays but also an STL version, which can do bounds checking.
+Additionally, it includes vectors, deques, singly and doubly linked lists,
+sets and maps in an ordered and unordered variant,
+as well as adapters to realize stack or queue semantics.
+Generally, the STL remains comparably lean,
+but already provides collections with different performance tradeoffs
+that enable programmers to chose based on their expected usage scenarios.
+
+% boost C++
+%  - expands with specialized containers,
+%    mostly specific to C++ language constrains
+%    - and different representation tradeoffs
+%    - different vector classes (stable, static, small)
+%    - flat sets/maps (instead of using trees)
+%      - worse at insertion but faster lookup
+%    - heap (priority queues)
+%    - collections packing objects by type (for performance) PolyCollection
+%  -> indicates that here performance is main driver for variability
+The \citeurl{boost C++ libraries}{Boost C++ Libraries}{boost.org}{2018-02-01}{http://www.boost.org/}
+expand on the STL by adding more specialized containers,
+which at least partially address C++-template specific issues.
+The variations on the vector class address different performance tradeoffs.
+Similarly, the tree-based sets and maps of the STL are complemented
+with hash-based implementations.
+The overall theme seems to be to address a recurring need for collections
+that are optimized for specific use cases.
+
+\paragraph{Go}
+
+% - Go
+%  - arrays, slices, maps
+%  - heap, list, ring
+%  - no sets
+
+The Go language comes with abstractions for
+arrays, slices, lists, rings, maps, and heaps.
+Overall, the library looks focused on the basic abstractions needed.
+For instance, it does not contain a separate set type,
+perhaps because it can be easily modeled based on maps.
+
+
 \begin{note}
-- having a brief look around, informally, just getting a flavor
- - what collections do they contain
- - how large (num classes/concepts) are libraries
- - any particularly interesting things?
-
-- C
- - array
-- C++
- - sequences
-  - array, vector, deque, forward\_list (singly linked list), list (double)
-
- - associative
-  - set, map
-  - also unordered
-
- - adapters
-   - stack, queue
-
-boost C++
- - expands with specialized containers,
-   mostly specific to C++ language constrains
-   - and different representation tradeoffs
-   - different vector classes (stable, static, small)
-   - flat sets/maps (instead of using trees)
-     - worse at insertion but faster lookup
-   - heap (priority queues)
-   - collections packing objects by type (for performance) PolyCollection
- -> indicates that here performance is main driver for variability
-\url{http://www.boost.org/doc/libs/1_66_0/doc/html/}
-
-- Go
- - arrays, slices, maps
- - heap, list, ring
- - no sets
-
-
 
 - Java
  - arrays
