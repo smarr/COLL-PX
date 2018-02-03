@@ -347,12 +347,12 @@ The C11 standard only includes a single collection-like abstraction: arrays.
 In comparison to other languages, C arrays are merely raw memory.
 They neither include a length nor any form of safety checks,
 and thus represents the minimal possible abstraction that could be provided.
-The \citeurl{GNU C Library}{The GNU C Library (glibc)}{GNU Project}{2018-02-01}{https://www.gnu.org/software/libc/}
+The \citeurl{GNU C Library}{The GNU C Library (glibc)}{GNU Project}{}{https://www.gnu.org/software/libc/}
 expands only minimally on arrays
 by providing hash table and tree-based abstractions
 mainly design for searching and sorted access.
 
-\paragraph{C++17 and boost}
+\paragraph{C++17 and boost 1.66}
 
 % - C++
 %  - sequences
@@ -385,7 +385,7 @@ that enable programmers to chose based on their expected usage scenarios.
 %    - heap (priority queues)
 %    - collections packing objects by type (for performance) PolyCollection
 %  -> indicates that here performance is main driver for variability
-The \citeurl{boost C++ libraries}{Boost C++ Libraries}{boost.org}{2018-02-01}{http://www.boost.org/}
+The \citeurl{boost C++ libraries}{Boost C++ Libraries}{boost.org}{}{http://www.boost.org/}
 expand on the STL by adding more specialized containers,
 which at least partially address C++-template specific issues.
 The variations on the vector class address different performance tradeoffs.
@@ -394,53 +394,103 @@ with hash-based implementations.
 The overall theme seems to be to address a recurring need for collections
 that are optimized for specific use cases.
 
-\paragraph{Go}
+\paragraph{Go 1.9}
 
 % - Go
 %  - arrays, slices, maps
 %  - heap, list, ring
 %  - no sets
 
-The Go language comes with abstractions for
-arrays, slices, lists, rings, maps, and heaps.
-Overall, the library looks focused on the basic abstractions needed.
+The \citeurl{Go language}{The Go Programming Language}{Go Project}{}{https://golang.org/}
+comes with abstractions for arrays, slices, lists, rings, maps, and heaps.
+Overall, the library focuses on the basic abstractions needed.
 For instance, it does not contain a separate set type,
 perhaps because it can be easily modeled based on maps.
+
+\paragraph{Java 8}
+
+% - Java
+%   - arrays
+
+In contrast, \citeurl{Java 8}{Java SE 8}{Oracle}{}{https://docs.oracle.com/javase/8/}
+has a large collection library.
+% array
+As basic abstraction, the language includes arrays,
+which can be of different primitive or object types.
+% map, list, set, deque, stack
+Its standard library provides implementations for a wide variety of collections
+including lists, maps, sets, queues, deques, priority queue, stacks,
+% - iterators
+and iteration abstractions.
+Many of the collections come in different variations.
+% - hash map/set, tree map/set
+For maps and sets, there are hash or tree-based implementations.
+% - lists: linked, array
+Lists are implemented for instance as linked or array lists,
+% - skip list, CopyOnWriteArrayList
+which is then complemented with skip lists, or copy-on-write lists.
+Depending on the collection type,
+% - ordered collections
+% - navigable collections
+% - readonly/unmodifiable collections
+% - weak collections
+there are also usually additional variations that for instance
+provide ordering guarantees, sorting, make them navigable,
+enforce read-only access, reference elements only weakly,
+or give additional guarantees for concurrent access.
+% - concurrent collections
+Concurrent access can be synchronized
+for instance with a basic synchronization wrapper,
+or by using a specific data structure
+that might have less synchronization overhead
+or allows for more parallelism.
+
+As a result,
+the standard library provides a large number of collection implementations.
+While some of the offered additional properties are provided by wrappers,
+and allow for combination,
+many of them are separate implementations tuned for specific use cases.
+
+\paragraph{Guava 24}
+
+% - Guava
+\citeurl{Guava}{Guava: Google Core Libraries for Java}{Guava Project}{}{https://github.com/google/guava}
+%  - extension, keeps compatibility and set of concepts (for many elements)
+%  - iterators
+extends the Java collection library with additional utility methods,
+while keeping basic compatibility with it.
+%  - multiset, multimap, bimap, table (2 nested maps), RangeSet, RangeMap
+It also adds new collection types including multi-sets, multi-maps, 
+bidirectional maps, tables, as well as range sets and maps.
+%  - immutable collections (more optimized over unmodifiable)
+Furthermore, it adds immutable versions of the basic collection types.
+Here the focus is on representing the collections more efficiently in memory,
+and possibly also improving performance for access operations
+compared to Java's read-only/unmodifiable collection wrappers.
+
+\paragraph{Eclipse Collections 9.1}
+
+The \citeurl{Eclipse Collections library}{Eclipse Collections}{Eclipse Foundation}{}{https://www.eclipse.org/collections/}
+% extension, keeps compatibility and set of concepts (for many elements)
+is also an extension to the Java standard library keeping basic compatibility.
+% - BiMap, Bag, Multimap
+Similarly to Guava, it adds new collections
+including bidirectional maps, multi-maps, bags,
+and provide additional utilities.
+% rich iteration operation, incl. lazy and parallel iteration
+This includes rich support for iteration
+for instance to iterate lazily or in parallel.
+%    - mutable and immutable collections
+It also adds immutable collections.
+% - specializations for primitive types
+Additionally, it provides specialized collection types for primitive types
+to avoid boxing overhead of Java's collection types.
 
 
 \begin{note}
 
-- Java
- - arrays
- - map, list, set, deque
- - hash map/set, tree map/set
- - lists: linked, array
- - stack, priority queue
- - skip list, CopyOnWriteArrayList
- - ordered collections
-   - navigable collections
- - weak collections
- - concurrent collections
- - identity hashmap
- - readonly/unmodifiable collections
- - iterators
 
 
-- Guava
- - extension, keeps compatibility and set of concepts (for many elements)
- - immutable collections (more optimized over unmodifiable)
- - multiset, multimap, bimap, table (2 nested maps),
- - RangeSet, RangeMap
- \url{https://github.com/google/guava/wiki/CollectionUtilitiesExplained}
- - iterators
-
-- Goldman Sachs Collections, now Eclipse Collections
-  \url{https://www.eclipse.org/collections/} %\citeurl
-   - extension, keeps compatibility and set of concepts (for many elements)
-   - BiMap, Bag, Multimap
-   - mutable and immutable collections
-   - specializations for primitive types
-   - rich iteration operation, incl. lazy and parallel iteration
 
 - C\#
  - arrays
