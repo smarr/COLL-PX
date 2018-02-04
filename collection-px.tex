@@ -316,7 +316,7 @@ run-time performance is a relevant aspect and needs to be considered.
 While it is not of highest priority for application performance,
 it should also not impede live feedback.
 
-\section{Collection Libraries in the Wild, A Brief Excursion}
+\section{Collection Design in the Wild}
 
 % - having a brief look around, informally, just getting a flavor
 %  - what collections do they contain
@@ -330,11 +330,12 @@ its basic abstractions,
 as well as what is considered desirable programming style, \ie, idiomatic code.
 Other dimensions include the set of offered collection types,
 implementation strategies (usually differing in space/time tradeoffs),
-or general properties such as synchronization, modifiability, ordering, sorting, and constraints in general.
+or general properties such as synchronization, modifiability, ordering,
+sorting, and constraints in general.
 
-In the remainder of this section,
-we briefly and informally analyze the collection libraries
-of a number of languages to highlight design dimensions and possible tradeoffs.
+This section briefly reviews 17 collection libraries
+to identify the provided collection types
+and high-level design differences.
 
 \paragraph{C11}
 
@@ -692,20 +693,41 @@ for efficient representation in memory.
 % - ML, Ocam, Ocaml, ...
 % - other unconventional languages
 
+\section{Collection Usage}
 
-\begin{note}
+As seen in the previous section,
+collection libraries differ widely
+in the number of collection types they provide
+and the properties these collections can offer.
+Especially Java provides a multitude of different collection types and still,
+the wider community felt the need to provide and maintain libraries
+for additional collections.
+One important question to guide the design could therefore be,
+which collection types are widely used and are likely going to be needed
+for exploratory programming tasks.
 
+To answer the question of which collection types are widely used,
+\citet{Costa:2017:ESU} studied a GitHub corpus of Java projects\citep{6624029}.
+They found that most instantiation sites for collections
+create \code{ArrayList} objects.
+From all sites analyzed, 47\% used the standard Java \code{ArrayList}.
+Overall, about 56\% used some kind of list.
+Maps where used by about 28\%,
+where the great majority uses Java's \code{HashMap},
+which results in a total of about 23\% of all allocations.
+About 15\% all instantiation sites were for some set type,
+Again, the large majority was for Java's \code{HashSet}
+with about 10\% of all allocations.
 
-- which collections are actually used?
- -> \code{ArrayList} overwhelmingly so with 47\% of all collections
-    Then come \code{HashMap} at 23\% and \code{HashSet} with 10\% \citep{Costa:2017:ESU} 
-    - everything else is 
- -> \citet[sec. 9.2]{Bergel:2018} report that \code{OrderedCollection} and \code{Dictionary} are the frequently used collections in some Pharo.
- While the study is less comprehensive than the Java one, it confirms the general trend. Interestingly, it also considers arrays and find that they are used slightly more than \code{Dictionary}.
-
-
-
-\end{note}
+The only other study of the usage of collections we are aware of
+was included in work by \citet[sec. 9.2]{Bergel:2018}.
+They observed that \code{OrderedCollection} (similar to \code{ArrayList})
+and \code{Dictionary} (a map) are the most frequently used collections
+in some larger Pharo Smalltalk projects.
+While the study is less comprehensive than the Java one,
+it confirms the general trend.
+Interestingly, it also considers arrays
+and fond that they are used slightly more often than \code{Dictionary}.
 
 \section{Design Dimensions for Collection Libraries}
 
