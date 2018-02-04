@@ -693,43 +693,6 @@ for efficient representation in memory.
 % - ML, Ocam, Ocaml, ...
 % - other unconventional languages
 
-\section{Collection Usage}
-
-As seen in the previous section,
-collection libraries differ widely
-in the number of collection types they provide
-and the properties these collections can offer.
-Especially Java provides a multitude of different collection types and still,
-the wider community felt the need to provide and maintain libraries
-for additional collections.
-One important question to guide the design could therefore be,
-which collection types are widely used and are likely going to be needed
-for exploratory programming tasks.
-
-To answer the question of which collection types are widely used,
-\citet{Costa:2017:ESU} studied a GitHub corpus of Java projects\citep{6624029}.
-They found that most instantiation sites for collections
-create \code{ArrayList} objects.
-From all sites analyzed, 47\% used the standard Java \code{ArrayList}.
-Overall, about 56\% used some kind of list.
-Maps where used by about 28\%,
-where the great majority uses Java's \code{HashMap},
-which results in a total of about 23\% of all allocations.
-About 15\% all instantiation sites were for some set type,
-Again, the large majority was for Java's \code{HashSet}
-with about 10\% of all allocations.
-
-The only other study of the usage of collections we are aware of
-was included in work by \citet[sec. 9.2]{Bergel:2018}.
-They observed that \code{OrderedCollection} (similar to \code{ArrayList})
-and \code{Dictionary} (a map) are the most frequently used collections
-in some larger Pharo Smalltalk projects.
-While the study is less comprehensive than the Java one,
-it confirms the general trend.
-Interestingly, it also considers arrays
-and fond that they are used slightly more often than \code{Dictionary}.
-
-
 \section{Design Dimensions for Collection Libraries}
 
 
@@ -857,50 +820,42 @@ types
   - specialization for stable, static, small vectors/lists
 \end{note}
 
-\section{A Collection Design for Exploratory Programming}
+\section{Collection Usage}
 
-\begin{note}
-  - Generalization vs. Specialization  
-  - small set of generalized collection types 
-  - or large set of specialized types
-  
-  - is small and versatile bad design because it violates the `one thing does   one thing good premise'
-    - are those classes blobs? \citep{brown1998antipatterns}
-    - do they do too much? is this an issue?
-     -> yes, it's an issue, the code is not clear about what kind of 
-        interactions one wants to allow on the collection
-     -> complexity of implementation is a real issue (concurrency issues,
-        strategies, JIT DS...)
-     -> this means, it can be a burden for maintaining large systems
-     -> it is a burden for VM maintenance
-     -> however, The Blob anti-pattern combines complex state and behavior
-        such collection design is not a direct instance of it, because
-        the contained data is usually still used for a single purpose and
-        it is merely that the collections themselves offer too much
-        functionality
+As seen in the previous section,
+collection libraries differ widely
+in the number of collection types they provide
+and the properties these collections can offer.
+Especially Java provides a multitude of different collection types and still,
+the wider community felt the need to provide and maintain libraries
+for additional collections.
+One important question to guide the design could therefore be,
+which collection types are widely used and are likely going to be needed
+for exploratory programming tasks.
 
-    - benefits of specialized classes:
-      - chose specific implementation/algorithm/data structure
-      - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
-        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
-        -> generic data structures (lists in case of Haskell) might not be optimal
-         -> PJ already talks about 2.3 Adaptive representations
-         A probabilistic approach to the problem of automatic selection of data representations \citep{Chuang:1996:PAP}
-          -> markov processes
+To answer the question of which collection types are widely used,
+\citet{Costa:2017:ESU} studied a GitHub corpus of Java projects\citep{6624029}.
+They found that most instantiation sites for collections
+create \code{ArrayList} objects.
+From all sites analyzed, 47\% used the standard Java \code{ArrayList}.
+Overall, about 56\% used some kind of list.
+Maps where used by about 28\%,
+where the great majority uses Java's \code{HashMap},
+which results in a total of about 23\% of all allocations.
+About 15\% all instantiation sites were for some set type,
+Again, the large majority was for Java's \code{HashSet}
+with about 10\% of all allocations.
 
-      - example
-        -> set/map: implemented as tree or hash table?
-        -> linked list or array list, or linked segments?
-        -> can't make a right choice without knowing exactly what
-           run time load is going to be
+The only other study of the usage of collections we are aware of
+was included in work by \citet[sec. 9.2]{Bergel:2018}.
+They observed that \code{OrderedCollection} (similar to \code{ArrayList})
+and \code{Dictionary} (a map) are the most frequently used collections
+in some larger Pharo Smalltalk projects.
+While the study is less comprehensive than the Java one,
+it confirms the general trend.
+Interestingly, it also considers arrays
+and fond that they are used slightly more often than \code{Dictionary}.
 
-    - drawback of too specialized classes:
-      - can become inflexible
-        -> need conversion or adapters to perform certain operations
-        -> large class hierarchies, hard to chose one, might not even be
-           clear what options are available, or appropriate for problem
-  
-\end{note}
 
 \section{Techniques for Efficient Implementations}
 
@@ -950,6 +905,53 @@ And are easily adopted?
    -> idea would be that this gives the last 10-20\% of performance when needed
    -> leave door open for improving performance by restricting flexibility
 \end{note}
+
+
+\section{A Collection Design for Exploratory Programming}
+
+\begin{note}
+  - Generalization vs. Specialization  
+  - small set of generalized collection types 
+  - or large set of specialized types
+  
+  - is small and versatile bad design because it violates the `one thing does   one thing good premise'
+    - are those classes blobs? \citep{brown1998antipatterns}
+    - do they do too much? is this an issue?
+     -> yes, it's an issue, the code is not clear about what kind of 
+        interactions one wants to allow on the collection
+     -> complexity of implementation is a real issue (concurrency issues,
+        strategies, JIT DS...)
+     -> this means, it can be a burden for maintaining large systems
+     -> it is a burden for VM maintenance
+     -> however, The Blob anti-pattern combines complex state and behavior
+        such collection design is not a direct instance of it, because
+        the contained data is usually still used for a single purpose and
+        it is merely that the collections themselves offer too much
+        functionality
+
+    - benefits of specialized classes:
+      - chose specific implementation/algorithm/data structure
+      - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
+        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
+        -> generic data structures (lists in case of Haskell) might not be optimal
+         -> PJ already talks about 2.3 Adaptive representations
+         A probabilistic approach to the problem of automatic selection of data representations \citep{Chuang:1996:PAP}
+          -> markov processes
+
+      - example
+        -> set/map: implemented as tree or hash table?
+        -> linked list or array list, or linked segments?
+        -> can't make a right choice without knowing exactly what
+           run time load is going to be
+
+    - drawback of too specialized classes:
+      - can become inflexible
+        -> need conversion or adapters to perform certain operations
+        -> large class hierarchies, hard to chose one, might not even be
+           clear what options are available, or appropriate for problem
+  
+\end{note}
+
 
 
 \section{Related Work}
