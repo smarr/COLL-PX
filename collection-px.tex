@@ -730,86 +730,136 @@ Interestingly, it also considers arrays
 and fond that they are used slightly more often than \code{Dictionary}.
 
 
-% types
-%  - array
-%  - list/vector, tuples, pairs, boxes
-%  - set
-%  - bags (set + repetition)
-%  - map
-%  - multi-map
-%  - bidirectional map
-%  - stack
-%  - matrix
-%  - table 
-%  - queue
-%  - deque
-%  - range/slice
-%  - range map/set
-%  - ring
-%  - heap
-%  - priority list
-
-% primitive type lists
-%  - templates
-%  - explicit
-% primitive maps/sets, ...
-
-% properties
-%  - fixed size/variable
-%  - concurrent (various different use cases for same collections)
-%  - parallel (for bulk operations, can also be realized via streams)
-%  - synchronized (just thread-safe wrappers)
-%  - mutable
-%  - read only
-%  - immutable (absolute, opt-in)
-%  - persistent
-%  - ordered
-%  - sorted (absolute, opt-in)
-%  - weak
-%  - lazy vs strict
-%  - identity-specific collections
-%  - copy on write
-
-% impl
-%  - wrappers for properties
-%  - trees
-%  - tries, splay trees
-%  - skip lists
-%  - singly/doubly linked lists
-% - hash
-%  - specializations for small dicts
-%  - specialization for stable, static, small vectors/lists
-
-% iteration designs
-% - internal
-% - external
-%   - iterators
-%   - streams
-%   - linq
-
-
-
-
-
 \section{Design Dimensions for Collection Libraries}
+
+
+
+\subsection{Types of Collections}
+
+\begin{note}
+types
+- array
+- list/vector, tuples, pairs, boxes
+- set
+- bags (set + repetition)
+- map
+- multi-map
+- bidirectional map
+- stack
+- matrix
+- table 
+- queue
+- deque
+- range/slice
+- range map/set
+- ring
+- priority queues
+  - heap
+\end{note}
+
+\subsection{Language Style}
 
 \begin{note}
   - language style
     - object-oriented, procedural, functional, ...
     
-    - support for primitive types (Java generics vs C\# or C++ templates)
-  
-  - mutability (mutable, immutable)
+    - support for primitive types (Java generics vs C\# or C++ templates, dynamic language)
+
+    primitive type lists
+     - templates
+     - explicit
+    primitive maps/sets, ...
+      - primitive as keys or values
+     - bit sets
+     
+- target language
+ - abstractions present in the underlying language influence design
+   -> typed languages
+     -> expressiveness of type system might restrict or guide the shape
+        of the library
+     -> can have influence on aspects such as code duplication etc
+     -> Scala experience paper as example
+     -> template in C++ different in expressive power and constraints
+     -> Haskell and other languages compared \citep{Garcia:2007}
+       -> sometimes language might need to evolve to enable the desired design \citep{Chakravarty:2005:ATC} \citep{Black:2003:ATS} (see below, need to structure this correspondingly)
+       
+  -> code reuse and structure
+    -> available language mechanism shape the library
+    -> or lead to suboptimal designs
+     -> Smalltalk example \citep{Cook:1992:ISS}
+       -> if you only got single inheritance, only mechanism of reuse
+          that does not need composition (which might introduce other issues,
+          for instance performance overhead in interpreted languages)
+       -> subclassing not always ideal
+       -> some things are just not subclasses
+         -> deleting methods
+         -> providing other functionality via same name
+         -> structuring request much care
+\end{note}
+
+\subsection{Properties}
+
+
+\begin{note}
+  - mutability (mutable, immutable, read-only wrappers)
+   - absolute vs opt-in  
   - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
+
+  - fixed size/variable
+  
+  - concurrent (various different use cases for same collections)
+  - parallel (for bulk operations, can also be realized via streams)
+  - synchronized (just thread-safe wrappers)
+  - ordered
+  - sorted (absolute, opt-in)
+  - weak
+  - lazy vs strict
+  - identity-specific collections
+  - copy on write
+  
+
+
+\end{note}
+
+\subsection{Operation Design}
+
+\begin{note}
+  - basic operations
+  
+  - polymorphism 
+    - compatibility of collections
+      - maps as lists (iteration), lists as maps (int->T maps)
+      - immutable/mutable...
+      - use of wrappers?
+  
+  
   - bulk operation
     - order guarantees (everything modeled as lists)
     - processing (sequential, parallel, lazy)
     - slices
     - internal/external iteration
-  - polymorphism 
-    - compatibility of collections
-      - maps as lists (iteration), lists as maps (int->T maps)
+      - streams
+      - queries (linq)
+      - navigation (navigable Java)
+      
+\end{note}
 
+\subsection{Algorithms, Data Structures, and Implementation Choices}
+
+\begin{note}
+  - wrappers for properties
+  - trees
+  - tries, splay trees
+  - skip lists
+  - singly/doubly linked lists
+ - hash
+  - specializations for small dicts
+  - specialization for stable, static, small vectors/lists
+\end{note}
+
+\section{A Collection Design for Exploratory Programming}
+
+\begin{note}
   - Generalization vs. Specialization  
   - small set of generalized collection types 
   - or large set of specialized types
@@ -849,36 +899,8 @@ and fond that they are used slightly more often than \code{Dictionary}.
         -> need conversion or adapters to perform certain operations
         -> large class hierarchies, hard to chose one, might not even be
            clear what options are available, or appropriate for problem
-     
-
-- target language
- - abstractions present in the underlying language influence design
-   -> typed languages
-     -> expressiveness of type system might restrict or guide the shape
-        of the library
-     -> can have influence on aspects such as code duplication etc
-     -> Scala experience paper as example
-     -> template in C++ different in expressive power and constraints
-     -> Haskell and other languages compared \citep{Garcia:2007}
-       -> sometimes language might need to evolve to enable the desired design \citep{Chakravarty:2005:ATC} \citep{Black:2003:ATS} (see below, need to structure this correspondingly)
-       
-  -> code reuse and structure
-    -> available language mechanism shape the library
-    -> or lead to suboptimal designs
-     -> Smalltalk example \citep{Cook:1992:ISS}
-       -> if you only got single inheritance, only mechanism of reuse
-          that does not need composition (which might introduce other issues,
-          for instance performance overhead in interpreted languages)
-       -> subclassing not always ideal
-       -> some things are just not subclasses
-         -> deleting methods
-         -> providing other functionality via same name
-         -> structuring request much care
-         
-       
   
 \end{note}
-
 
 \section{Techniques for Efficient Implementations}
 
