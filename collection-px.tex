@@ -486,126 +486,214 @@ It also adds immutable collections.
 Additionally, it provides specialized collection types for primitive types
 to avoid boxing overhead of Java's collection types.
 
+\paragraph{C\# and .NET Framework 4.7}
+
+Similar to Java, \citeurl{C\# and the .NET Framework}{.NET API}{Microsoft}{}{https://docs.microsoft.com/en-us/dotnet/api/?view=netframework-4.7.1}
+%  - arrays
+%  - ArrayList, BitArray, Dictionary (hashtable), queue, stack, HashSet,
+%    LinkedList
+have arrays, lists, sets, maps, queues, and stacks.
+While the framework includes linked and array lists,
+it is does not include explicit tree sets or maps for instance.
+%  - ordered collections
+However, it also includes sorted collections,
+which might be implemented as trees though the .NET documentation refrains from
+giving any guarantees on the cost of operations
+or a specific implementation technique.
+%  - read only collections (just wrapper, not truely immutable, just a readonly view)
+%  - immutable (persistent/structural sharing)
+Similar to Java, they provide read-only, \ie, unmodifiable collections,
+which are simply wrappers for normal collections.
+Additionally, they also provide truly immutable collections,
+which support structural sharing, \ie,
+are implemented as persistent data structures.
+%  - concurrent collections
+%  - synchronzied collection
+In order to support thread-safety,
+they provide generic synchronization wrappers
+as well as special-purpose concurrent collections
+with better concurrent behavior.
+
+%  - iterators, query support
+One feature that seems to be specific to .NET
+is the support for advanced query operations on collections with LINQ,
+which are an addition to the traditional iteration operations.
+
+\paragraph{Scala 2.12}
+
+\citeurl{Scala}{Scala Standard Library}{EPFL}{}{http://www.scala-lang.org/api/2.12.4/}'s standard library
+comes with collections somewhat similar to Java.
+% - maps, sets, sequences
+% - arrays
+It supports arrays, maps, sets, and sequences as basic abstractions.
+% HashMap, HashSet, TreeMap, TreeSet, ArraySeq, DoubleLinkedList
+It got hash and tree-based versions for sets and maps
+as well as array-based or doubly linked lists
+to cover the main implementation strategies.
+%  - BitSets, , ListMap, LinkedHashMap/Set, MultiMap, Queue, Range, Stack, Stream, Vector, WeakHashMap
+It got special-purpose collections
+such as bit sets, list maps, integer maps, linked hash maps or sets, multi-maps,
+queues, stacks, vectors, or weak hash maps.
+The library is however structured differently.
+% - mutable
+% - immutable/persistent
+The main distinction is between mutable and immutable version
+of the collections.
+The immutable collections are typically implemented
+as persistent data structures with structural sharing.
+Both types of collections are polymorphic on the basic non-mutating operations,
+which makes their use very flexible. 
+Additionally, the library provides concurrent, sorted,
+and parallel versions of some of the collections.
+The parallel collections focus on parallel execution of bulk operations.
+
+% - iterators
+% - concurrent
+% - sorted collections
+% - parallel
+%    - has collection framework with mutable and immutable collections
+%      -> the have the same basic structure
+%      -> APIs facilitate the same programming style
+%      -> since Scala embraces OO and FP, this seems not surprising
+%
+%    - uniform return type principle \smtodo{was this in \citet{Odersky:2009}?} \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html}
+%     The Architecture of Scala Collections
+
+\paragraph{Haskell}
+
+% - immutable collections
+%   - lists basic builtin type
+%   - tuples
+
+Haskell contains only immutable lists and tuples as basic builtin types.
+Other collections seem to be provided as external packages.
+% - concurrent queue (Chan)
+This includes for instance channels, which are concurrent queues.
+The \emph{containers} library provides
+sequences, maps, graphs, sets, trees, and bit queues.
+Some of these are provided as lazy or strict variants
+to give programmers more fine-grained control.
+Similarly, it provides special sets and maps for integers,
+presumably for performance reasons.
+
+% - containers library
+%   - sequences (different performance than lists)
+%   - map, graphs, sets, tree
+%   - integer collections (sets, maps)
+%   - lazy or strict
+%   - BitQueue
+
+\paragraph{Racket 6.12}
+
+% - Pairs and Lists (immutable versions prefered)
+\citeurl{Racket}{The Racket Reference}{Racket Project}{}{https://docs.racket-lang.org/reference/} provides basic pairs and lists in the Scheme tradition.
+% - Vectors
+% - Boxes (1-elem vector)
+% - Hash Tables
+% - Sets
+In addition, it provides, vectors, boxes, hash tables, and sets.
+% - immutable versions
+Most collections are available as immutable and mutable variants.
+% - channels (synchronized)
+To support concurrency, it provides channels,
+which are in their asynchronous variant synchronized queues. 
+
+\paragraph{Pharo 6}
+Pharo 6's collection library is based on the classic collection library
+of Smalltalk\citep{Smalltalk80,Cook:1992:ISS}.
+% HashedCollection, Array, bags, stack, set, bag, Matrix, DoubleLinkedList
+It includes arrays, maps, sets, bags, stacks, matrixes, and doubly linked lists.
+% - OrderedCollection, OrderedDictionary
+% - SortedCollection
+% - IdentityDictionary, IdentityBag, IdentitySet
+Some collections are available in variants that support ordering, sorting,
+or are based on identity.
+% primitive arrays
+It also offers arrays of primitive types that store values raw in memory.
+% SmallDictionary, SmallIdentityDictionary
+Small maps can use classes that are specifically optimized for this purpose.
+% - concurrent collections (LIFOQueue, WaitfreeQueue, AtomicSharedQueue)
+% - weak collections
+Similar to other languages,
+it includes weak collections, as well as a number of queues for concurrent use.
+
+\paragraph{Ruby 2.5}
+
+With respect to the number of collection types offered,
+Ruby's library is comparably small.
+% - Array, Hash,
+Its main collection types are arrays and maps.
+% - Queue, SizedQueue, WeakMap, Range
+Instead of providing support for ordered or linked maps,
+insertion order is maintained by Ruby's \code{Hash} map in all cases.
+It also provides variable size and bounded queues, a range abstraction,
+and weak maps.
+% - freeze, sort
+Immutability of collections is supported by Ruby's mechanism to freeze objects,
+\ie, to make them immutable.
+Sorting is not provided as part of separate collection types either.
+Instead arrays support sorting operations.
+
+\paragraph{JavaScript, ECMAScript 2016}
+
+% Array, Object
+JavaScript's collection library used to be minimalistic and offered merely
+arrays and objects, which could be used as maps.
+% map, set
+Since maps that accept only strings as keys can be limiting,
+newer versions of the ECMAScript standard introduced maps, sets,
+% - WeakMap/WeakSet
+and their weak counter parts.
+% - primitive arrays (TypedArray), views for byte-based ArrayBuffers
+They also introduced typed arrays, \ie,
+views on raw memory that allow representing certain number types
+directly in memory.
+
+\paragraph{Python 3.6}
+
+% - deque, set, list, tuple, range, dict,
+Python offers lists, tuples, ranges, sets, maps, and deques
+as basic collections.
+Since Python 3.6, \code{dict} maintains insertion order and
+% -  OrderedDict (going to be default)
+makes the separate \code{OrderedDict} redundant.
+To provide the ability to create a single view on multiple maps,
+it offers \code{ChainMap}.
+% frozenset
+To enable sets of sets, it offers also a \code{frozenset},
+which has the necessary support for obtaining a hash value.
+% - queue (synchronized)
+Similar to Racket,
+it provides a synchronized queue abstraction
+to facilitate communication between multiple threads.
+%  - typed primitive arrays
+To represent number types efficiently, it also supports typed arrays.
+% bytes, bytearray (imm vs mutable)
+A special case is here the \code{bytes} type,
+which is an immutable byte sequence that is used for instance for byte literals.
+
+\paragraph{Dart 1.24}
+
+% - lists, LinkedList, set, map, DoubleLinkedQueue, ListQueue, Queue
+Dart's standard library includes lists, linked lists, sets, maps, list queues,
+or doubly linked queues.
+% - HashSet, LinkedHashSet, SplayTreeSet
+% - HashMap, LinkedHashMap, SplayTreeMap
+Sets and maps are available either using hash tables,
+linked hash tables, or splay trees.
+Similar to other dynamic languages,
+% primitive type lists
+Dart also offers lists of primitive types
+for efficient representation in memory.
+
+% Potentially TODO:
+% - Eiffel, Pascal, Ada, ... other old-school stuff
+% - Oz, Prolog, Erlang, ...
+% - ML, Ocam, Ocaml, ...
+% - other unconventional languages
+
 
 \begin{note}
-
-
-
-
-- C\#
- - arrays
- - ArrayList, BitArray, Dictionary (hashtable), queue, stack, HashSet,
-   LinkedList
- - ordered collections
- - concurrent collections
- - read only collections
- - iterators, query support
-
-  
-- Scala
- - maps, sets, sequences
- - arrays
- - BitSets, HashMap, HashSet, TreeMap, ListMap, LinkedHashMap/Set, MultiMap, Queue, Range, Stack, Stream, Vector, WeakHashMap
-   DoubleLinkedLit
- - iterators 
- - concurrent
- - mutable
- - immutable/persistent
- - sorted collections
- - parallel
-    - has collection framework with mutable and immutable collections
-      -> the have the same basic structure
-      -> APIs facilitate the same programming style
-      -> since Scala embraces OO and FP, this seems not surprising
-
-    - uniform return type principle \smtodo{was this in \citet{Odersky:2009}?} \url{https://docs.scala-lang.org/overviews/core/architecture-of-scala-collections.html} 
-     The Architecture of Scala Collections  
-
-- Ruby
-  - Array
-  - Queue, SizedQueue
-  - Range
-  - Hash, WeakMap
-  - freeze, sort
-
-- JavaScript
-  - Array
-  - primitive arrays (TypedArray), views for byte-based ArrayBuffers
-  - Object/map
-  - set
-  - WeakMap/WeakSet
-
-- Python
- - ChainMap
- - deque
- - queue (synchronized)
- - dict, OrderedDict (going to be default)
- - set, frozenset
- - list, tuple, range
- - bytes, bytearray (imm vs mutable)
- - typed primitive arrays
- - iteration
- 
-
-- Dart
- - lists, primitive type lists, LinkedList
- - sets HashSet, LinkedHashSet, SplayTreeSet
- - maps, HashMap, LinkedHashMap, SplayTreeMap
- - DoubleLinkedQueue, ListQueue, Queue
- - unmodifiable collection
-  
-
-- Smalltalk
- - Pharo 6
-   - HashedCollection, SequenceableCollection, ArrayedCollection
-   - Array
-   - primitive arrays
-   - concurrent collections (LIFOQueue, WaitfreeQueue, AtomicSharedQueue)
-   - DoubleLinkedList
-   - OrderedCollection
-   - SortedCollection
-   - OrderedDictionary
-   - IdentityDictionary
-   - stack
-   - bag, IdentityBag
-   - set, IdentitySet
-   - SmallDictionary, SmallIdentityDictionary
-   - Matrix
-   - weak collections
-   
-   
-
-- Lisp
- - Pairs and Lists (immutable versions prefered)
- - Vectors
- - Boxes (1-elem vector)
- - Hash Tables
- - Dictionaries
- - Sets
- - immutable versions
- - channels (synchronized)
-  
-
-- Eiffel, Pascal, Ada, ... other old-school stuff
-- Oz, Prolog, Erlang, ... 
-
-- Haskell
-  - immutable collections
-    - lists basic builtin type
-    - tuples
-  - concurrent queue (Chan)
-  - containers library
-    - sequences (different performance than lists)
-    - map, graphs, sets, tree
-    - integer collections (sets, maps)
-    - lazy or strict
-    - BitQueue
-
-- ML, Ocam, Ocaml, ...
-- other unconventional languages
-
-
-
 
 
 - which collections are actually used?
@@ -624,6 +712,8 @@ to avoid boxing overhead of Java's collection types.
 \begin{note}
   - language style
     - object-oriented, procedural, functional, ...
+    
+    - support for primitive types (Java generics vs C\# or C++ templates)
   
   - mutability (mutable, immutable)
   - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
@@ -710,6 +800,9 @@ to avoid boxing overhead of Java's collection types.
 
 
 \begin{note}
+  TODO: add M. Steindorfer as reference for complex immutable/specialized data structures \citep{Steindorfer:2015:OHM}
+  
+  
   what is required in terms of efficiency?
   compilation-time feedback - needs to be fast to compile
   run-time performance - needs to be fast to execute
