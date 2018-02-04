@@ -317,6 +317,7 @@ While it is not of highest priority for application performance,
 it should also not impede live feedback.
 
 \section{Collection Design in the Wild}
+\label{sec:col-wild}
 
 % - having a brief look around, informally, just getting a flavor
 %  - what collections do they contain
@@ -695,30 +696,74 @@ for efficient representation in memory.
 
 \section{Design Dimensions for Collection Libraries}
 
-
+Based on the observations of \cref{sec:col-wild},
+this section distills the design dimensions for collection libraries. 
 
 \subsection{Types of Collections}
 
-\begin{note}
-types
-- array
-- list/vector, tuples, pairs, boxes
-- set
-- bags (set + repetition)
-- map
-- multi-map
-- bidirectional map
-- stack
-- matrix
-- table 
-- queue
-- deque
-- range/slice
-- range map/set
-- ring
-- priority queues
-  - heap
-\end{note}
+The first dimension is the types of collections to be included in the library.
+Here, we abstract as much as possible
+from general properties of collections (cf. \cref{sec:col-properties})
+and other implementation or representation choices
+(cf. \cref{sec:impl-choices}),
+which we try to consider as orthogonal concerns
+even so it is not always obviously beneficial.
+
+% - array
+% - list/vector, tuples, pairs, boxes
+% - bags/multisets
+Consequently,
+the first category of collection types is \emph{bags or sequences}.
+Considering ordering, mutability, sizing, and representation
+as orthogonal concerns,
+this category includes arrays, lists, vectors, tuples, pairs, and boxes.
+Generally, these collections provide the ability to store elements
+that are possibly repeating
+and operate on them perhaps by direct access or via iteration of some sort.
+
+% - set
+The second category is \emph{sets}.
+Thus, collections that do not maintain repeated elements
+and only store a single occurrence based on some equivalence criterion.
+
+% - map
+% - multi-map
+% - bidirectional map
+The third category is \emph{maps}.
+These collections store key/value pairs of some sort.
+Languages such as Racket allow polymorphism between index collections and maps.
+This could lead to an argument that ordered maps are sufficient to represent
+any kind of sequence,
+from which we refrain here even though Lua 5.0 only offers tables\citep{The_implementation_of_lua}.\sm{should I break this out and put this into the survey section?}
+
+% - stack
+% - queue
+% - deque
+% - priority queues
+%   - heap
+% - ring
+The forth category is \emph{stacks and queues}.\sm{better name?}
+These collections store elements
+and restrict the access in a way
+that facilitates the efficient implementation of certain use cases.
+We include here deques, priority queues or heaps, and rings.
+
+% - matrix
+% - table 
+The fifth category is \emph{composed collections}.
+These are collections that could be built by combining multiple collections.
+We include here for instance matrixes, which are two-dimensional arrays,
+and tables, which are two-dimensional maps.
+Again, these two could be considered of the same class
+if indexing with integers is considered a associative access.
+
+% - range/slice
+% - range map/set
+The six category is \emph{ranged collections}.
+These seem to be rare in form of range maps or sets.
+However, we include here the ranges or slices as well,
+which are available in some languages
+and correspond to a reified potential iteration.
 
 \subsection{Language Style}
 
@@ -761,7 +806,7 @@ types
 \end{note}
 
 \subsection{Properties}
-
+\label{sec:col-properties}
 
 \begin{note}
   - mutability (mutable, immutable, read-only wrappers)
@@ -808,6 +853,7 @@ types
 \end{note}
 
 \subsection{Algorithms, Data Structures, and Implementation Choices}
+\label{sec:impl-choices}
 
 \begin{note}
   - wrappers for properties
