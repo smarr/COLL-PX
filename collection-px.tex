@@ -712,6 +712,7 @@ Based on the observations of \cref{sec:col-wild},
 this section distills the design dimensions for collection libraries. 
 
 \subsection{Types of Collections}
+\label{sec:col-types}
 
 The first dimension is the types of collections to be included in the library.
 Here, we abstract as much as possible
@@ -837,31 +838,118 @@ as for instance in the case of Scala\citep{Odersky:2009}.
 \subsection{Properties}
 \label{sec:col-properties}
 
-\begin{note}
-  - mutability (mutable, immutable, read-only wrappers)
-   - absolute vs opt-in  
-  - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
+In addition to the basic operations and properties of collections,
+they can also vary in additional properties.
+As already noted in \cref{sec:col-types},
+it is not always clear whether these properties are completely orthogonal
+to the type of a collection.
+Similarly, the properties we identified are not completely independent
+of each other either.
 
-  - fixed size/variable
-  
-  - concurrent (various different use cases for same collections)
-  - parallel (for bulk operations, can also be realized via streams)
-  - synchronized (just thread-safe wrappers)
-  - ordered
-  - sorted (absolute, opt-in)
-  - weak
-  - lazy vs strict
-  - identity-specific collections
-  - copy on write
-  
+\paragraph{Basic Properties}
 
+% - fixed size/variable
+For some of the collection types,
+variants exist that have a \emph{fixed or variable size}.
+For instance, sequences can be vectors with a variable size,
+or arrays with a fixed size.
+Similarly, queues might use a variable size implementation or a fixed sized to
+enforce a bound on the upper queue length.
 
-\end{note}
+For many collection types,
+there are variants that are \emph{ordered or unordered},
+\ie, they maintain for instance insertion order.
+Lists or other sequences do this commonly,
+but it can be equally beneficial for maps, sets, and other collection types.
+
+% - sorted (absolute, opt-in)
+In addition to ordering, collections can \emph{sort elements}.
+Some collections maintain a sorted order at any point in time,
+while for other collections it is specifically requested.
+
+\paragraph{Mutability}
+
+% - mutability (mutable, immutable, read-only wrappers)
+%  - absolute vs opt-in
+% - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
+% - copy on write
+
+Collection libraries also offer collections that differ in their mutability.
+Often there is the basic distinction between
+\emph{mutable} and \emph{immutable} collections.
+Languages such as Java, also provide partial immutability guarantees only
+by offering \emph{read-only views} in form of wrappers for collections.
+
+Immutable collections can further vary significantly in their implementation.
+Some are implemented as \emph{persistent} data structures,
+which use structural sharing to avoid high memory overhead when producing
+new version of a collection with only minimal changes.
+
+For some specific use cases,
+we also see the use of \emph{copy-on-write} data structures
+such as Java's \code{CopyOnWriteArrayList}.
+These can be useful to provide isolation between multiple entities
+and enable mutability,
+while minimizing memory usage by employing structural sharing.
+
+\paragraph{Multi-Threading Support}
+
+% - concurrent (various different use cases for same collections)
+% - parallel (for bulk operations, can also be realized via streams)
+% - synchronized (just thread-safe wrappers)
+
+To support various multi-threaded scenarios, 
+collection libraries can include a multitude of different collection types.
+The simplest solution to ensure correctness is
+to provide \emph{synchronization wrappers} as done by Java and C\#.
+However, these collections are really efficient
+and often lack support for performing multiple operations safely together.
+These problems are typically addressed
+by specialized \emph{concurrent} collections,
+which are optimized for specific use cases.
+This often leads to a proliferation of collection types.
+For instance queues can be optimized for various different use cases.
+A queue for a single producer but multiple consumers can often be implemented
+more efficiently than a queue for multiple producers.
+
+For efficient bulk operations,
+languages such as Scala provide \emph{parallel} collections,
+where operations are executed in parallel.
+Similar to sorting, where some collections do it intrinsically,
+this is also a property that often is provided via operations
+possibly external to the collection (cf. \cref{sec:operations}).
+
+\paragraph{Other Properties}
+
+% - weak
+\emph{Weak} collections are commonly offered to build caches
+and other data structures that interact well with garbage collection
+by enabling reclamation of not otherwise referenced objects.
+
+% - lazy vs strict
+Languages such as Haskell offer the distinction between \emph{lazy and strict}
+collections to provide control over when operations are executed.
+However, this distinction is not exclusive to lazy languages.
+In conjunction with iteration,
+other languages often also offer the option to perform operations lazily.
+
+% - identity-specific collections
+%   - might be an optimization
+%   - can generally be realized by parametrizable operations for example for comparisons or hashing
+
+Finally, we observed collections such as sets and maps
+that use \emph{identity} as main distinguishing criterion.
+We presume that these collections are optimizations for a common use case,
+because languages such as Java, Smalltalk, Dart would allow to construct
+for instance maps that can be parameterized with appropriate operations
+for comparison or hashing.
 
 \subsection{Operation Design}
+\label{sec:operations}
 
 \begin{note}
   - basic operations
+  - sorting
   
   - polymorphism 
     - compatibility of collections
