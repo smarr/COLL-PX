@@ -325,7 +325,8 @@ it should also not impede live feedback.
 %  - any particularly interesting things?
 
 Collection library design seems to be as diverse as languages are different.
-There is a multitude of design dimensions that can be varied.
+\del{There is a multitude of design dimensions that can be varied.}
+\ins{There are many design dimensions to consider.}
 Some of them are influenced by the underlying language,
 its basic abstractions,
 as well as what is considered desirable programming style, \ie, idiomatic code.
@@ -344,17 +345,16 @@ and high-level design differences.
 %   - array
 % - GNU libc: hsearch, tsearch
 
-C, one of the most widely used languages is a somewhat interesting corner case.
-The C11 standard only includes a single collection-like abstraction: arrays.
+C, one of the most widely used languages, is an interesting case as the C11 standard only includes a single collection-like abstraction: arrays.
 In comparison to other languages, C arrays are merely raw memory.
 They neither include a length nor any form of safety checks,
 and thus represents the minimal possible abstraction that could be provided.
 The \citeurl{GNU C Library}{The GNU C Library (glibc)}{GNU Project}{}{https://www.gnu.org/software/libc/}
 expands only minimally on arrays
-by providing hash table and tree-based abstractions
-mainly design for searching and sorted access.
+by providing hash table and tree-based abstractions \bd{more precise link? function names?}
+mainly designed for searching and sorted access.
 
-\paragraph{C++17 and boost 1.66}
+\paragraph{C++17 and Boost 1.66}
 
 % - C++
 %  - sequences
@@ -369,6 +369,7 @@ mainly design for searching and sorted access.
 
 C++17\citep{Cpp17} expands on C
 by providing a template-based standard library (STL).
+% BD: link to the documentation: http://en.cppreference.com/w/cpp/container ?
 It includes C arrays but also an STL version, which can do bounds checking.
 Additionally, it includes vectors, deques, singly and doubly linked lists,
 sets and maps in an ordered and unordered variant,
@@ -377,7 +378,7 @@ Generally, the STL remains comparably lean,
 but already provides collections with different performance tradeoffs
 that enable programmers to chose based on their expected usage scenarios.
 
-% boost C++
+% Boost C++
 %  - expands with specialized containers,
 %    mostly specific to C++ language constrains
 %    - and different representation tradeoffs
@@ -387,24 +388,24 @@ that enable programmers to chose based on their expected usage scenarios.
 %    - heap (priority queues)
 %    - collections packing objects by type (for performance) PolyCollection
 %  -> indicates that here performance is main driver for variability
-The \citeurl{boost C++ libraries}{Boost C++ Libraries}{boost.org}{}{http://www.boost.org/}
+The \citeurl{Boost C++ libraries}{Boost C++ Libraries}{boost.org}{}{http://www.boost.org/}
 expand on the STL by adding more specialized containers,
 which at least partially address C++-template specific issues.
 The variations on the vector class address different performance tradeoffs.
 Similarly, the tree-based sets and maps of the STL are complemented
-with hash-based implementations.
+with hash-based implementations. \bd{std::unordered\_map is a HashMap!}
 The overall theme seems to be to address a recurring need for collections
 that are optimized for specific use cases.
 
 \paragraph{Go 1.9}
 
 % - Go
-%  - arrays, slices, maps
-%  - heap, list, ring
+%  - arrays, slices, maps (http://www.golangbootcamp.com/book/collection_types)
+%  - heap, list, ring (from where?)
 %  - no sets
 
 The \citeurl{Go language}{The Go Programming Language}{Go Project}{}{https://golang.org/}
-comes with abstractions for arrays, slices, lists, rings, maps, and heaps.
+comes with abstractions for arrays, slices \bd{slices are just a view of arrays it seems, can we settle on a common terminology for this?}, lists, rings, maps, and heaps.
 Overall, the library focuses on the basic abstractions needed.
 For instance, it does not contain a separate set type,
 perhaps because it can be easily modeled based on maps.
@@ -414,7 +415,7 @@ perhaps because it can be easily modeled based on maps.
 % - Java
 %   - arrays
 
-In contrast, \citeurl{Java 8}{Java SE 8}{Oracle}{}{https://docs.oracle.com/javase/8/}
+In contrast, \citeurl{Java 8}{Java SE 8}{Oracle}{}{https://docs.oracle.com/javase/8/} \bd{9?}
 has a large collection library.
 % array
 As basic abstraction, the language includes arrays,
@@ -423,7 +424,7 @@ which can be of different primitive or object types.
 Its standard library provides implementations for a wide variety of collections
 including lists, maps, sets, queues, deques, priority queue, stacks,
 % - iterators
-and iteration abstractions.
+and iteration abstractions. \bd{Are iterators relevant? It's just a way to access containers, no?}
 Many of the collections come in different variations.
 % - hash map/set, tree map/set
 For maps and sets, there are hash or tree-based implementations.
@@ -463,7 +464,7 @@ extends the Java collection library with additional utility methods,
 while keeping basic compatibility with it.
 %  - multiset, multimap, bimap, table (2 nested maps), RangeSet, RangeMap
 It also adds new collection types including multi-sets, multi-maps, 
-bidirectional maps, tables, as well as range sets and maps.
+bidirectional maps, tables, as well as range sets and maps \bd{What the heck is a RangeSet? Maybe link for it?}.
 %  - immutable collections (more optimized over unmodifiable)
 Furthermore, it adds immutable versions of the basic collection types.
 Here the focus is on representing the collections more efficiently in memory,
@@ -487,6 +488,7 @@ It also adds immutable collections.
 % - specializations for primitive types
 Additionally, it provides specialized collection types for primitive types
 to avoid boxing overhead of Java's collection types.
+\bd{Need to clearly nest those 2 under Java}
 
 \paragraph{C\# and .NET Framework 4.7}
 
@@ -496,10 +498,10 @@ Similar to Java, \citeurl{C\# and the .NET Framework}{.NET API}{Microsoft}{}{htt
 %    LinkedList
 have arrays, lists, sets, maps, queues, and stacks.
 While the framework includes linked and array lists,
-it is does not include explicit tree sets or maps for instance.
+it does not include explicit tree sets or maps for instance.
 %  - ordered collections
 However, it also includes sorted collections,
-which might be implemented as trees though the .NET documentation refrains from
+which might be implemented as trees though the .NET\bd{hard to parse, can change to C\#?} documentation refrains from
 giving any guarantees on the cost of operations
 or a specific implementation technique.
 %  - read only collections (just wrapper, not truely immutable, just a readonly view)
@@ -508,7 +510,7 @@ Similar to Java, they provide read-only, \ie, unmodifiable collections,
 which are simply wrappers for normal collections.
 Additionally, they also provide truly immutable collections,
 which support structural sharing, \ie,
-are implemented as persistent data structures.
+are implemented as persistent data structures.\bd{Would turn it around to start with the well know term persistent and define it after}
 %  - concurrent collections
 %  - synchronzied collection
 In order to support thread-safety,
@@ -518,13 +520,13 @@ with better concurrent behavior.
 
 %  - iterators, query support
 One feature that seems to be specific to .NET
-is the support for advanced query operations on collections with LINQ,
+is the support for advanced query operations on collections with LINQ\bd{add link?},
 which are an addition to the traditional iteration operations.
 
 \paragraph{Scala 2.12}
 
 \citeurl{Scala}{Scala Standard Library}{EPFL}{}{http://www.scala-lang.org/api/2.12.4/}'s standard library
-comes with collections somewhat similar to Java.
+comes with collections somewhat similar to Java.\bd{I know some who would disagree...}
 % - maps, sets, sequences
 % - arrays
 It supports arrays, maps, sets, and sequences as basic abstractions.
@@ -544,7 +546,7 @@ of the collections.
 The immutable collections are typically implemented
 as persistent data structures with structural sharing.
 Both types of collections are polymorphic on the basic non-mutating operations,
-which makes their use very flexible. 
+which makes their use very flexible.\bd{And impossible to understand without looking up the import :(. Maybe we can communicate that somehow?}
 Additionally, the library provides concurrent, sorted,
 and parallel versions of some of the collections.
 The parallel collections focus on parallel execution of bulk operations.
@@ -568,7 +570,7 @@ The parallel collections focus on parallel execution of bulk operations.
 %   - tuples
 
 Haskell contains only immutable lists and tuples as basic builtin types.
-Other collections seem to be provided as external packages.
+Other collections seem to be provided as external packages \bd{stdlib or really packages to install separately?}.
 % - concurrent queue (Chan)
 This includes for instance channels, which are concurrent queues.
 The \emph{containers} library provides
@@ -593,25 +595,25 @@ presumably for performance reasons.
 % - Boxes (1-elem vector)
 % - Hash Tables
 % - Sets
-In addition, it provides, vectors, boxes, hash tables, and sets.
+In addition, it provides, vectors, boxes\bd{uh?}, hash tables, and sets.
 % - immutable versions
-Most collections are available as immutable and mutable variants.
+Most collections are available as immutable and mutable variants\bd{differentiated by name or package?}.
 % - channels (synchronized)
 To support concurrency, it provides channels,
-which are in their asynchronous variant synchronized queues. 
+which are in their asynchronous variant synchronized queues.\bd{confusing}
 
 \paragraph{Pharo 6}
 Pharo 6's collection library is based on the classic collection library
 of Smalltalk\citep{Smalltalk80,Cook:1992:ISS}.
 % HashedCollection, Array, bags, stack, set, bag, Matrix, DoubleLinkedList
-It includes arrays, maps, sets, bags, stacks, matrixes, and doubly linked lists.
+It includes arrays, maps, sets, bags, stacks, matrices, and doubly linked lists.
 % - OrderedCollection, OrderedDictionary
 % - SortedCollection
 % - IdentityDictionary, IdentityBag, IdentitySet
 Some collections are available in variants that support ordering, sorting,
 or are based on identity.
 % primitive arrays
-It also offers arrays of primitive types that store values raw in memory.
+It also offers arrays of primitive types that store raw values in memory.
 % SmallDictionary, SmallIdentityDictionary
 Small maps can use classes that are specifically optimized for this purpose.
 % - concurrent collections (LIFOQueue, WaitfreeQueue, AtomicSharedQueue)
@@ -625,16 +627,20 @@ With respect to the number of collection types offered,
 Ruby's library is comparably small.
 % - Array, Hash,
 Its main collection types are arrays and maps.
+\ins{Instead of multiple collection types for lists, deques, stacks, etc,
+Ruby supports operations for these in \code{Array}.}
 % - Queue, SizedQueue, WeakMap, Range
 Instead of providing support for ordered or linked maps,
 insertion order is maintained by Ruby's \code{Hash} map in all cases.
-It also provides variable size and bounded queues, a range abstraction,
+\bd{Same for compare-by-identity, it's a flag within Hash, but too much details perhaps, although nice anecdote?}
+It also provides variable size and bounded queues for multithreading, a range abstraction\bd{Not a collection? Go and others also supports ranges, but seems irrelevant},
 and weak maps.
 % - freeze, sort
 Immutability of collections is supported by Ruby's mechanism to freeze objects,
 \ie, to make them immutable.
 Sorting is not provided as part of separate collection types either.
-Instead arrays support sorting operations.
+Instead arrays support sorting operations.\bd{Note: Hash too, it's Enumerable\#sort, which always return an Array}
+\bd{Should mention Enumerable contains 56 general iteration+transformation methods for all collections based on \#each? Or Array has 101 methods so iterating loops/iterating by index is rarely needed in Ruby and most used cases are built-in?}
 
 \paragraph{JavaScript, ECMAScript 2016}
 
@@ -653,8 +659,10 @@ directly in memory.
 
 \paragraph{Python 3.6}
 
+% https://docs.python.org/3.6/library/collections.html
+
 % - deque, set, list, tuple, range, dict,
-Python offers lists, tuples, ranges, sets, maps, and deques
+Python offers lists \bd{more like a vector}, immutable tuples, ranges\bd{irrelevant?}, sets, maps, and deques\bd{in separate collections package, move below?}
 as basic collections.
 Since Python 3.6, \code{dict} maintains insertion order and
 % -  OrderedDict (going to be default)
@@ -678,7 +686,7 @@ which is an immutable byte sequence that is used for instance for byte literals.
 
 % - lists, LinkedList, set, map, DoubleLinkedQueue, ListQueue, Queue
 Dart's standard library includes lists, linked lists, sets, maps, list queues,
-or doubly linked queues.
+or doubly linked queues\bd{uh?}.
 % - HashSet, LinkedHashSet, SplayTreeSet
 % - HashMap, LinkedHashMap, SplayTreeMap
 Sets and maps are available either using hash tables,
