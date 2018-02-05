@@ -743,7 +743,7 @@ and only store a single occurrence based on some equivalence criterion.
 % - bidirectional map
 The third category is \emph{maps}.
 These collections store key/value pairs of some sort.
-Languages such as Racket allow polymorphism between index collections and maps.\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}
+Languages such as Racket allow polymorphism between index collections and maps.\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}\sm{hmmm, but this is saying something different. What I say is they have the same interface. you say lists are a special case. Think what you say is too specific and not generally true (Racket needs the list to be a list of explicit pairs, while a vector is directly a \code{dictionary}).}
 This could lead to an argument that ordered maps are sufficient to represent
 any kind of sequence,
 from which we refrain here even though Lua 5.0 only offers tables\citep{The_implementation_of_lua}.\sm{should I break this out and put this into the survey section?}\bd{Doesn't belong here, for sure.}
@@ -775,7 +775,7 @@ The six category is \emph{ranged collections}.
 These seem to be rare in form of range maps or sets.
 However, we include here the ranges or slices as well,
 which are available in some languages
-and correspond to a reified potential\bd{Why potential?} iteration.
+and correspond to a reified potential\bd{Why potential?}\sm{because they still need to be applied. It's a specification for where to iterate, I'd say. You got a better word?} iteration.
 
 \subsection{Language Style}
 
@@ -796,14 +796,16 @@ shapes libraries in various ways.
 In dynamically-typed languages,
 we see the need for explicit support of collections for primitive types, \eg,
 to store numeric data efficiently.
-This includes basic sequential collections for numeric elements
-or primitive maps or sets.
-\bd{Unclear if this means specific types or transparent and supported by the VM}
+This includes basic sequential collections for numeric elements (\eg \code{Int32Array} in ECMAScript)
+or primitive maps or sets (\eg \code{IntMap in Scala}).
+\bddone{Unclear if this means specific types or transparent and supported by the VM}\sm{no, at this point we are not talking about any implementation tricks and only about explicitly supported things. I added examples, which hopefully clarify}
 %      - templates
 In typed languages,
 we see typically some form of generics, type parameters, or templates,
 which help to reduce a proliferation of collections for specific data types.
-\bd{and imho make the API far more complex}
+\bd{and imho make the API far more complex}\sm{? not sure what you mean?
+You're saying Generics make APIs more complex? because of co/contra variance and stuff? sure, but typed languages need them. You want to add anything here?
+Or is this a point that's useful later: generics are complicated/distracting because X, and thus, it seems that dynamically typed languages might have an edge for exploratory programming?}
 
 In addition to typing, the \emph{reuse} mechanisms offered by a language have
 an important impact on library structure.
