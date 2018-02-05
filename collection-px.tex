@@ -915,7 +915,7 @@ Overall, about 56\% used some kind of list.
 Maps where used by about 28\%,
 where the great majority uses Java's \code{HashMap},
 which results in a total of about 23\% of all allocations.
-About 15\% all instantiation sites were for some set type,
+About 15\% all instantiation sites were for some set type.
 Again, the large majority was for Java's \code{HashSet}
 with about 10\% of all allocations.
 
@@ -926,8 +926,8 @@ and \code{Dictionary} (a map) are the most frequently used collections
 in some larger Pharo Smalltalk projects.
 While the study is less comprehensive than the Java one,
 it confirms the general trend.
-Interestingly, it also considers arrays
-and fond that they are used slightly more often than \code{Dictionary}.
+Interestingly, it also considers arrays\bd{What arrays? OrderedCollection or built-in Smalltalk arrays? Or primitive arrays?}
+and finds that they are used slightly more often than \code{Dictionary}.
 
 
 \section{Techniques for Efficient Implementations}
