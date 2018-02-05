@@ -767,43 +767,56 @@ and correspond to a reified potential iteration.
 
 \subsection{Language Style}
 
-\begin{note}
-  - language style
-    - object-oriented, procedural, functional, ...
-    
-    - support for primitive types (Java generics vs C\# or C++ templates, dynamic language)
+The second category that has a major influence on the overall collection design
+is the language the library is designed for.
 
-    primitive type lists
-     - templates
-     - explicit
-    primitive maps/sets, ...
-      - primitive as keys or values
-     - bit sets
-     
-- target language
- - abstractions present in the underlying language influence design
-   -> typed languages
-     -> expressiveness of type system might restrict or guide the shape
-        of the library
-     -> can have influence on aspects such as code duplication etc
-     -> Scala experience paper as example
-     -> template in C++ different in expressive power and constraints
-     -> Haskell and other languages compared \citep{Garcia:2007}
-       -> sometimes language might need to evolve to enable the desired design \citep{Chakravarty:2005:ATC} \citep{Black:2003:ATS} (see below, need to structure this correspondingly)
-       
-  -> code reuse and structure
-    -> available language mechanism shape the library
-    -> or lead to suboptimal designs
-     -> Smalltalk example \citep{Cook:1992:ISS}
-       -> if you only got single inheritance, only mechanism of reuse
-          that does not need composition (which might introduce other issues,
-          for instance performance overhead in interpreted languages)
-       -> subclassing not always ideal
-       -> some things are just not subclasses
-         -> deleting methods
-         -> providing other functionality via same name
-         -> structuring request much care
-\end{note}
+% - language style
+%   - object-oriented, procedural, functional, ...
+The \emph{language style} in terms of being procedural, object-oriented,
+or functional lead to different designs in shape and structure of collections
+as well as the provide sets of operations on them and the operation naming.
+
+The language's stance on \emph{typing} and the its support for type parameter
+shapes libraries in various ways.
+% primitive maps/sets, ...
+%   - primitive as keys or values
+%  - bit sets
+In dynamically typed languages,
+we see the need for explicit support of collections for primitive types, \eg,
+to store numeric data efficiently.
+This includes basic sequential collections for numeric elements
+or primitive maps or sets.
+%      - templates
+In typed languages,
+we see typically some form of generics, type parameters, or templates,
+which help to reduce a proliferation of collections for specific data types.
+
+In addition to typing, the \emph{reuse} mechanisms offered by a language have
+an important impact on library structure.
+For example, single inheritance can lead to designs with undesirable
+properties as seen in the Smalltalk-80 collection library\citep{Cook:1992:ISS}.
+While some of these issue can be worked around,
+other reuse mechanisms such as traits,
+might result in designs that have benefits\citep{Black:2003:ATS}.
+% -> Smalltalk example \citep{Cook:1992:ISS}
+%   -> if you only got single inheritance, only mechanism of reuse
+%      that does not need composition (which might introduce other issues,
+%      for instance performance overhead in interpreted languages)
+%   -> subclassing not always ideal
+%   -> some things are just not subclasses
+%     -> deleting methods
+%     -> providing other functionality via same name
+%     -> structuring requires much care
+
+Languages are know to have evolved to facilitate
+desired collection library designs\citep{Chakravarty:2005:ATC,Garcia:2007}.
+In other cases,
+the library need to evolve
+and use the available language mechanisms more effectively
+to improve maintainability and code reuse
+as for instance in the case of Scala\citep{Odersky:2009}.
+
+
 
 \subsection{Properties}
 \label{sec:col-properties}
