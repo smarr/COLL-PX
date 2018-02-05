@@ -779,6 +779,7 @@ which are available in some languages
 and correspond to a reified potential\bd{Why potential?}\sm{because they still need to be applied. It's a specification for where to iterate, I'd say. You got a better word?} iteration.
 
 \subsection{Language Style}
+\label{sec:language-style}
 
 The second category that has a major influence on the overall collection design
 is the language the library is designed for.
@@ -947,27 +948,59 @@ for comparison or hashing.
 \subsection{Operation Design}
 \label{sec:operations}
 
-\begin{note}
-  - basic operations
-  - sorting
-  
-  - polymorphism 
-    - compatibility of collections
-      - maps as lists (iteration), lists as maps (int->T maps)
-      - immutable/mutable...
-      - use of wrappers?
-  
-  
-  - bulk operation
-    - order guarantees (everything modeled as lists)
-    - processing (sequential, parallel, lazy)
-    - slices
-    - internal/external iteration
-      - streams
-      - queries (linq)
-      - navigation (navigable Java)
-      
-\end{note}
+% - basic operations
+The design of collection operations is likely influenced to a large degree
+by the language style as mentioned in \cref{sec:language-style}.
+On the one hand, this influences naming of operations,
+on the other hand, it influences which operations might offered,
+how bulk operations are offered, or how error handling is done.
+To give just one example, in Smalltalk it is common to pass closure as arguments
+to operations that might fail to provide the failure handling code directly.
+In other languages, return codes or exceptions are used to indicate failure
+that has to be handled externally to the collection.
+
+% - sorting
+There are other previously mentioned aspects
+that influence the offered operations including immutability, persistence,
+sorting, parallel bulk operations, laziness, iteration in general,
+and possibly properties that are realized as some form of opt-in mechanism,
+which may include immutability and read-only views.
+
+% - polymorphism
+%   - compatibility of collections
+%     - maps as lists (iteration), lists as maps (int->T maps)
+%     - immutable/mutable...
+%     - use of wrappers?
+
+One important aspect of designing the interfaces of collections is the intended
+degree of polymorphism,
+\ie, whether collections should offer the same interfaces.
+To facilitate code reuse, one might want to design collections
+that have different properties such as being mutable or immutable
+in a way that still allows them to be used interchangeably.
+One way of doing this is by using decorators or wrappers around collections
+that add the desired properties, \eg, basic synchronization in Java.
+Other options to consider are whether maps should be iterable
+in the same way as sequences, or whether sequences can be treated as maps.
+
+%- bulk operation
+%  - order guarantees (everything modeled as lists)
+%  - processing (sequential, parallel, lazy)
+%  - slices
+%  - internal/external iteration
+%    - streams
+%    - queries (linq)
+%    - navigation (navigable Java)
+
+Iteration or more general collection traversal is an important design point.
+The basic properties ordering and sorting sorting need to be taken into account.
+Furthermore, iteration operations need to consider whether processing is
+to be done sequentially, in parallel, or lazily.
+Languages with slices or ranges can use these as interface
+to defined how to iteration.
+Finally, other concepts such as internal iteration, streams,
+and language-integrated query (LINQ)
+influence the set of offered operations further.
 
 \subsection{Algorithms, Data Structures, and Implementation Choices}
 \label{sec:impl-choices}
