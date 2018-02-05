@@ -681,6 +681,8 @@ To represent number types efficiently, it also supports typed arrays.
 % bytes, bytearray (imm vs mutable)
 A special case is here the \code{bytes} type,
 which is an immutable byte sequence that is used for instance for byte literals.
+\bd{Python has this funky not-encapsulated way to support priority queues, maybe worth mentioning?}
+% https://docs.python.org/3/library/heapq.html
 
 \paragraph{Dart 1.24}
 
@@ -741,10 +743,10 @@ and only store a single occurrence based on some equivalence criterion.
 % - bidirectional map
 The third category is \emph{maps}.
 These collections store key/value pairs of some sort.
-Languages such as Racket allow polymorphism between index collections and maps.
+Languages such as Racket allow polymorphism between index collections and maps.\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}
 This could lead to an argument that ordered maps are sufficient to represent
 any kind of sequence,
-from which we refrain here even though Lua 5.0 only offers tables\citep{The_implementation_of_lua}.\sm{should I break this out and put this into the survey section?}
+from which we refrain here even though Lua 5.0 only offers tables\citep{The_implementation_of_lua}.\sm{should I break this out and put this into the survey section?}\bd{Doesn't belong here, for sure.}
 
 % - stack
 % - queue
@@ -752,7 +754,7 @@ from which we refrain here even though Lua 5.0 only offers tables\citep{The_impl
 % - priority queues
 %   - heap
 % - ring
-The forth category is \emph{stacks and queues}.\sm{better name?}
+The fourth category is \emph{stacks and queues}.\sm{better name?}
 These collections store elements
 and restrict the access in a way
 that facilitates the efficient implementation of certain use cases.
@@ -762,7 +764,7 @@ We include here deques, priority queues or heaps, and rings.
 % - table 
 The fifth category is \emph{composed collections}.
 These are collections that could be built by combining multiple collections.
-We include here for instance matrixes, which are two-dimensional arrays,
+We include here for instance matrices, which are two-dimensional arrays,
 and tables, which are two-dimensional maps.
 Again, these two could be considered of the same class
 if indexing with integers is considered a associative access.
@@ -773,7 +775,7 @@ The six category is \emph{ranged collections}.
 These seem to be rare in form of range maps or sets.
 However, we include here the ranges or slices as well,
 which are available in some languages
-and correspond to a reified potential iteration.
+and correspond to a reified potential\bd{Why potential?} iteration.
 
 \subsection{Language Style}
 
@@ -783,23 +785,25 @@ is the language the library is designed for.
 % - language style
 %   - object-oriented, procedural, functional, ...
 The \emph{language style} in terms of being procedural, object-oriented,
-or functional lead to different designs in shape and structure of collections
-as well as the provide sets of operations on them and the operation naming.
+or functional leads to different designs in shape and structure of collections
+as well as the provided sets of operations on them and the operation naming.
 
-The language's stance on \emph{typing} and the its support for type parameter
+The language's stance on \emph{typing} and its support for type parameter
 shapes libraries in various ways.
 % primitive maps/sets, ...
 %   - primitive as keys or values
 %  - bit sets
-In dynamically typed languages,
+In dynamically-typed languages,
 we see the need for explicit support of collections for primitive types, \eg,
 to store numeric data efficiently.
 This includes basic sequential collections for numeric elements
 or primitive maps or sets.
+\bd{Unclear if this means specific types or transparent and supported by the VM}
 %      - templates
 In typed languages,
 we see typically some form of generics, type parameters, or templates,
 which help to reduce a proliferation of collections for specific data types.
+\bd{and imho make the API far more complex}
 
 In addition to typing, the \emph{reuse} mechanisms offered by a language have
 an important impact on library structure.
@@ -818,10 +822,10 @@ might result in designs that have benefits\citep{Black:2003:ATS}.
 %     -> providing other functionality via same name
 %     -> structuring requires much care
 
-Languages are know to have evolved to facilitate
+In some case, languages have evolved to facilitate
 desired collection library designs\citep{Chakravarty:2005:ATC,Garcia:2007}.
 In other cases,
-the library need to evolve
+the library needed to evolve
 and use the available language mechanisms more effectively
 to improve maintainability and code reuse
 as for instance in the case of Scala\citep{Odersky:2009}.
