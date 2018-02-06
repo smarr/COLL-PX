@@ -570,11 +570,14 @@ The parallel collections focus on parallel execution of bulk operations.
 %   - tuples
 
 Haskell contains only immutable lists and tuples as basic builtin types.
-Other collections seem to be provided as external packages \bd{stdlib or really packages to install separately?}.
+Other collections are provided as external packages\bddone{stdlib or really packages to install separately?}\sm{I clarified this a little, but don't think I want to break this out into separate things. not worth it. Also very different from the Java libraries}.
+The \emph{base} library,
 % - concurrent queue (Chan)
-This includes for instance channels, which are concurrent queues.
-The \emph{containers} library provides
-sequences, maps, graphs, sets, trees, and bit queues.
+which is the standard library for the Glasgow Haskell Compiler (GHC)
+only contains channels, which are concurrent queues.
+The \emph{containers} library,
+which is considered to be the de-facto standard library,
+provides sequences, maps, graphs, sets, trees, and bit queues.
 Some of these are provided as lazy or strict variants
 to give programmers more fine-grained control.
 Similarly, it provides special sets and maps for integers,
