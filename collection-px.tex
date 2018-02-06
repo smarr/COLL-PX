@@ -1005,16 +1005,33 @@ influence the set of offered operations further.
 \subsection{Algorithms, Data Structures, and Implementation Choices}
 \label{sec:impl-choices}
 
-\begin{note}
-  - wrappers for properties
-  - trees
-  - tries, splay trees
-  - skip lists
-  - singly/doubly linked lists
- - hash
-  - specializations for small dicts
-  - specialization for stable, static, small vectors/lists
-\end{note}
+The final set of design dimension are implementation choices,
+which included the selection of a specific algorithm or data structure
+to realize a collection.
+
+Literature is known to include a large variety of special purpose
+data structures, especially for concurrent applications.
+However, there seem to be a few favorites that are recurring.
+For
+% - trees
+% - tries, splay trees
+% - skip lists
+% - singly/doubly linked lists
+trees we saw for instance red-black trees, tries, and splay trees,
+for lists singly and doubly-linked ones, array-based, and skip lists,
+% - specialization for stable, static, small vectors/lists
+possibly with specializations for small or rarely changing lists.
+%
+% - specializations for small dicts
+The concrete algorithms for hash tables are not usually specified
+in the documentation.
+
+% - wrappers for properties
+Another important design dimension mentioned before is
+how the various properties of collections are represented.
+Some libraries provide separate classes for each possible type and property,
+while others realize the desired properties with decorators,
+\ie, wrapper constructs.
 
 \section{Collection Usage}
 
@@ -1145,6 +1162,12 @@ And are easily adopted?
         -> need conversion or adapters to perform certain operations
         -> large class hierarchies, hard to chose one, might not even be
            clear what options are available, or appropriate for problem
+
+
+Example for complexity of types:
+ - scala, type signatures are very complex
+   -> documentation presents a simplified version to hide some of the complexity
+   
   
 \end{note}
 
