@@ -219,6 +219,7 @@ for a language as dynamic and \ugh{aimed at exploratory programming} as Newspeak
 
 
 \section{Live and Exploratory Programming}
+\label{sec:exploratory}
 
 Before diving into the details of designing collection libraries,
 we discuss the terms live and exploratory programming
@@ -1075,7 +1076,32 @@ and finds that they are used slightly more often than \code{Dictionary}.
 
 \section{A Collection Design for Exploratory Programming}
 
+% key goals to facilitate exploratory programming:
+%  - focus on problem domain
+%  - avoid unnecessary decisions
+%  - environment needs to be able to provide feedback
+%    (errors, tooling, documentation)
+%  - robustness, and perhaps even resilience
+%  (not necessarily in the JS weak language/too many implicit conversions sense)
+
+As discussed in \cref{sec:exploratory}, to facilitate exploratory programming
+a collection library needs to help programmers to
+1) focus on problem domain
+2) avoid unnecessary decisions
+and 3) enable the environment to provide feedback in form of
+\eg, errors, hints, tooling, documentation.
+To us, this means we either want to completely avoid a choice
+for or against a specific collection type or property,
+or postpone it as far as possible.
+At the same time, when we made certain choices,
+we want them to be reflected by the environment.
+Thus, independently of how these choices are expressed in code,
+the environment needs to recognize them to provide us maximal support.
+
 \begin{note}
+ 
+  
+  
   - Generalization vs. Specialization  
   - small set of generalized collection types 
   - or large set of specialized types
