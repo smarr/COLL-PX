@@ -1070,56 +1070,6 @@ Interestingly, it also considers arrays\bd{What arrays? OrderedCollection or bui
 and finds that they are used slightly more often than \code{Dictionary}.
 
 
-\section{Techniques for Efficient Implementations}
-
-
-\begin{note}
-  TODO: add M. Steindorfer as reference for complex immutable/specialized data structures \citep{Steindorfer:2015:OHM}
-  
-  
-  what is required in terms of efficiency?
-  compilation-time feedback - needs to be fast to compile
-  run-time performance - needs to be fast to execute
-
-  \citep{Rein:2016:LLP} should look a little more into this one for terminology
-  
-Discussion Points:
- 
-Practical Implementation Concerns
- How to realize all this with same efficiency as when using special purpose
- collections?
- - probably not getting there 100\%, but 90\% or even 80\% are sufficient
-   when it improves developer productivity (which still has to be proven of course)
-  
- - to get to the 80-90\% mark
-  -> strategies (seq, par)
-   - Storage strategies for collections in dynamically typed languages \citep{Bolz:2013:SSC}
-   -> concurrency strategy paper
-  -> JIT Data Structures
-     -> the other paper about collections I saw (something from a german university)
-
-  -> CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection
-DOI 10.1145/3168825
-CGO 2018 (to appear)
-  -> cameleon, ... (JIT DS references)
-% \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
-
-- Tobias Pape's paper, for functional data structures
-
-
-- compiler for static languages can do certain optimizations ahead of time:
-  - compiler-level specialization as with miniboxing \citep{Ureche:2013:MIS}
-  - C++ templates (expanding ones), eager specialization
-
-How to design so that specialized collections remain possible?
-And are easily adopted?
- -> ensure subset of collection APIs are polymorphic
-   -> ideally, one just changes the constructor, or adds a conversion
-   -> idea would be that this gives the last 10-20\% of performance when needed
-   -> leave door open for improving performance by restricting flexibility
-\end{note}
-
-
 \section{A Collection Design for Exploratory Programming}
 
 \begin{note}
@@ -1169,6 +1119,55 @@ Example for complexity of types:
    -> documentation presents a simplified version to hide some of the complexity
    
   
+\end{note}
+
+\section{Techniques for Efficient Implementations}
+
+
+\begin{note}
+  TODO: add M. Steindorfer as reference for complex immutable/specialized data structures \citep{Steindorfer:2015:OHM}
+  
+  
+  what is required in terms of efficiency?
+  compilation-time feedback - needs to be fast to compile
+  run-time performance - needs to be fast to execute
+
+  \citep{Rein:2016:LLP} should look a little more into this one for terminology
+  
+Discussion Points:
+ 
+Practical Implementation Concerns
+ How to realize all this with same efficiency as when using special purpose
+ collections?
+ - probably not getting there 100\%, but 90\% or even 80\% are sufficient
+   when it improves developer productivity (which still has to be proven of course)
+  
+ - to get to the 80-90\% mark
+  -> strategies (seq, par)
+   - Storage strategies for collections in dynamically typed languages \citep{Bolz:2013:SSC}
+   -> concurrency strategy paper
+  -> JIT Data Structures
+     -> the other paper about collections I saw (something from a german university)
+
+  -> CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection
+DOI 10.1145/3168825
+CGO 2018 (to appear)
+  -> cameleon, ... (JIT DS references)
+% \url{https://www.researchgate.net/publication/322438185_CollectionSwitch_A_Framework_for_Efficient_and_Dynamic_Collection_Selection
+
+- Tobias Pape's paper, for functional data structures
+
+
+- compiler for static languages can do certain optimizations ahead of time:
+  - compiler-level specialization as with miniboxing \citep{Ureche:2013:MIS}
+  - C++ templates (expanding ones), eager specialization
+
+How to design so that specialized collections remain possible?
+And are easily adopted?
+ -> ensure subset of collection APIs are polymorphic
+   -> ideally, one just changes the constructor, or adds a conversion
+   -> idea would be that this gives the last 10-20\% of performance when needed
+   -> leave door open for improving performance by restricting flexibility
 \end{note}
 
 
