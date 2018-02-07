@@ -136,27 +136,27 @@
 %   essential part of any general purpose language
 %   - C doesn't have one?
 
-One of the basic concepts of programming languages are collections or containers, i.e.,
-data structures that abstract over the number of data items
+Collections or containers are part of all general purpose languages.
+They are data structures that abstract over the number of data items
 and allow operations over the contained items as a whole or individually.
-As such, they are a fundamental aspect of general purpose languages.
 
 % Inquiry: What problem or question does the paper address? How has this problem or question been addressed by others (if at all)?
 
-The design of collection libraries varies greatly between languages,
-and sometimes there are even multiple libraries
-to facilitate different programming styles, application scenarios, or performance requirements.
-They can range from having only arrays,
-as the exclusive basic abstraction as in C,
-to systems such as Java,
-where the standard library includes dozens of collection abstractions.
+While being fundamental to most languages,
+the design of collection libraries varies greatly.
+At one end of the spectrum, we have C, which has only arrays.
+At the other end, we have for instance Java,
+with a standard library that includes dozens of collection abstractions,
+and with external libraries to support different programming styles,
+application scenarios, or performance requirements.
+
 % - library design has major influence on
 %   - language style/idioms
 %   - programmer productivity (assumed)
 %   - feeling of the language
 % - as far as we are aware no systematic study
 To the best of our knowledge,
-there is not systemic study on how the design of a collection library
+there is not study on how the design of a collection library
 influences programmer productivity
 or a language's suitability for exploratory programming.
 
@@ -164,7 +164,7 @@ or a language's suitability for exploratory programming.
 % - explore design space
 %   - which aspects need to be considered
 %   - which design dimensions are there
-The goal of this study is to identify the aspects
+The goal of this work is to identify the aspects
 that need to be considered for the design of collection libraries
 for exploratory and live programming.
 %
@@ -180,33 +180,34 @@ for exploratory and live programming.
 % -> live programming
 Thus, we reason about the design space for collections
 and how different design choices may influence the programming experience.
-We focus specifically on how different design choices relate to the main
-programming task\sm{avoid making unnecessary decisions}, performance, and the liveness of the programming experience\sm{feedback potential}.
+Our analysis relates these design choices to the main programming task,
+%\sm{avoid making unnecessary decisions},
+performance, and the programming experience.
+% \sm{feedback potential}
 
 % Grounding: What argument, feasibility proof, artifacts, or results and evaluation support this work?
 %- argue for feasibility based on existing techniques
-In order to get an overview of the design space,
+To get an overview of the design space,
 we discuss the high-level design of collection libraries for
-\smtodo{review}, C, C++, Go, Java, C\#, Scala, Haskell, Racket, Smalltalk, Ruby, JavaScript, Python, and Dart.
-From this overview, we extract the concrete design dimensions
-and present arguments for and against design choices
-in the context of exploratory programming.
-Finally, we review implementation techniques
-to judge whether design choices can be practical
+C, C++, Go, Java, C\#, Scala, Haskell, Racket, Pharo Smalltalk, Ruby, JavaScript, Python, Dart, and Lua.
+From this overview, we extract design dimensions and 
+argue for specific choices in the context of exploratory programming.
+We also review implementation techniques
+to support the design's practicality
 in terms of achieving the same performance as alternative choices.
 
-Therefore, this paper\sm{somewhat a contribution statement, but also redundant with the above. Revisit before submission.}
-
-\begin{itemize}
-  \item describes the design space for collection libraries
-  \item discusses design choices and their suitability for exploratory programming
-  \item reviews implementation techniques to ensure practical performance
-\end{itemize}
-
+% Therefore, this paper\sm{somewhat a contribution statement, but also redundant with the above. Revisit before submission.}
+%
+% \begin{itemize}
+%   \item describes the design space for collection libraries
+%   \item discusses design choices and their suitability for exploratory programming
+%   \item reviews implementation techniques to ensure practical performance
+% \end{itemize}
+%
 % Importance: Why does this work matter?
 % - collections are complex but essential parts of our languages
 %   - better understanding will enable more principled design
-We hope this analysis provides an insight
+While not exhaustive, we hope this analysis provides an insight
 into the complex design space of collection libraries
 and their relation to the programming experience itself.
 Our immediate goal was to better understand the tension between design choices
@@ -215,7 +216,7 @@ Newspeak follows in many ways previous Smalltalk systems
 and as such has a large and specialized collection library.
 However, based on the arguments presented here,
 we believe that a small and versatile library would be a more suitable design
-for a language as dynamic and \ugh{aimed at exploratory programming} as Newspeak.\sm{not sure about this bit, need to think about it}
+for a language that itself is quite suitable for exploratory programming.
 
 
 \section{Live and Exploratory Programming}
@@ -709,6 +710,9 @@ for efficient representation in memory.
 % - other unconventional languages
 
 \bd{Would a table to compare make sense here? Maybe kind of collection * languages = language type if any?}
+
+\paragraph{Lua 5.3}
+\smtodo{add, or move from later discussion}
 
 \section{Design Dimensions for Collection Libraries}
 \label{sec:dimensions}
