@@ -1343,10 +1343,10 @@ an instance of \emph{the blob} anti-pattern.\citep{brown1998antipatterns}
 The biggest problem we see is
 that the code is not explicit about
 what the desired interaction with a collection are.
-For instance, a sequence can be easily used as a stack, queue, or list.
+For instance, a sequence can be easily used as a stack, queue, or list\bd{Well, what if I use it as a deque?}
 However, one rarely wants to switch between these uses
 on the same collection instance.
-Mixing the up the relevant operations is thus likely a bug.
+Mixing up the relevant operations is thus likely a bug.
 %      - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
 %        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
 %        -> generic data structures (lists in case of Haskell) might not be optimal
