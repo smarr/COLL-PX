@@ -1274,61 +1274,110 @@ As argued in \cref{sec:impl-techniques},
 it seems feasible and practical to make this tradeoff.
 
 \subsection{Discussion}
-\begin{note}
- - might need ecosystem of collection library for special purpose
-  - but that's the case for most languages and seems small inconvenience
-  
-  
-  
-  - Generalization vs. Specialization  
-  - small set of generalized collection types 
-  - or large set of specialized types
-  
-  - is small and versatile bad design because it violates the `one thing does   one thing good premise'
-    - are those classes blobs? \citep{brown1998antipatterns}
-    - do they do too much? is this an issue?
-     -> yes, it's an issue, the code is not clear about what kind of 
-        interactions one wants to allow on the collection
-     -> complexity of implementation is a real issue (concurrency issues,
-        strategies, JIT DS...)
-     -> this means, it can be a burden for maintaining large systems
-     -> it is a burden for VM maintenance
-     -> however, The Blob anti-pattern combines complex state and behavior
-        such collection design is not a direct instance of it, because
-        the contained data is usually still used for a single purpose and
-        it is merely that the collections themselves offer too much
-        functionality
 
-    - benefits of specialized classes:
-      - chose specific implementation/algorithm/data structure
-      - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
-        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
-        -> generic data structures (lists in case of Haskell) might not be optimal
-         -> PJ already talks about 2.3 Adaptive representations
-         A probabilistic approach to the problem of automatic selection of data representations \citep{Chuang:1996:PAP}
-          -> markov processes
+Based on the analysis above,
+we argue that a collection library designed for exploratory programming
+should have sequences, maps, and sets as basic abstractions.
+Relevant properties and modes of operations for collections should be
+realized by mechanisms that allow for an easy opt in,
+without requiring additional collection types.
+In many cases this likely means
+that the basic collections have a large and versatile set of operations.
+We assume this can be supported by tooling to provide the desired feedback
+for instance as part of code completion.
+% - might need ecosystem of collection library for special purpose
+%  - but that's the case for most languages and seems small inconvenience
+However, this also means that many specialized collections should be relegated
+into external libraries.
+Depending on the language ecosystem,
+this hopefully implies only minor inconvenience
+and is supported by packaging and dependency management systems.
 
-      - example
-        -> set/map: implemented as tree or hash table?
-        -> linked list or array list, or linked segments?
-        -> can't make a right choice without knowing exactly what
-           run time load is going to be
+% - Generalization vs. Specialization  
+% - small set of generalized collection types 
+% - or large set of specialized types
+% - is small and versatile bad design because it violates the 
+%   `one thing does   one thing good premise'
+%   - are those classes blobs? 
+One could now argue that having many different types of operations
+on the same collection type violates the good design practice
+of having one thing do one thing alone and do it well.
+One might even consider such large collection types as
+an instance of \emph{the blob} anti-pattern.\citep{brown1998antipatterns}
+% -> however, The Blob anti-pattern combines complex state and behavior
+%    such collection design is not a direct instance of it, because
+%    the contained data is usually still used for a single purpose and
+%    it is merely that the collections themselves offer too much
+%    functionality
 
-    - drawback of too specialized classes:
-      - can become inflexible
-        -> need conversion or adapters to perform certain operations
-        -> large class hierarchies, hard to chose one, might not even be
-           clear what options are available, or appropriate for problem
+% -> yes, it's an issue, the code is not clear about what kind of 
+%    interactions one wants to allow on the collection
+The biggest problem we see is
+that the code is not explicit about
+what the desired interaction with a collection are.
+For instance, a sequence can be easily used as a stack, queue, or list.
+However, one rarely wants to switch between these uses
+on the same collection instance.
+Mixing the up the relevant operations is thus likely a bug.
+%      - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
+%        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
+%        -> generic data structures (lists in case of Haskell) might not be optimal
+Other arguments, for instance by \citet{PeytonJones:1996:BTC}
+include that such generic types and the lack of specific invariants
+make it harder to understand programs, harder to prove properties about them,
+and harder to maintain them.
+We hope that advanced type inference or run-time feedback
+enables a development environment to detect such issues
+and report them to programmers.
 
+% -> complexity of implementation is a real issue (concurrency issues,
+%    strategies, JIT DS...)
+The implementation of such collections is also much more complex.
+However, the tradeoff is here to push more complexity into the runtime,
+while benefiting more users.
+To optimize for performance, a runtime needs to make many assumptions,
+which likely reduces performance predictability.
+Here we advocate for better tools.
+Ideally, the environment can utilize the knowledge about run-time optimizations
+to provide users with information on performance issues,
+which can be considered by programmers
+at a point when they start caring about performance.
 
-   
-  
-\end{note}
+% -> set/map: implemented as tree or hash table?
+% -> linked list or array list, or linked segments?
+% -> can't make a right choice without knowing exactly what
+%    run time load is going to be
+
+With a minimal set of collection types,
+it is also not possible to directly select an implementation strategy.
+Should a map be realized by a tree or hash table,
+or should a list be linked to allow fast insertion at arbitrary positions?
+We argue that these choices are rarely possible in an informed manner during
+exploratory programming.
+We have not yet fully understood our problem,
+and we very likely would mispredict the distribution of operations at run time.
+Thus, offering the different specialized classes is unlikely to give the desired benefit.
+At run time, we might however be able to optimize without programmer input,
+as discussed in the following section.
+
+% - drawback of too specialized classes:
+%   - can become inflexible
+%     -> need conversion or adapters to perform certain operations
+%     -> large class hierarchies, hard to chose one, might not even be
+%        clear what options are available, or appropriate for problem
+
 
 \section{Techniques for Efficient Implementations}
 \label{sec:impl-techniques}
 
 \begin{note}
+  - chose specific implementation/algorithm/data structure
+     -> \citet{PeytonJones:1996:BTC} already talks about 2.3 Adaptive representations
+     A probabilistic approach to the problem of automatic selection of data representations \citep{Chuang:1996:PAP}
+      -> markov processes
+  
+  
+  
   TODO: add M. Steindorfer as reference for complex immutable/specialized data structures \citep{Steindorfer:2015:OHM}
   
   
