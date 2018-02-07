@@ -1358,6 +1358,10 @@ We hope that advanced type inference or run-time feedback
 enables a development environment to detect such issues
 and report them to programmers.
 
+\bd{We need to refute that clearly here.
+Kind of a static vs dynamic typing discussion. If you don't have the type then how do you know what the collection is anyway?
+It doesn't matter, in practice the collection is how it is used, what operations are used on it. If I use push/pop it's a stack, if I use append, it's a vector. And if I iterate, it doesn't matter what kind of sequence it is.}
+
 % -> complexity of implementation is a real issue (concurrency issues,
 %    strategies, JIT DS...)
 The implementation of such collections is also much more complex.
@@ -1383,7 +1387,7 @@ or should a list be linked to allow fast insertion at arbitrary positions?
 We argue that these choices are rarely possible in an informed manner during
 exploratory programming.
 We have not yet fully understood our problem,
-and we very likely would mispredict the distribution of operations at run time.
+and we would likely mispredict the distribution of operations at run time.
 Thus, offering the different specialized classes is unlikely to give the desired benefit.
 At run time, we might however be able to optimize without programmer input,
 as discussed in the following section.
