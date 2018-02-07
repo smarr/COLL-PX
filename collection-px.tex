@@ -1123,7 +1123,7 @@ Thus, independently of how these choices are expressed in code,
 the environment needs to recognize them to provide us maximal support.
 Furthermore, we consider performance in this context a secondary concern.
 While important for many applications,
-we assume it is rarely the primary for exploratory programming.
+we assume it is rarely the primary concern for exploratory programming.
 Consequently, we prefer solutions that can provide perhaps 80\%
 of a special purpose solution without exposing it to programmers. 
 
@@ -1149,18 +1149,21 @@ Furthermore, we suggest to design collection properties
 in a way that one can easily opt into properties or opt out from them.
 However, this should be designed together with tool support
 to avoid losing relevant feedback from the environment.
+\bd{What kind of feedback? Still unclear to me.}
 
 A case could be made here whether to include sets or not.
-Sets can be easily emulated with maps, or as set operations on sequences.
+Sets can be easily emulated with maps\bd{(albeit with some memory overhead)}, or as set operations on sequences\bd{but inefficient or easy to break the uniqueness invariant then, no?}.
+\bd{Need to clarify if it's just some extra oeprations like addUnique (but then normal add breaks uniqueness) or Ruby-like, which allows set operations on sequences by using a set internally basically, but then no efficient way to mutate the set/add an element after that}
 Since the use and semantics of sets is distinct enough from sequences and maps,
 we would err on the side of slightly bloating the basic set of collections
 and include them, even though there are a number of languages that do not do so.
 Thus, we propose to include \emph{sequences}, \emph{maps}, and \emph{sets}.
+\bd{What's a good use-case for sets? Seems like a map with an unused value to me.}
 
 \paragraph{Language Style}
 
 Generally, we consider the language style as a given from the host language
-and this, it is not part of this discussion.
+and thus, it is not part of this discussion.
 However, aspects such as typing can have a major influence on the design.
 For dynamic languages,
 we observed the inclusion of specific collection types for primitive data.
@@ -1194,11 +1197,11 @@ and additionally consider mechanisms to opt into or out from certain properties.
 % fixed/variable -> single abstraction sequence, should be initializable with desired size to facilitate both types of usages
 A good example is whether to offer fixed or variable sized collections.
 Variable sized ones seem to be the most flexible solution.
-However, to facilitate use case and optimizations for fixed-size collections,
+However, to facilitate the use case and optimizations for fixed-size collections,
 it is useful to offer for instance constructors
-that allow initializing the size.
+that allow creating a collection with the desired size and default value.
 % bounded queues are special purpose, and should be provided as need by external library
-Special purpose collections for instance bounded queues could then be provided
+Special purpose collections such as bounded queues could then be provided
 as external libraries only.
 
 % ordered vs. unordered
@@ -1206,19 +1209,21 @@ as external libraries only.
 % gives dertminism
 Similarly, maintaining insertion order for all collections seems to be a choice
 that guarantees deterministic behavior and thus is often preferable.
+% except for concurrency of course, but we don't care about perf/compelxity here
 Other orderings could be offered with operations or iteration constructs.
 % sorting as opt-in, either a mode, or operations to request sorted collection
-This means also that sorting is arguably something one wants to opt into,
+This also means that sorting is arguably something one wants to opt into,
 for instance by requesting a collection to be sorted or using operations that
 maintain sorting explicitly.
 
 % chocie between mutable and immutable 
 %% probably tightly bound to language style
 %% only need one type
-The choice between having mutable and immutable collections is likely tightly
+On the other hand, the choice between having mutable and immutable collections is likely tightly
 bound to the language style.
 In the interest of maintaining a minimal set of collections only,
-deciding on either mutable or immutable seems to be preferable.
+deciding on either mutable or immutable seems to be preferable and avoid confusion and duplication.
+\bd{mutable is more flexible, isn't it? But it might expose some extra complexity to the user}
 %% forgo read-only wrappers and copy-on-write things to keep things minimal
 Similarly, we would relegate read-only wrappers or copy-on-write collections
 to external libraries.
@@ -1226,12 +1231,12 @@ to external libraries.
 %% thread-safety
 \label{sec:design-thread-safety}
 %% should be provided implicitly by the language (cf. )
-Thread-safety is is desirable for all languages that support multiple threads.
+Thread-safety is desirable for all languages that support multiple threads and sharing collections.
 As discussed in \cref{sec:impl-techniques},
 we think this can be provided implicitly without drawbacks.
 However, to provide the atomicity on the right level,
-collections need to include commonly used operations
-such as \code{computeIfPresent} or \code{putIfAbsent},
+collections need to include commonly-used operations
+such as \code{computeIfAbsent} or \code{putIfAbsent},
 which typically check some condition on the collection,
 potentially perform a user-specified operation, and then modify the collection.
 
@@ -1255,7 +1260,7 @@ but remain special purpose, thus, should be part of an external library as well.
 
 %% identity, opt in, configurable, for instance map should have sensible default
 %%   probably with a hash operation, which can be replaced when desired
-Identify-based maps and sets are ideally realized
+Identity-based maps and sets are ideally realized
 by parameterizing the collection.
 Ideally, it has defaults appropriate for the language,
 which can be easily customized.
@@ -1273,9 +1278,10 @@ for instance with good code completion.
 % being bound to the collection makes the operations easily available in code completion
 % that's not to say that external iteration with loops or streams is less powerful. A choice should be inline with language preferences 
 Thus, supporting a wide range of internal iteration operations seems useful
-and can support a complex queries.
+and can support complex queries.
 Concepts such as loops or streams for external iteration
 can still be beneficial, too.
+\bd{There could be an argument internal iteration is much simpler for implementing in your own collection, to integrate with the existing collection framework, but requires lambdas to be convenient. External iteration is also arguably ugly on the caller side for most usages. But maybe out of scope? IMHO streams are a new abstraction which is not needed.}
 %
 % high degree of polymorphims between collections seems desirable 
 % allows for quickly changing collection type
