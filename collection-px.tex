@@ -1366,10 +1366,12 @@ For instance, a collection on which the \code{push} and \code{pop} operations
 are used is a stack and a collection on which \code{append} is used a vector.
 When iterating, the specific type for a sequence does not matter in most cases,
 we just iterate all elements of the sequence, in the order they were added (cf. \cref{sec:insertion-ordering-choice}).
+Even in Java, a statically-typed language, it is idiomatic to type fields as \code{List} or \code{Map} and not the specific \code{ArrayList} or \code{HashMap}, showing that the specific type is of little concern for the usage of the collection and only the general collection type or interface matters.
 \bd{We need to refute that clearly here.
 Kind of a static vs dynamic typing discussion. If you don't have the type then how do you know what the collection is anyway?
 It doesn't matter, in practice the collection is how it is used, what operations are used on it. If I use push/pop it's a stack, if I use append, it's a vector. And if I iterate, it doesn't matter what kind of sequence it is.}
 \bd{Could also argue that people rarely use anything but ArrayList and HashMap, so we really only need to discernate those two, and the rest is rarely needed, even less so in exploratory programming.}
+\bd{Even in Java you type stuff as List idiomatically (not ArrayList), so clearly the concrete type matters fairly little only the big types List/Map}
 
 % -> complexity of implementation is a real issue (concurrency issues,
 %    strategies, JIT DS...)
