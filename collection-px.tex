@@ -830,9 +830,9 @@ or primitive maps or sets (\eg \code{IntMap in Scala}).
 In typed languages,
 we see typically some form of generics, type parameters, or templates,
 which help to reduce a proliferation of collections for specific data types.
-\bd{and imho make the API far more complex}\sm{? not sure what you mean?
-You're saying Generics make APIs more complex? because of co/contra variance and stuff? sure, but typed languages need them. You want to add anything here?
-Or is this a point that's useful later: generics are complicated/distracting because X, and thus, it seems that dynamically typed languages might have an edge for exploratory programming?}
+%\bd{and imho make the API far more complex}\sm{? not sure what you mean?
+%You're saying Generics make APIs more complex? because of co/contra variance and stuff? sure, but typed languages need them. You want to add anything here?
+%Or is this a point that's useful later: generics are complicated/distracting because X, and thus, it seems that dynamically typed languages might have an edge for exploratory programming?} => yeah, discussed later
 
 In addition to typing, the \emph{reuse} mechanisms offered by a language have
 an important impact on library structure.
@@ -1003,9 +1003,9 @@ degree of polymorphism,
 \ie, whether collections should offer the same interfaces.
 To facilitate code reuse, one might want to design collections
 that have different properties such as being mutable or immutable
-in a way that still allows them to be used interchangeably.\bd{same API while chaning mutability seems very hard, maybe use another property?}
+in a way that still allows them to be used mostly interchangeably.
 One way of doing this is by using decorators or wrappers around collections
-that add the desired properties, \eg, basic synchronization in Java.
+that add the desired properties, \eg, read-only views or basic synchronization in Java.
 Other options to consider are whether maps should be iterable
 in the same way as sequences, or whether sequences can be treated as maps.
 
