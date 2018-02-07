@@ -1509,6 +1509,7 @@ In dynamic runtimes, such decisions could even be taken optimistically
 and reversed if the assumption turned out to be violated.
 To ensure learning, dynamic runtimes typically use allocation-site feedback\citep{Clifford:2015:MMD}.
 
+\bd{Small summary here to summarize all these hardcore details? We can have good perf for small/versatile collections thanks to these many technicques and many implementations use them.}
 
 % \begin{note}
 %
@@ -1551,8 +1552,16 @@ Live Data Structure Programming \citep{Oka:2017:LDS}
 
 \section{Conclusion}
 
-C has the most minimal collection library, 
+% BD
+In this paper, we argue small and versatile collections are beneficial to the user and can be implemented efficiently.
+They enable better exploratory programming without making early decisions about specific types or implementations and they remain far more flexible than specialized libraries.
+They are also simpler to use, more discoverable (no need to search through many collections to find the right one), and provide a richer way to interact with them which is convenient compared to a small and rigid interface.
+On the other hand, they add complexity to language implementations, which must support and optimize these versatile collections.
+However, many techniques already exist to help optimizing these collections.
 
+We also observed and documented how varied is the collection design landscape in many languages.
+
+C has the most minimal collection library, and Ruby has the best collection design :D
 
 While I have convinced myself
 that I do prefer the programming style offered
