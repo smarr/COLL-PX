@@ -711,6 +711,7 @@ for efficient representation in memory.
 \bd{Would a table to compare make sense here? Maybe kind of collection * languages = language type if any?}
 
 \section{Design Dimensions for Collection Libraries}
+\label{sec:dimensions}
 
 Based on the observations of \cref{sec:col-wild},
 this section distills the design dimensions for collection libraries. 
@@ -1038,6 +1039,7 @@ while others realize the desired properties with decorators,
 \ie, wrapper constructs.
 
 \section{Collection Usage}
+\label{sec:usage}
 
 As seen in the previous section,
 collection libraries differ widely
@@ -1097,9 +1099,185 @@ At the same time, when we made certain choices,
 we want them to be reflected by the environment.
 Thus, independently of how these choices are expressed in code,
 the environment needs to recognize them to provide us maximal support.
+Furthermore, we consider performance in this context a secondary concern.
+While important for many applications,
+we assume it is rarely the primary for exploratory programming.
+Consequently, we prefer solutions that can provide perhaps 80\%
+of a special purpose solution without exposing it to programmers. 
 
+The remainder of this section first discusses the design dimensions
+identified in \cref{sec:dimensions}
+to propose choices that fit our vision for an exploratory programming setting.
+Afterwards, we discuss the resulting overall design,
+possible criticism, and tradeoffs. 
+
+\subsection{Identifying a Point in the Design Space}
+
+\paragraph{Types of Collections}
+The first and perhaps most important choice seems to be the selection of the
+desired set of collection types.
+In \cref{sec:col-types}, we identified six groups.
+However, considering the usage in actual applications (cf. \cref{sec:usage}),
+only sequences, sets, and maps seem to be widely used.
+To avoid unnecessary decisions,
+we propose to use only a minimal set of collection types
+based on the most widely used ones,
+and to provide relevant functionality as part of these collections.
+Furthermore, we suggest to design collection properties
+in a way that one can easily opt into properties or opt out from them.
+However, this should be designed together with tool support
+to avoid losing relevant feedback from the environment.
+
+A case could be made here whether to include sets or not.
+Sets can be easily emulated with maps, or as set operations on sequences.
+Since the use and semantics of sets is distinct enough from sequences and maps,
+we would err on the side of slightly bloating the basic set of collections
+and include them, even though there are a number of languages that do not do so.
+Thus, we propose to include \emph{sequences}, \emph{maps}, and \emph{sets}.
+
+\paragraph{Language Style}
+
+Generally, we consider the language style as a given from the host language
+and this, it is not part of this discussion.
+However, aspects such as typing can have a major influence on the design.
+For dynamic languages,
+we observed the inclusion of specific collection types for primitive data.
+Since this increases the number of explicit choices one has to consider,
+we would argue that it is better to rely on optimizations
+at the implementation level for use cases
+where performance is the main driver (cf. \cref{sec:impl-techniques}).
+
+% Example for complexity of types:
+%  - scala, type signatures are very complex
+%    -> documentation presents a simplified version to hide some of the complexity
+For typed languages, there seems to be a high degree of exposed complexity
+for users.
+For example in Scala, the collection library is designed
+so that operations on collections produce output collections
+with the same type as the input collection\citep{Odersky:2009}.
+This leads to an exposure of highly complex type signatures to the user.
+Scala choses to mitigate this by including simplified type signatures
+in its documentation.
+Thus, we advice collection designers to consider this issue
+and ensure that tooling and documentation hide such accidental complexity.
+
+
+\paragraph{Properties}
+
+Because of the various properties collections might want to support,
+it seems best to decide on the most flexible default case
+and additionally consider mechanisms to opt into or out from certain properties.
+
+% basic properties:
+% fixed/variable -> single abstraction sequence, should be initializable with desired size to facilitate both types of usages
+A good example is whether to offer fixed or variable sized collections.
+Variable sized ones seem to be the most flexible solution.
+However, to facilitate use case and optimizations for fixed-size collections,
+it is useful to offer for instance constructors
+that allow initializing the size.
+% bounded queues are special purpose, and should be provided as need by external library
+Special purpose collections for instance bounded queues could then be provided
+as external libraries only.
+
+% ordered vs. unordered
+% all collections should maintain insertion order
+% gives dertminism
+Similarly, maintaining insertion order for all collections seems to be a choice
+that guarantees deterministic behavior and thus is often preferable.
+Other orderings could be offered with operations or iteration constructs.
+% sorting as opt-in, either a mode, or operations to request sorted collection
+This means also that sorting is arguably something one wants to opt into,
+for instance by requesting a collection to be sorted or using operations that
+maintain sorting explicitly.
+
+% chocie between mutable and immutable 
+%% probably tightly bound to language style
+%% only need one type
+The choice between having mutable and immutable collections is likely tightly
+bound to the language style.
+In the interest of maintaining a minimal set of collections only,
+deciding on either mutable or immutable seems to be preferable.
+%% forgo read-only wrappers and copy-on-write things to keep things minimal
+Similarly, we would relegate read-only wrappers or copy-on-write collections
+to external libraries.
+
+%% thread-safety
+%% should be provided implicitly by the language (cf. )
+Thread-safety is is desirable for all languages that support multiple threads.
+As discussed in \cref{sec:impl-techniques},
+we think this can be provided implicitly without drawbacks.
+However, to provide the atomicity on the right level,
+collections need to include commonly used operations
+such as \code{computeIfPresent} or \code{putIfAbsent},
+which typically check some condition on the collection,
+potentially perform a user-specified operation, and then modify the collection.
+
+
+%% parallel operations should be provide in orthogonal way
+To keep the set of collections minimal,
+support for parallel execution of bulk operations is
+better introduced by orthogonal means.
+%%  internal or external parallel operations, possibly in form of streams
+This could mean as part of operations for internal traversal
+or mechanisms for external traversal, possibly in form of streams.
+
+%% laziness
+Whether to support strict or lazy operations seems
+to be a question of language style
+and the alternative seems to be a candidate for external libraries.
+
+%% weakness
+Weakly referencing collections have many important applications,
+but remain special purpose, thus, should be part of an external library as well.
+
+%% identity, opt in, configurable, for instance map should have sensible default
+%%   probably with a hash operation, which can be replaced when desired
+Identify-based maps and sets are ideally realized
+by parameterizing the collection.
+Ideally, it has defaults appropriate for the language,
+which can be easily customized.
+
+\paragraph{Operation Design}
+
+% language dependent
+For a large part of the design decisions around collection operations,
+we assume that the language type dictates a certain style.
+% operations that are parameterized with closures might help explorability
+However, operations on collections might be especially easy to access
+for instance with good code completion.
+% for explorative programming, good support for internal iteration seem useful
+% including complex queries
+% being bound to the collection makes the operations easily available in code completion
+% that's not to say that external iteration with loops or streams is less powerful. A choice should be inline with language preferences 
+Thus, supporting a wide range of internal iteration operations seems useful
+and can support a complex queries.
+Concepts such as loops or streams for external iteration
+can still be beneficial, too.
+%
+% high degree of polymorphims between collections seems desirable 
+% allows for quickly changing collection type
+% or generalizing code
+Ensuring a high degree of polymorphism between collections
+seems especially desirable in the exploratory stage,
+because it allows switching between collections or generalizing code
+without much accidental and distracting effort.
+
+\paragraph{Algorithms, Data Structures, and Implementation Choices}
+
+Having to pick any specific algorithm or internal representation of a collection
+in the exploratory programming stage seems to be solely a distraction.
+While there can be important performance difference,
+we would argue that it is better to forgo perfect performance
+and instead expect the underlying implementation
+to be \emph{sufficiently smart}.
+As argued in \cref{sec:impl-techniques},
+it seems feasible and practical to make this tradeoff.
+
+\subsection{Discussion}
 \begin{note}
- 
+ - might need ecosystem of collection library for special purpose
+  - but that's the case for most languages and seems small inconvenience
+  
   
   
   - Generalization vs. Specialization  
@@ -1143,15 +1321,12 @@ the environment needs to recognize them to provide us maximal support.
            clear what options are available, or appropriate for problem
 
 
-Example for complexity of types:
- - scala, type signatures are very complex
-   -> documentation presents a simplified version to hide some of the complexity
    
   
 \end{note}
 
 \section{Techniques for Efficient Implementations}
-
+\label{sec:impl-techniques}
 
 \begin{note}
   TODO: add M. Steindorfer as reference for complex immutable/specialized data structures \citep{Steindorfer:2015:OHM}
