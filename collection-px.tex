@@ -235,9 +235,9 @@ to clarify our assumptions and the context of this analysis.
 %   level 4:
 %    - continuous feedback in time-varying results based on current program
 
-For the term \emph{live programming}, we will rely on \citeauthor{Tanimoto:1990:Viva}'s notion.
-Specifically, our aim is to support programming that is supported
-by immediate updates and feedback from the programming environment.
+For the term \emph{live programming}, we rely on \citeauthor{Tanimoto:1990:Viva}'s notion.
+Specifically, we aim to support programming
+with immediate updates and feedback from the programming environment.
 This might be either triggered by edits or presented as continuous event streams,
 which corresponds to liveness of level 3 or 4\citep{Tanimoto:1990:Viva}.
 While generally desirable, we forgo considering more advanced liveness levels
@@ -253,7 +253,7 @@ This feedback should be meant to reduce the friction
 that is inherent in the communication between humans and machines,
 which is constrained by artificial languages and machines
 that still neither perceive the context of a conversation nor learn from interaction.
-To work around these limitations in our communication,
+To work around these limitations,
 we expect machines to support the communication with feedback,
 limited forms of understanding,
 and a basic robustness to invalid communication.
@@ -264,8 +264,8 @@ Feedback should be provided in form of
 %   - code completion, documentation
 code completion, contextual documentation,
 %   - error highlighting (unsupported methods)
-syntax errors, possibly invalid method calls or operations \bd{is that exceptions?},
-and style errors or undesirable patterns.
+syntax errors, highlighting of possibly invalid method calls or operations,
+style violations, and generally undesirable patterns.
 % - edit/feedback latency
 %   - feedback should be fast, overall execution fast enough
 % - state snapshots, reexecution, redisplay
@@ -291,9 +291,9 @@ than languages that require us to make such aspect explicit.
 % - program errors in unrelated/unexecuted parts need to be ignored
 The overall system should also be robust with respect to programming errors.
 Especially errors in unrelated program parts,
-or parts that are not actually executed
+or parts that are not executed
 should not inhibit our ability to interact with the system,
-explore and extend it.
+explore, and extend it.
 
 %% 
 Generally, when exploring a problem and experimenting with solutions,
