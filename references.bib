@@ -550,3 +550,141 @@ This paper discusses these challenges and presents initial experiments for a New
   year = 2005
 }
 
+@inproceedings{DeWael:15:JitData,
+  abstract = {Today, software engineering practices focus on finding the single right data representation (i.e., data structure) for a program. The right data representation, however, might not exist: relying on a single representation of the data for the lifetime of the program can be suboptimal in terms of performance. We explore the idea of developing data structures for which changing the data representation is an intrinsic property. To this end we introduce Just-in-Time Data Structures, which enable representation changes at runtime, based on declarative input from a performance expert programmer. Just-in-Time Data Structures are an attempt to shift the focus from finding the ``right’’ data structure to finding the right sequence of data representations. We present JitDS-Java, an extension to the Java language, to develop Just-in-Time Data Structures. Further, we show two example programs that benefit from changing the representation at runtime.},
+  added-at = {2015-09-25T12:10:59.000+0200},
+  author = {De Wael, Mattias and Marr, Stefan and De Koster, Joeri and Sartor, Jennifer B. and De Meuter, Wolfgang},
+  biburl = {https://www.bibsonomy.org/bibtex/2889bbc4c57b61960cdfb2a93147bce23/gron},
+  blog = {http://stefan-marr.de/2015/10/jit-data-structures-fully-reflective-vms-and-meta-circular-meta-tracing/},
+  booktitle = {Proceedings of the 2015 ACM International Symposium on New Ideas, New Paradigms, and Reflections on Programming \& Software},
+  doi = {10.1145/2814228.2814231},
+  interhash = {ca767ff263c76e39ba25305e658771f5},
+  intrahash = {889bbc4c57b61960cdfb2a93147bce23},
+  isbn = {978-1-4503-3688-8},
+  keywords = {Algorithms DataStructures DynamicReclassification MeMyPublication Optimizations Performance myown},
+  month = {October},
+  numpages = {15},
+  pages = {61--75},
+  pdf = {http://stefan-marr.de/downloads/onward15-de-wael-et-al-just-in-time-data-structures.pdf},
+  publisher = {ACM},
+  series = {Onward!'15},
+  timestamp = {2017-06-06T17:52:47.000+0200},
+  title = {Just-in-Time Data Structures},
+  year = 2015
+}
+
+@inproceedings{Costa:2018:CS,
+  added-at = {2018-02-07T18:18:41.000+0100},
+  author = {Costa, Diego and Andrzejak, Artur},
+  biburl = {https://www.bibsonomy.org/bibtex/2c9a566d1edb3d6f40f963188842e02ce/gron},
+  booktitle = {Proceedings of 2018 IEEE/ACM International Symposium on Code Generation and Optimization},
+  day = {24--28},
+  doi = {10.1145/3168825},
+  interhash = {c56d1eab2e8e1a0b316570fa5a6cbb31},
+  intrahash = {c9a566d1edb3d6f40f963188842e02ce},
+  keywords = {Adaptive DataStructures Dynamic JustInTime Optimization Performance collections},
+  month = {February},
+  pages = {16--26},
+  series = {CGO'18},
+  timestamp = {2018-02-07T18:18:41.000+0100},
+  title = {{CollectionSwitch: A Framework for Efficient and Dynamic Collection Selection}},
+  url = {http://pvs.ifi.uni-heidelberg.de/fileadmin/papers/2018/Collectionswitch_-_CGO2018.pdf},
+  year = 2018
+}
+
+@inproceedings{Xu2013,
+  added-at = {2016-10-20T17:37:58.000+0200},
+  author = {Xu, Guoqing},
+  biburl = {https://www.bibsonomy.org/bibtex/21080ddcc5d8f48c5f02d2e0c5baff873/gron},
+  booktitle = {ECOOP 2013 -- Object-Oriented Programming: 27th European Conference, Montpellier, France, July 1-5, 2013. Proceedings},
+  description = {CoCo: Sound and Adaptive Replacement of Java Collections - Springer},
+  doi = {10.1007/978-3-642-39038-8_1},
+  editor = {Castagna, Giuseppe},
+  interhash = {6e0a19c3c5562f4b1d6caeaa268fc225},
+  intrahash = {1080ddcc5d8f48c5f02d2e0c5baff873},
+  isbn = {978-3-642-39038-8},
+  keywords = {Collections DataStructures JIT Optimizations},
+  pages = {1--26},
+  publisher = {Springer},
+  timestamp = {2016-10-20T17:37:58.000+0200},
+  title = {{CoCo: Sound and Adaptive Replacement of Java Collections}},
+  year = 2013
+}
+
+@article{Pape:2017:VC,
+  abstract = {The performance of value classes is highly dependent on how they are represented in the virtual machine. Value class instances are immutable, have no identity, and can only refer to other value objects or primitive values and since they should be very lightweight and fast, it is important to optimize them carefully. In this paper we present a technique to detect and compress common patterns of value class usage to improve memory usage and performance. The technique identifies patterns of frequent value object references and introduces abbreviated forms for them. This allows to store multiple inter-referenced value objects in an inlined memory representation, reducing the overhead stemming from meta-data and object references. Applied to a small prototype and an implementation of the Racket language, we found improvements in memory usage and execution time for several micro-benchmarks.},
+  added-at = {2018-02-07T18:28:13.000+0100},
+  author = {Pape, Tobias and Bolz, Carl Friedrich and Hirschfeld, Robert},
+  biburl = {https://www.bibsonomy.org/bibtex/2eec2aeabc8d2996d9a6dc3d08bc1913e/gron},
+  description = {Adaptive just-in-time value class optimization for lowering memory consumption and improving execution time performance - ScienceDirect},
+  doi = {10.1016/j.scico.2016.08.003},
+  interhash = {5ad04ffaaf79ae3dff83c785f6da088d},
+  intrahash = {eec2aeabc8d2996d9a6dc3d08bc1913e},
+  issn = {0167-6423},
+  journal = {Science of Computer Programming},
+  keywords = {DataStructures Immutability Value},
+  pages = {17--29},
+  timestamp = {2018-02-07T18:28:13.000+0100},
+  title = {{Adaptive Just-in-time Value Class Optimization for Lowering Memory Consumption and Improving Execution Time Performance}},
+  volume = 140,
+  year = 2017
+}
+
+@inproceedings{Daloze:2016:TSO,
+  abstract = {We are in the multi-core era.
+Dynamically-typed languages are in widespread use, but their support for
+multithreading still lags behind. One of the reasons is that the sophisticated
+techniques they use to efficiently represent their dynamic object models are
+often unsafe in multithreaded environments.
+
+This paper defines safety requirements for dynamic object models in
+multithreaded environments.
+Based on these requirements, a language-agnostic and thread-safe object model
+is designed that maintains the efficiency of sequential approaches.
+This is achieved by ensuring that field reads do not require synchronization
+and field updates only need to synchronize on objects shared between threads.
+
+Basing our work on JRuby+Truffle, we show that our safe object model has zero overhead on peak performance for thread-local objects
+and only 3\% average overhead on parallel benchmarks where field updates require synchronization.
+Thus, it can be a foundation for safe and efficient multithreaded VMs for a wide range of dynamic languages.},
+  acceptancerate = {0.25},
+  added-at = {2016-08-06T18:36:38.000+0200},
+  author = {Daloze, Benoit and Marr, Stefan and Bonetta, Daniele and Mössenböck, Hanspeter},
+  biburl = {https://www.bibsonomy.org/bibtex/262830f65bdc9a0a1046a41c0aee771e4/gron},
+  booktitle = {Proceedings of the 2016 ACM International Conference on Object Oriented Programming Systems Languages \& Applications},
+  day = 2,
+  doi = {10.1145/2983990.2984001},
+  interhash = {e308e02d9e1ea4c4e8187c56cd3770e8},
+  intrahash = {62830f65bdc9a0a1046a41c0aee771e4},
+  isbn = {978-1-4503-4444-9},
+  keywords = {Bugs Concurrency HiddenClasses JRuby Map MeMyPublication ObjectModel ObjectStorage RaceConditions Ruby ThreadSafety myown},
+  month = {November},
+  numpages = {18},
+  pages = {642--659},
+  pdf = {http://stefan-marr.de/downloads/oopsla16-daloze-et-al-efficient-and-thread-safe-objects-for-dynamically-typed-languages.pdf},
+  publisher = {ACM},
+  series = {OOPSLA'16},
+  timestamp = {2017-06-06T00:23:12.000+0200},
+  title = {{Efficient and Thread-Safe Objects for Dynamically-Typed Languages}},
+  year = 2016
+}
+
+@inproceedings{Clifford:2015:MMD,
+  added-at = {2017-04-02T16:31:26.000+0200},
+  author = {Clifford, Daniel and Payer, Hannes and Stanton, Michael and Titzer, Ben L.},
+  biburl = {https://www.bibsonomy.org/bibtex/20a26f807a6cb87373bd4ee4d577672f7/gron},
+  booktitle = {Proceedings of the 2015 International Symposium on Memory Management},
+  doi = {10.1145/2754169.2754181},
+  interhash = {e8053e5d7f1c70dbf02aaa85874bb3bc},
+  intrahash = {0a26f807a6cb87373bd4ee4d577672f7},
+  isbn = {978-1-4503-3589-8},
+  keywords = {Collection Dynamic JavaScript Management Memory Optimization V8},
+  location = {Portland, OR, USA},
+  numpages = {13},
+  pages = {105--117},
+  publisher = {ACM},
+  series = {ISMM'15},
+  timestamp = {2017-04-02T16:31:26.000+0200},
+  title = {{Memento Mori: Dynamic Allocation-site-based Optimizations}},
+  year = 2015
+}
