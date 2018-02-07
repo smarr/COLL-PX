@@ -508,38 +508,37 @@ Similar to Java, \citeurl{C\# and the .NET Framework}{.NET API}{Microsoft}{}{htt
 %    LinkedList
 have arrays, lists, sets, maps, queues, and stacks.
 While the framework includes linked and array lists,
-it does not include explicit tree sets or maps for instance.
+it does not include explicit tree sets or maps.
 %  - ordered collections
 However, it also includes sorted collections,
-which might be implemented as trees though the .NET\bd{hard to parse, can change to C\#?} documentation refrains from
-giving any guarantees on the cost of operations
-or a specific implementation technique.
+which might be implemented as trees, but the documentation refrains from
+specifying the performance of operations or naming an implementation technique.
 %  - read only collections (just wrapper, not truely immutable, just a readonly view)
 %  - immutable (persistent/structural sharing)
-Similar to Java, they provide read-only, \ie, unmodifiable collections,
-which are simply wrappers for normal collections.
-Additionally, they also provide truly immutable collections,
-which support structural sharing, \ie,
-are implemented as persistent data structures.\bd{Would turn it around to start with the well know term persistent and define it after}
+Similar to Java, C\# provides read-only, \ie, unmodifiable collections,
+which are wrappers.
+Additionally, it provides immutable collections,
+which are implemented as persistent data structures, \ie,
+use structural sharing.
 %  - concurrent collections
 %  - synchronzied collection
-In order to support thread-safety,
-they provide generic synchronization wrappers
+For thread-safety,
+it offers synchronization wrappers
 as well as special-purpose concurrent collections
 with better concurrent behavior.
-
+%
 %  - iterators, query support
-One feature that seems to be specific to .NET
-is the support for advanced query operations on collections with LINQ\bd{add link?},
+One feature specific to C\# and .NET
+is the support for query operations on collections with LINQ\citep{Meijer:2011:WAL},
 which are an addition to the traditional iteration operations.
 
 \paragraph{Scala 2.12}
 
-\citeurl{Scala}{Scala Standard Library}{EPFL}{}{http://www.scala-lang.org/api/2.12.4/}'s standard library
-comes with collections somewhat similar to Java.\bd{I know some who would disagree...}
+\citeurl{Scala's}{Scala Standard Library}{EPFL}{}{http://www.scala-lang.org/api/2.12.4/} standard library
+% comes with collections somewhat similar to Java.\bd{I know some who would disagree...}
 % - maps, sets, sequences
 % - arrays
-It supports arrays, maps, sets, and sequences as basic abstractions.
+supports arrays, maps, sets, and sequences as basic abstractions.
 % HashMap, HashSet, TreeMap, TreeSet, ArraySeq, DoubleLinkedList
 It got hash and tree-based versions for sets and maps
 as well as array-based or doubly linked lists
@@ -548,15 +547,15 @@ to cover the main implementation strategies.
 It got special-purpose collections
 such as bit sets, list maps, integer maps, linked hash maps or sets, multi-maps,
 queues, stacks, vectors, or weak hash maps.
-The library is however structured differently.
+% The library is however structured differently.
 % - mutable
 % - immutable/persistent
-The main distinction is between mutable and immutable version
-of the collections.
+The library offers mutable and immutable versions
+of most collections.
 The immutable collections are typically implemented
 as persistent data structures with structural sharing.
-Both types of collections are polymorphic on the basic non-mutating operations,
-which makes their use very flexible.\bd{And impossible to understand without looking up the import :(. Maybe we can communicate that somehow?}
+Both types of collections are polymorphic on read operations,
+which makes them interchangeable for basic accesses.
 Additionally, the library provides concurrent, sorted,
 and parallel versions of some of the collections.
 The parallel collections focus on parallel execution of bulk operations.
