@@ -1206,6 +1206,7 @@ as external libraries only.
 % ordered vs. unordered
 % all collections should maintain insertion order
 % gives dertminism
+\label{sec:insertion-ordering-choice}
 Similarly, maintaining insertion order for all collections seems to be a choice
 that guarantees deterministic behavior and thus is often preferable.
 % except for concurrency of course, but we don't care about perf/compelxity here
@@ -1342,7 +1343,7 @@ an instance of \emph{the blob} anti-pattern.\citep{brown1998antipatterns}
 %    interactions one wants to allow on the collection
 The biggest problem we see is
 that the code is not explicit about
-what the desired interaction with a collection are.
+what the desired interaction with a collection are.\bd{disagreed, see below and let's not shoot ourselves}
 For instance, a sequence can be easily used as a stack, queue, or list\bd{Well, what if I use it as a deque?}
 However, one rarely wants to switch between these uses
 on the same collection instance.
@@ -1358,9 +1359,17 @@ We hope that advanced type inference or run-time feedback
 enables a development environment to detect such issues
 and report them to programmers.
 
+However, we argue that even though the collection type is generic,
+collections are in most cases used with only a few different operations,
+that clearly indicate what is the specific type.
+For instance, a collection on which the \code{push} and \code{pop} operations
+are used is a stack and a collection on which \code{append} is used a vector.
+When iterating, the specific type for a sequence does not matter in most cases,
+we just iterate all elements of the sequence, in the order they were added (cf. \cref{sec:insertion-ordering-choice}).
 \bd{We need to refute that clearly here.
 Kind of a static vs dynamic typing discussion. If you don't have the type then how do you know what the collection is anyway?
 It doesn't matter, in practice the collection is how it is used, what operations are used on it. If I use push/pop it's a stack, if I use append, it's a vector. And if I iterate, it doesn't matter what kind of sequence it is.}
+\bd{Could also argue that people rarely use anything but ArrayList and HashMap, so we really only need to discernate those two, and the rest is rarely needed, even less so in exploratory programming.}
 
 % -> complexity of implementation is a real issue (concurrency issues,
 %    strategies, JIT DS...)
