@@ -745,7 +745,7 @@ even so it is not always obviously beneficial.
 % - list/vector, tuples, pairs, boxes
 % - bags/multisets
 Consequently,
-the first category of collection types is \emph{bags or sequences}.
+the first category of collection types is \emph{sequences}. % "bags or sequences" \bd{bags are not even cited below}
 Considering ordering, mutability, sizing, and representation
 as orthogonal concerns,
 this category includes arrays, lists, vectors, tuples, pairs, and boxes.
@@ -763,7 +763,8 @@ and only store a single occurrence based on some equivalence criterion.
 % - bidirectional map
 The third category is \emph{maps}.
 These collections store key/value pairs of some sort.
-Languages such as Racket allow polymorphism between index collections and maps.\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}\sm{hmmm, but this is saying something different. What I say is they have the same interface. you say lists are a special case. Think what you say is too specific and not generally true (Racket needs the list to be a list of explicit pairs, while a vector is directly a \code{dictionary}).}
+Languages such as Racket allow polymorphism between indexed sequences and maps (the key being the index).
+%\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}\sm{hmmm, but this is saying something different. What I say is they have the same interface. you say lists are a special case. Think what you say is too specific and not generally true (Racket needs the list to be a list of explicit pairs, while a vector is directly a \code{dictionary}).}
 This could lead to an argument that ordered maps are sufficient to represent
 any kind of sequence,
 from which we refrain here even though Lua only offers tables.\smtodo{move later, included into the discussion/design section}
@@ -787,7 +788,7 @@ These are collections that could be built by combining multiple collections.
 We include here for instance matrices, which are two-dimensional arrays,
 and tables, which are two-dimensional maps.
 Again, these two could be considered of the same class
-if indexing with integers is considered a associative access.
+if indexing with integers is considered an associative access.
 
 % - range/slice
 % - range map/set
@@ -795,7 +796,8 @@ The six category is \emph{ranged collections}.
 These seem to be rare in form of range maps or sets.
 However, we include here the ranges or slices as well,
 which are available in some languages
-and correspond to a reified potential\bd{Why potential?}\sm{because they still need to be applied. It's a specification for where to iterate, I'd say. You got a better word?} iteration.
+and correspond to a reified potential iteration.
+%\bd{Why potential?}\sm{because they still need to be applied. It's a specification for where to iterate, I'd say. You got a better word?}
 
 \subsection{Language Style}
 \label{sec:language-style}
@@ -809,7 +811,7 @@ The \emph{language style} in terms of being procedural, object-oriented,
 or functional leads to different designs in shape and structure of collections
 as well as the provided sets of operations on them and the operation naming.
 
-The language's stance on \emph{typing} and its support for type parameter
+The language's stance on \emph{typing} and its support for type parameters
 shapes libraries in various ways.
 % primitive maps/sets, ...
 %   - primitive as keys or values
@@ -819,7 +821,6 @@ we see the need for explicit support of collections for primitive types, \eg,
 to store numeric data efficiently.
 This includes basic sequential collections for numeric elements (\eg \code{Int32Array} in ECMAScript)
 or primitive maps or sets (\eg \code{IntMap in Scala}).
-\bddone{Unclear if this means specific types or transparent and supported by the VM}\sm{no, at this point we are not talking about any implementation tricks and only about explicitly supported things. I added examples, which hopefully clarify}
 %      - templates
 In typed languages,
 we see typically some form of generics, type parameters, or templates,
@@ -858,7 +859,7 @@ as for instance in the case of Scala\citep{Odersky:2009}.
 \subsection{Properties}
 \label{sec:col-properties}
 
-In addition to the basic operations and properties of collections,
+In addition to the basic operations and properties\bd{Was not defined before, drop the sentence?} of collections,
 they can also vary in additional properties.
 As already noted in \cref{sec:col-types},
 it is not always clear whether these properties are completely orthogonal
@@ -903,14 +904,14 @@ by offering \emph{read-only views} in form of wrappers for collections.
 Immutable collections can further vary significantly in their implementation.
 Some are implemented as \emph{persistent} data structures,
 which use structural sharing to avoid high memory overhead when producing
-new version of a collection with only minimal changes.
+new version of a large collection with only minimal changes.
 
 For some specific use cases,
 we also see the use of \emph{copy-on-write} data structures
 such as Java's \code{CopyOnWriteArrayList}.
 These can be useful to provide isolation between multiple entities
-and enable mutability,
-while minimizing memory usage by employing structural sharing.
+and enable mutability.
+%while minimizing memory usage by employing structural sharing. % BD: no, CopyOnWriteArrayList does not use structural sharing
 
 \paragraph{Multi-Threading Support}
 
@@ -922,8 +923,9 @@ To support various multi-threaded scenarios,
 collection libraries can include a multitude of different collection types.
 The simplest solution to ensure correctness is
 to provide \emph{synchronization wrappers} as done by Java and C\#.
-However, these collections are really efficient
+However, these collections are not really efficient
 and often lack support for performing multiple operations safely together.
+\bd{also iterators are typically not synchronized as they would hold the lock too long, at least in Java}
 These problems are typically addressed
 by specialized \emph{concurrent} collections,
 which are optimized for specific use cases.
@@ -936,8 +938,8 @@ For efficient bulk operations,
 languages such as Scala provide \emph{parallel} collections,
 where operations are executed in parallel.
 Similar to sorting, where some collections do it intrinsically,
-this is also a property that often is provided via operations
-possibly external to the collection (cf. \cref{sec:operations}).
+this is also a property that is often provided via operations
+external to the collection (cf. \cref{sec:operations}).
 
 \paragraph{Other Properties}
 
@@ -960,9 +962,9 @@ other languages often also offer the option to perform operations lazily.
 Finally, we observed collections such as sets and maps
 that use \emph{identity} as main distinguishing criterion.
 We presume that these collections are optimizations for a common use case,
-because languages such as Java, Smalltalk, Dart would allow to construct
-for instance maps that can be parameterized with appropriate operations
-for comparison or hashing.
+because languages such as Java, Smalltalk, and Dart would allow to construct
+maps that can be parameterized with appropriate operations
+for comparison and hashing by identity.
 
 \subsection{Operation Design}
 \label{sec:operations}
@@ -971,9 +973,9 @@ for comparison or hashing.
 The design of collection operations is likely influenced to a large degree
 by the language style as mentioned in \cref{sec:language-style}.
 On the one hand, this influences naming of operations,
-on the other hand, it influences which operations might offered,
+on the other hand, it influences which operations might be offered,
 how bulk operations are offered, or how error handling is done.
-To give just one example, in Smalltalk it is common to pass closure as arguments
+To give just one example, in Smalltalk it is common to pass closures as arguments
 to operations that might fail to provide the failure handling code directly.
 In other languages, return codes or exceptions are used to indicate failure
 that has to be handled externally to the collection.
@@ -996,7 +998,7 @@ degree of polymorphism,
 \ie, whether collections should offer the same interfaces.
 To facilitate code reuse, one might want to design collections
 that have different properties such as being mutable or immutable
-in a way that still allows them to be used interchangeably.
+in a way that still allows them to be used interchangeably.\bd{same API while chaning mutability seems very hard, maybe use another property?}
 One way of doing this is by using decorators or wrappers around collections
 that add the desired properties, \eg, basic synchronization in Java.
 Other options to consider are whether maps should be iterable
@@ -1012,23 +1014,23 @@ in the same way as sequences, or whether sequences can be treated as maps.
 %    - navigation (navigable Java)
 
 Iteration or more general collection traversal is an important design point.
-The basic properties ordering and sorting sorting need to be taken into account.
+The basic properties ordering and sorting need to be taken into account.
 Furthermore, iteration operations need to consider whether processing is
 to be done sequentially, in parallel, or lazily.
 Languages with slices or ranges can use these as interface
-to defined how to iteration.
-Finally, other concepts such as internal iteration, streams,
+to define how to iterate.
+Finally, other concepts such as internal vs external iteration, streams,
 and language-integrated query (LINQ)
-influence the set of offered operations further.
+further influence the set of offered operations.
 
 \subsection{Algorithms, Data Structures, and Implementation Choices}
 \label{sec:impl-choices}
 
-The final set of design dimension are implementation choices,
-which included the selection of a specific algorithm or data structure
+The final set of design dimensions are implementation choices,
+which include the selection of a specific algorithm or data structure
 to realize a collection.
 
-Literature is known to include a large variety of special purpose
+Literature is known to include a large variety of special-purpose
 data structures, especially for concurrent applications.
 However, there seem to be a few favorites that are recurring.
 For
