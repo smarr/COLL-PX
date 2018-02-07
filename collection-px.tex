@@ -374,7 +374,7 @@ by providing a template-based standard library (STL).
 % BD: link to the documentation: http://en.cppreference.com/w/cpp/container ?
 It includes C arrays but also an STL version, which can do bounds checking.
 Additionally, it includes vectors, deques, singly and doubly linked lists,
-sets and maps in an ordered and unordered variant,
+sets and maps in an ordered (tree-based) and unordered (hash-based) variant,
 as well as adapters to realize stack or queue semantics.
 Generally, the STL remains comparably lean,
 but already provides collections with different performance tradeoffs
@@ -394,8 +394,8 @@ The \citeurl{Boost C++ libraries}{Boost C++ Libraries}{boost.org}{}{http://www.b
 expand on the STL by adding more specialized containers,
 which at least partially address C++-template specific issues.
 The variations on the vector class address different performance tradeoffs.
-Similarly, the tree-based sets and maps of the STL are complemented
-with hash-based implementations. \bd{std::unordered\_map is a HashMap!}
+%Similarly, the tree-based sets and maps of the STL are complemented
+%with hash-based implementations. \bd{std::unordered\_map is a HashMap!}
 The overall theme seems to be to address a recurring need for collections
 that are optimized for specific use cases.
 
