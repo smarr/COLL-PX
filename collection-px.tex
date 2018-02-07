@@ -714,7 +714,15 @@ for efficient representation in memory.
 \bd{Would a table to compare make sense here? Maybe kind of collection * languages = language type if any?}
 
 \paragraph{Lua 5.3}
-\smtodo{add, or move from later discussion}
+
+\citeurl{Lua}{Lua 5.3}{Lua.org}{}{https://www.lua.org/manual/5.3/}
+is designed as a lightweight language for embedding and scripting.
+The lightweightness is made explicit also in its approach to collections.
+The only abstraction it provides is a table, which is an associative array,
+but also used as basic abstraction for object-oriented programming.
+Consequently, tables are used for sequences and maps
+and have been optimized
+to fulfill both types of usages\citep{The_implementation_of_lua}.
 
 \section{Design Dimensions for Collection Libraries}
 \label{sec:dimensions}
@@ -758,7 +766,7 @@ These collections store key/value pairs of some sort.
 Languages such as Racket allow polymorphism between index collections and maps.\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}\sm{hmmm, but this is saying something different. What I say is they have the same interface. you say lists are a special case. Think what you say is too specific and not generally true (Racket needs the list to be a list of explicit pairs, while a vector is directly a \code{dictionary}).}
 This could lead to an argument that ordered maps are sufficient to represent
 any kind of sequence,
-from which we refrain here even though Lua 5.0 only offers tables\citep{The_implementation_of_lua}.\sm{should I break this out and put this into the survey section?}\bd{Doesn't belong here, for sure.}
+from which we refrain here even though Lua only offers tables.\smtodo{move later, included into the discussion/design section}
 
 % - stack
 % - queue
