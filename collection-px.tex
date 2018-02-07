@@ -748,28 +748,30 @@ to fulfill both types of usages\citep{The_implementation_of_lua}.
 Based on the observations of \cref{sec:col-wild},
 this section distills the design dimensions for collection libraries. 
 
-\subsection{Types of Collections}
+\subsection{Collection Types}
 \label{sec:col-types}
 
-The first dimension is the types of collections to be included in the library.
-Here, we abstract as much as possible
+The first dimension is the \emph{collection types} to be included in the library.
+We abstract %as much as possible
 from general properties of collections (cf. \cref{sec:col-properties})
 and other implementation or representation choices
 (cf. \cref{sec:impl-choices}),
-which we try to consider as orthogonal concerns
+which we consider as orthogonal concerns
 even so it is not always obviously beneficial.
 
 % - array
 % - list/vector, tuples, pairs, boxes
 % - bags/multisets
 Consequently,
-the first category of collection types is \emph{sequences}. % "bags or sequences" \bd{bags are not even cited below}
+the first category of collection types is \emph{bags or sequences}.
+% \bd{bags are not even cited below}
+% SM: no, bags belong in here
 Considering ordering, mutability, sizing, and representation
 as orthogonal concerns,
-this category includes arrays, lists, vectors, tuples, pairs, and boxes.
+this category includes arrays, lists, vectors, tuples, pairs, boxes, and bags, \ie, multi-sets.
 Generally, these collections provide the ability to store elements
 that are possibly repeating
-and operate on them perhaps by direct access or via iteration of some sort.
+and operate on them perhaps by direct access or via iteration.
 
 % - set
 The second category is \emph{sets}.
@@ -779,13 +781,9 @@ and only store a single occurrence based on some equivalence criterion.
 % - map
 % - multi-map
 % - bidirectional map
-The third category is \emph{maps}.
-These collections store key/value pairs of some sort.
+The third category is \emph{maps}, which store key-value pairs.
 Languages such as Racket allow polymorphism between indexed sequences and maps (the key being the index).
 %\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}\sm{hmmm, but this is saying something different. What I say is they have the same interface. you say lists are a special case. Think what you say is too specific and not generally true (Racket needs the list to be a list of explicit pairs, while a vector is directly a \code{dictionary}).}
-This could lead to an argument that ordered maps are sufficient to represent
-any kind of sequence,
-from which we refrain here even though Lua only offers tables.\smtodo{move later, included into the discussion/design section}
 
 % - stack
 % - queue
@@ -793,7 +791,7 @@ from which we refrain here even though Lua only offers tables.\smtodo{move later
 % - priority queues
 %   - heap
 % - ring
-The fourth category is \emph{stacks and queues}.\sm{better name?}
+The fourth category is \emph{stacks and queues}.
 These collections store elements
 and restrict the access in a way
 that facilitates the efficient implementation of certain use cases.
@@ -810,11 +808,13 @@ if indexing with integers is considered an associative access.
 
 % - range/slice
 % - range map/set
-The six category is \emph{ranged collections}.
-These seem to be rare in form of range maps or sets.
-However, we include here the ranges or slices as well,
-which are available in some languages
-and correspond to a reified potential iteration.
+The six category is \emph{ranged collections},
+which are rare and appear for instance in form of range maps or sets.
+% SM: I agree, they are not collection types, they are potential iterations
+%     should not be named here, but are needed later
+% However, we include here the ranges or slices as well,
+% which are available in some languages
+% and correspond to a reified potential iteration.
 %\bd{Why potential?}\sm{because they still need to be applied. It's a specification for where to iterate, I'd say. You got a better word?}
 
 \subsection{Language Style}
@@ -864,26 +864,27 @@ might result in designs that have benefits\citep{Black:2003:ATS}.
 %     -> providing other functionality via same name
 %     -> structuring requires much care
 
-In some case, languages have evolved to facilitate
+In some case, languages evolved to facilitate
 desired collection library designs\citep{Chakravarty:2005:ATC,Garcia:2007}.
 In other cases,
 the library needed to evolve
 and use the available language mechanisms more effectively
-to improve maintainability and code reuse
-as for instance in the case of Scala\citep{Odersky:2009}.
+to improve maintainability and code reuse\citep{Odersky:2009}.
+% as for instance in the case of Scala
 
 
 
 \subsection{Properties}
 \label{sec:col-properties}
 
-In addition to the basic operations and properties\bd{Was not defined before, drop the sentence?} of collections,
-they can also vary in additional properties.
-As already noted in \cref{sec:col-types},
-it is not always clear whether these properties are completely orthogonal
-to the type of a collection.
-Similarly, the properties we identified are not completely independent
-of each other either.
+% In addition to the basic operations and properties\bd{Was not defined before, drop the sentence?} of collections,
+% they can also vary in additional properties.
+As noted in \cref{sec:col-types},
+it is not always clear whether the properties of collections are orthogonal
+to the collection type,
+but they seem generally useful to be discussed separately.
+% The identified properties are not completely independent
+% of each other either.
 
 \paragraph{Basic Properties}
 
@@ -896,10 +897,9 @@ Similarly, queues might use a variable size implementation or a fixed sized to
 enforce a bound on the upper queue length.
 
 For many collection types,
-there are variants that are \emph{ordered or unordered},
-\ie, they maintain for instance insertion order.
-Lists or other sequences do this commonly,
-but it can be equally beneficial for maps, sets, and other collection types.
+there are variants that are \emph{ordered or unordered}/
+Lists or other sequences commonly maintain insertion order,
+which can be equally beneficial for maps, sets, and other collection types.
 
 % - sorted (absolute, opt-in)
 In addition to ordering, collections can \emph{sort elements}.
@@ -913,24 +913,24 @@ while for other collections it is specifically requested.
 % - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
 % - copy on write
 
-Collection libraries also offer collections that differ in their mutability.
+Libraries also offer collections that differ in their mutability.
 Often there is the basic distinction between
 \emph{mutable} and \emph{immutable} collections.
-Languages such as Java, also provide partial immutability guarantees only
-by offering \emph{read-only views} in form of wrappers for collections.
+Languages such as Java, additionally provide \emph{read-only views} in form of wrappers.
 
-Immutable collections can further vary significantly in their implementation.
+Immutable collections can vary in their implementation.
 Some are implemented as \emph{persistent} data structures,
 which use structural sharing to avoid high memory overhead when producing
 new version of a large collection with only minimal changes.
 
-For some specific use cases,
-we also see the use of \emph{copy-on-write} data structures
+For some use cases,
+we see the use of \emph{copy-on-write} data structures
 such as Java's \code{CopyOnWriteArrayList}.
-These can be useful to provide isolation between multiple entities
+These can be used to isolate multiple entities
 and enable mutability.
 %while minimizing memory usage by employing structural sharing. % BD: no, CopyOnWriteArrayList does not use structural sharing
 
+\here
 \paragraph{Multi-Threading Support}
 
 % - concurrent (various different use cases for same collections)
@@ -1148,6 +1148,14 @@ possible criticism, and tradeoffs.
 \subsection{Identifying a Point in the Design Space}
 
 \paragraph{Types of Collections}
+\smtodo{integrate}
+lists as int->obj maps, treating them polymorphic
+This could lead to an argument that ordered maps are sufficient to represent
+any kind of sequence,
+from which we refrain here even though Lua only offers tables.\smtodo{move later, included into the discussion/design section}
+
+\sm{end integrate}
+
 The first and perhaps most important choice seems to be the selection of the
 desired set of collection types.
 In \cref{sec:col-types}, we identified six groups.
