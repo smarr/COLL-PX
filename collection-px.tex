@@ -578,17 +578,17 @@ The parallel collections focus on parallel execution of bulk operations.
 %   - lists basic builtin type
 %   - tuples
 
-Haskell contains only immutable lists and tuples as basic builtin types.
-Other collections are provided as external packages\bddone{stdlib or really packages to install separately?}\sm{I clarified this a little, but don't think I want to break this out into separate things. not worth it. Also very different from the Java libraries}.
+Haskell offers only immutable lists and tuples as builtin types.
+Other collections are provided as external packages.
+% \bddone{stdlib or really packages to install separately?}\sm{I clarified this a little, but don't think I want to break this out into separate things. not worth it. Also very different from the Java libraries}.
 The \emph{base} library,
 % - concurrent queue (Chan)
 which is the standard library for the Glasgow Haskell Compiler (GHC)
-only contains channels, which are concurrent queues.
-The \emph{containers} library,
-which is considered to be the de-facto standard library,
+only contains channels, \ie, concurrent queues.
+The \emph{containers} library, the de-facto standard collection library,
 provides sequences, maps, graphs, sets, trees, and bit queues.
-Some of these are provided as lazy or strict variants
-to give programmers more fine-grained control.
+Some of these are provided as lazy or strict variants.
+% to give programmers more fine-grained control.
 Similarly, it provides special sets and maps for integers,
 presumably for performance reasons.
 
@@ -602,28 +602,32 @@ presumably for performance reasons.
 \paragraph{Racket 6.12}
 
 % - Pairs and Lists (immutable versions prefered)
-\citeurl{Racket}{The Racket Reference}{Racket Project}{}{https://docs.racket-lang.org/reference/} provides basic pairs and lists in the Scheme tradition.
+\citeurl{Racket}{The Racket Reference}{Racket Project}{}{https://docs.racket-lang.org/reference/} provides pairs and lists in the Scheme tradition.
 % - Vectors
 % - Boxes (1-elem vector)
 % - Hash Tables
 % - Sets
-In addition, it provides, vectors, boxes\bd{uh?}, hash tables, and sets.
+In addition, it provides vectors, boxes, hash tables, and sets.
+% boxes \bd{uh?} 1-element vectors.
 % - immutable versions
-Most collections are available as immutable and mutable variants\bd{differentiated by name or package?}.
+Most collections are available as immutable and mutable variants.
+% \bd{differentiated by name or package?}
+% SM: yes, different names/packages, depends a little
 % - channels (synchronized)
-To support concurrency, it provides channels,
-which are in their asynchronous variant synchronized queues.\bd{confusing}
+To support concurrency, it provides channels.
+Buffered channels are synchronized queues.
+%\bd{confusing}
 
 \paragraph{Pharo 6}
-Pharo 6's collection library is based on the classic collection library
+Pharo's collection library is based on the collection library
 of Smalltalk\citep{Smalltalk80,Cook:1992:ISS}.
 % HashedCollection, Array, bags, stack, set, bag, Matrix, DoubleLinkedList
 It includes arrays, maps, sets, bags, stacks, matrices, and doubly linked lists.
 % - OrderedCollection, OrderedDictionary
 % - SortedCollection
 % - IdentityDictionary, IdentityBag, IdentitySet
-Some collections are available in variants that support ordering, sorting,
-or are based on identity.
+Some collections are available in variants that are ordered, sorted,
+or based on identity.
 % primitive arrays
 It also offers arrays of primitive types that store raw values in memory.
 % SmallDictionary, SmallIdentityDictionary
@@ -635,32 +639,38 @@ it includes weak collections, as well as a number of queues for concurrent use.
 
 \paragraph{Ruby 2.5}
 
-With respect to the number of collection types offered,
-Ruby's library is comparably small.
+% With respect to the number of collection types offered,
+Ruby's collection library is comparably small.
 % - Array, Hash,
 Its main collection types are arrays and maps.
-\ins{Instead of multiple collection types for lists, deques, stacks, etc,
-Ruby supports operations for these in \code{Array}.}
+Instead of offering lists, deques, or stacks as separate collections,
+\code{Array} supports the corresponding operations.
 % - Queue, SizedQueue, WeakMap, Range
-Instead of providing support for ordered or linked maps,
-insertion order is maintained by Ruby's \code{Hash} map in all cases.
-\bd{Same for compare-by-identity, it's a flag within Hash, but too much details perhaps, although nice anecdote?}
-It also provides variable size and bounded queues for multithreading, a range abstraction\bd{Not a collection? Go and others also supports ranges, but seems irrelevant},
+The \code{Hash} map always maintains insertion order,
+and can be instructed with \code{compare_by_identity} to use identity of keys.
+% \bd{Same for compare-by-identity, it's a flag within Hash, but too much details perhaps, although nice anecdote?}
+It also provides variable size and bounded queues for multithreading, a range abstraction,
+% \bd{Not a collection? Go and others also supports ranges, but seems irrelevant},
 and weak maps.
 % - freeze, sort
-Immutability of collections is supported by Ruby's mechanism to freeze objects,
-\ie, to make them immutable.
+Immutability of collections is supported by Ruby's mechanism to freeze objects.
+% , \ie, to make them immutable.
 Sorting is not provided as part of separate collection types either.
-Instead arrays support sorting operations.\bd{Note: Hash too, it's Enumerable\#sort, which always return an Array}
+Instead \code{Hash} and \code{Array} support \code{sort}.
+% \bd{Note: Hash too, it's Enumerable\#sort, which always return an Array}
+Notable is that Ruby's collections provide many internal iteration
+and transformation methods so that external iteration is rarely used
+and consider unidiomatic.
 \bd{Should mention Enumerable contains 56 general iteration+transformation methods for all collections based on \#each? Or Array has 101 methods so iterating loops/iterating by index is rarely needed in Ruby and most used cases are built-in?}
+\sm{something like the above?}
 
 \paragraph{JavaScript, ECMAScript 2016}
 
 % Array, Object
-JavaScript's collection library used to be minimalistic and offered merely
-arrays and objects, which could be used as maps.
+JavaScript's collection library used to offer merely
+arrays and objects, which could be used as maps but only accept strings as keys.
 % map, set
-Since maps that accept only strings as keys can be limiting,
+Since this was limiting,
 newer versions of the ECMAScript standard introduced maps, sets,
 % - WeakMap/WeakSet
 and their weak counter parts.
@@ -674,33 +684,35 @@ directly in memory.
 % https://docs.python.org/3.6/library/collections.html
 
 % - deque, set, list, tuple, range, dict,
-Python offers lists \bd{more like a vector}, immutable tuples, ranges\bd{irrelevant?}, sets, maps, and deques\bd{in separate collections package, move below?}
-as basic collections.
+Python offers lists,
+% \bd{more like a vector}
+immutable tuples, ranges,
+% \bd{irrelevant?},
+sets, and maps as basic collections.
 Since Python 3.6, \code{dict} maintains insertion order and
 % -  OrderedDict (going to be default)
-makes the separate \code{OrderedDict} redundant.
-To provide the ability to create a single view on multiple maps,
+makes \code{OrderedDict} redundant.
+To provide a single view on multiple maps,
 it offers \code{ChainMap}.
 % frozenset
-To enable sets of sets, it offers also a \code{frozenset},
+To enable sets of sets, it includes a \code{frozenset},
 which has the necessary support for obtaining a hash value.
+Priority queues and deques are also provided in standard modules.
 % - queue (synchronized)
 Similar to Racket,
-it provides a synchronized queue abstraction
-to facilitate communication between multiple threads.
+it provides synchronized queues
+to for communication between threads.
 %  - typed primitive arrays
-To represent number types efficiently, it also supports typed arrays.
+To represent numbers efficiently, it also supports typed arrays.
 % bytes, bytearray (imm vs mutable)
 A special case is here the \code{bytes} type,
 which is an immutable byte sequence that is used for instance for byte literals.
-\bd{Python has this funky not-encapsulated way to support priority queues, maybe worth mentioning?}
-% https://docs.python.org/3/library/heapq.html
 
 \paragraph{Dart 1.24}
 
 % - lists, LinkedList, set, map, DoubleLinkedQueue, ListQueue, Queue
-Dart's standard library includes lists, linked lists, sets, maps, list queues,
-or doubly linked queues\bd{uh?}.
+Dart's includes lists, linked lists, sets, maps, list queues,
+and doubly linked queues.
 % - HashSet, LinkedHashSet, SplayTreeSet
 % - HashMap, LinkedHashMap, SplayTreeMap
 Sets and maps are available either using hash tables,
@@ -716,7 +728,8 @@ for efficient representation in memory.
 % - ML, Ocam, Ocaml, ...
 % - other unconventional languages
 
-\bd{Would a table to compare make sense here? Maybe kind of collection * languages = language type if any?}
+% \bd{Would a table to compare make sense here? Maybe kind of collection * languages = language type if any?}
+% SM: yes, but not in this paper.
 
 \paragraph{Lua 5.3}
 
