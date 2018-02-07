@@ -1473,7 +1473,9 @@ Furthermore, there should not be any cost associated with such thread-safety
 if a collection is used only by a single thread.
 We think this is possible by combining our techniques
 for thread-safe object representations\citep{Daloze:2016:TSO}
-for dynamic languages with storage strategies.
+for dynamic languages with storage strategies. % BD: Spoiler alert!
+
+\bd{All quite abstract for sby not knowing storage strategies and friends, maybe give a concrete example?}
 
 To gain the last bits of performance,
 one might want to consider the needs of specialized collections
@@ -1489,7 +1491,7 @@ At this point, perhaps even the compiler can already decide
 to use a queue implementation.
 In gradually typed languages,
 this could be further supported by adding types
-ones performance becomes relevant,
+where performance becomes relevant,
 which may facilitate the selection of a more efficient implementation
 when only a subset of operations is used.
 In dynamic runtimes, such decisions could even be taken optimistically
