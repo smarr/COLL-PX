@@ -326,12 +326,12 @@ it should also not impede live feedback.
 %  - how large (num classes/concepts) are libraries
 %  - any particularly interesting things?
 
-Collection library design seems to be as diverse as languages are different.
+Collection libraries are as diverse as languages are different.
 % There is a multitude of design dimensions that can be varied.
 There are many design dimensions to consider.
 Some dimensions are influenced by the underlying language,
 its basic abstractions,
-as well as what is considered desirable programming style, \ie, idiomatic code.
+as well as what is considers desirable programming style, \ie, idiomatic code.
 Other dimensions include the set of offered collection types,
 implementation strategies (usually differing in space/time tradeoffs),
 or general properties such as synchronization, modifiability, ordering,
@@ -347,14 +347,16 @@ and high-level design differences.
 %   - array
 % - GNU libc: hsearch, tsearch
 
-C, one of the most widely used languages, is an interesting case as the C11 standard only includes a single collection-like abstraction: arrays.
+% C, one of the most widely used languages, is an interesting case as t
+The C11 standard includes only a single collection type: arrays.
 In comparison to other languages, C arrays are merely raw memory.
 They neither include a length nor any form of safety checks,
-and thus represents the minimal possible abstraction that could be provided.
-The \citeurl{GNU C Library}{The GNU C Library (glibc)}{GNU Project}{}{https://www.gnu.org/software/libc/}
+and thus represent the minimal possible abstraction.
+% that could be provided.
+The \citeurl{GNU C Library}{The GNU C Library (glibc)}{GNU Project}{}{https://www.gnu.org/software/libc/manual/}
 expands only minimally on arrays
-by providing hash table and tree-based abstractions \bd{more precise link? function names?}
-mainly designed for searching and sorted access.
+by providing hash table and tree-based operations on arrays
+for searching and sorted access.
 
 \paragraph{C++17 and Boost 1.66}
 
@@ -396,8 +398,8 @@ which at least partially address C++-template specific issues.
 The variations on the vector class address different performance tradeoffs.
 %Similarly, the tree-based sets and maps of the STL are complemented
 %with hash-based implementations. \bd{std::unordered\_map is a HashMap!}
-The overall theme seems to be to address a recurring need for collections
-that are optimized for specific use cases.
+Overall Boost seems to focus on optimized collections
+for specific use cases.
 
 \paragraph{Go 1.9}
 
@@ -410,11 +412,11 @@ The \citeurl{Go language}{The Go Programming Language}{Go Project}{}{https://gol
 comes with abstractions for arrays,
 %slices \bd{slices are just a view of arrays it seems, can we settle on a common terminology for this?},
 lists, rings, maps, and heaps.
-Overall, the library focuses on the basic abstractions needed.
+The library includes only the basic abstractions needed.
 For instance, it does not contain a separate set type,
 perhaps because it can be easily modeled based on maps.
 
-\paragraph{Java 8}
+\paragraph{Java 8, Guava 24, and Eclipse Collections 9.1}
 
 % - Java
 %   - arrays
@@ -428,7 +430,9 @@ which can be of different primitive or object types.
 Its standard library provides implementations for a wide variety of collections
 including lists, maps, sets, queues, deques, priority queue, stacks,
 % - iterators
-and iteration abstractions. \bd{Are iterators relevant? It's just a way to access containers, no?}
+and iteration abstractions.
+% \bd{Are iterators relevant? It's just a way to access containers, no?}
+% SM: yes, iterators are relevant
 Many of the collections come in different variations.
 % - hash map/set, tree map/set
 For maps and sets, there are hash or tree-based implementations.
@@ -441,48 +445,49 @@ Depending on the collection type,
 % - navigable collections
 % - readonly/unmodifiable collections
 % - weak collections
-there are also usually additional variations that for instance
+there are also variations that
 provide ordering guarantees, sorting, make them navigable,
 enforce read-only access, reference elements only weakly,
-or give additional guarantees for concurrent access.
+or give guarantees for concurrent accesses.
 % - concurrent collections
-Concurrent access can be synchronized
-for instance with a basic synchronization wrapper,
+Concurrent accesses can be synchronized
+with a basic synchronization wrapper
 or by using a specific data structure
 that might have less synchronization overhead
 or allows for more parallelism.
-
+%
 As a result,
 the standard library provides a large number of collection implementations.
-While some of the offered additional properties are provided by wrappers,
+While some properties are provided by wrappers
 and allow for combination,
-many of them are separate implementations tuned for specific use cases.
+many collections are separate implementations tuned for specific use cases.
 
-\paragraph{Guava 24}
+% \subparagraph{Guava 24}
 
 % - Guava
-\citeurl{Guava}{Guava: Google Core Libraries for Java}{Guava Project}{}{https://github.com/google/guava}
+\citeurl{Guava}{Guava: Google Core Libraries for Java}{Guava Project}{}{https://github.com/google/guava/wiki/NewCollectionTypesExplained}
 %  - extension, keeps compatibility and set of concepts (for many elements)
 %  - iterators
-extends the Java collection library with additional utility methods,
-while keeping basic compatibility with it.
+extends the Java collection library with additional utility methods
+% , while keeping basic compatibility.
 %  - multiset, multimap, bimap, table (2 nested maps), RangeSet, RangeMap
-It also adds new collection types including multi-sets, multi-maps, 
-bidirectional maps, tables, as well as range sets and maps \bd{What the heck is a RangeSet? Maybe link for it?}.
+and adds
+% new collection types including 
+multi-sets, multi-maps,  bidirectional maps, tables, as well as range sets and maps.
 %  - immutable collections (more optimized over unmodifiable)
-Furthermore, it adds immutable versions of the basic collection types.
-Here the focus is on representing the collections more efficiently in memory,
-and possibly also improving performance for access operations
+Furthermore, it adds immutable versions of the basic collection.
+The focus is on more efficient in-memory representations
+and improving performance for access operations
 compared to Java's read-only/unmodifiable collection wrappers.
 
-\paragraph{Eclipse Collections 9.1}
+% \subparagraph{Eclipse Collections 9.1}
 
 The \citeurl{Eclipse Collections library}{Eclipse Collections}{Eclipse Foundation}{}{https://www.eclipse.org/collections/}
 % extension, keeps compatibility and set of concepts (for many elements)
-is also an extension to the Java standard library keeping basic compatibility.
+also extends the Java collection library.
+% keeping basic compatibility.
 % - BiMap, Bag, Multimap
-Similarly to Guava, it adds new collections
-including bidirectional maps, multi-maps, bags,
+Similarly to Guava, it adds bidirectional maps, multi-maps, bags,
 and provide additional utilities.
 % rich iteration operation, incl. lazy and parallel iteration
 This includes rich support for iteration
@@ -491,8 +496,9 @@ for instance to iterate lazily or in parallel.
 It also adds immutable collections.
 % - specializations for primitive types
 Additionally, it provides specialized collection types for primitive types
-to avoid boxing overhead of Java's collection types.\bd{Which multiplies the number of collections and is tons of duplicated code!}
-\bd{Need to clearly nest those 2 under Java}
+to avoid boxing overhead of Java's collection types.
+% \bd{Which multiplies the number of collections and is tons of duplicated code!}
+
 
 \paragraph{C\# and .NET Framework 4.7}
 
