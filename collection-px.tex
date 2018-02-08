@@ -331,7 +331,7 @@ Collection libraries are as diverse as languages are different.
 There are many design dimensions to consider.
 Some dimensions are influenced by the underlying language,
 its basic abstractions,
-as well as what is considers desirable programming style, \ie, idiomatic code.
+as well as what is considered desirable programming style, \ie, idiomatic code.
 Other dimensions include the set of offered collection types,
 implementation strategies (usually differing in space/time tradeoffs),
 or general properties such as synchronization, modifiability, ordering,
@@ -380,7 +380,7 @@ sets and maps in an ordered (tree-based) and unordered (hash-based) variant,
 as well as adapters to realize stack or queue semantics.
 Generally, the STL remains comparably lean,
 but already provides collections with different performance tradeoffs
-that enable programmers to chose based on their expected usage scenarios.
+that enable programmers to choose based on their expected usage scenarios.
 
 % Boost C++
 %  - expands with specialized containers,
@@ -428,14 +428,14 @@ As basic abstraction, the language includes arrays,
 which can be of different primitive or object types.
 % map, list, set, deque, stack
 Its standard library provides implementations for a wide variety of collections
-including lists, maps, sets, queues, deques, priority queue, stacks,
+including lists, maps, sets, queues, deques, priority queues, stacks,
 % - iterators
 and iteration abstractions.
 % \bd{Are iterators relevant? It's just a way to access containers, no?}
 % SM: yes, iterators are relevant
 Many of the collections come in different variations.
 % - hash map/set, tree map/set
-For maps and sets, there are hash or tree-based implementations.
+For maps and sets, there are hash and tree-based implementations.
 % - lists: linked, array
 Lists are implemented for instance as linked or array lists,
 % - skip list, CopyOnWriteArrayList
@@ -649,7 +649,7 @@ Instead of offering lists, deques, or stacks as separate collections,
 The \code{Hash} map always maintains insertion order,
 and can be instructed with \code{compare_by_identity} to use identity of keys.
 % \bd{Same for compare-by-identity, it's a flag within Hash, but too much details perhaps, although nice anecdote?}
-It also provides variable size and bounded queues for multithreading and a range abstraction.
+Ruby also provides variable size and bounded queues for multithreading and a range abstraction.
 % \bd{Not a collection? Go and others also supports ranges, but seems irrelevant},
 %and weak maps. % BD: that's internal (ObjectSpace::WeakMap) and seems not used, only WeakRef at the user-level
 % - freeze, sort
@@ -701,7 +701,7 @@ Priority queues and deques are also provided in standard modules.
 % - queue (synchronized)
 Similar to Racket,
 it provides synchronized queues
-to for communication between threads.
+for communication between threads.
 %  - typed primitive arrays
 To represent numbers efficiently, it also supports typed arrays.
 % bytes, bytearray (imm vs mutable)
@@ -710,9 +710,8 @@ which is an immutable byte sequence that is used for instance for byte literals.
 
 \paragraph{Dart 1.24}
 
-% - lists, LinkedList, set, map, DoubleLinkedQueue, ListQueue, Queue
-Dart's includes lists, linked lists, sets, maps, list queues,
-and doubly linked queues.
+% - lists (vector), LinkedList (doubly), set, map, DoubleLinkedQueue (linked deque), ListQueue (array deque), Queue
+Dart includes lists, deques, sets, maps and queues in many variants.
 % - HashSet, LinkedHashSet, SplayTreeSet
 % - HashMap, LinkedHashMap, SplayTreeMap
 Sets and maps are available either using hash tables,
