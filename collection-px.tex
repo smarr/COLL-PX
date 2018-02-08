@@ -913,50 +913,48 @@ while for other collections it is specifically requested.
 % - persistence (persistent data structures, just an implementation technique for immutable collections? or does it have a design impact? probably, because of performance aspects)
 % - copy on write
 
-Libraries also offer collections that differ in their mutability.
-Often there is the basic distinction between
-\emph{mutable} and \emph{immutable} collections.
-Languages such as Java, additionally provide \emph{read-only views} in form of wrappers.
+Collections can differ in their mutability
+and be available in \emph{mutable} and \emph{immutable} versions.
+Some libraries additionally provide \emph{read-only views} in form of wrappers.
 
-Immutable collections can vary in their implementation.
-Some are implemented as \emph{persistent} data structures,
+Some immutable collections are implemented as \emph{persistent} data structures,
 which use structural sharing to avoid high memory overhead when producing
 new version of a large collection with only minimal changes.
 
-For some use cases,
-we see the use of \emph{copy-on-write} data structures
-such as Java's \code{CopyOnWriteArrayList}.
-These can be used to isolate multiple entities
+Special-purpose variations include further
+\emph{copy-on-write} data structures
+such as Java's \code{CopyOnWriteArrayList},
+which can be used to isolate multiple entities
 and enable mutability.
 %while minimizing memory usage by employing structural sharing. % BD: no, CopyOnWriteArrayList does not use structural sharing
 
-\here
+
 \paragraph{Multi-Threading Support}
 
 % - concurrent (various different use cases for same collections)
 % - parallel (for bulk operations, can also be realized via streams)
 % - synchronized (just thread-safe wrappers)
 
-To support various multi-threaded scenarios, 
-collection libraries can include a multitude of different collection types.
+To support multi-threaded applications, 
+libraries can include various collection types.
 The simplest solution to ensure correctness is
 to provide \emph{synchronization wrappers} as done by Java and C\#.
-However, these collections are not really efficient
-and often lack support for performing multiple operations safely together.
-\bd{also iterators are typically not synchronized as they would hold the lock too long, at least in Java}
+However, this approach is rarely efficient
+and often lacks support for performing multiple operations safely together.
+% \bd{also iterators are typically not synchronized as they would hold the lock too long, at least in Java}
 These problems are typically addressed
 by specialized \emph{concurrent} collections,
-which are optimized for specific use cases.
-This often leads to a proliferation of collection types.
-For instance queues can be optimized for various different use cases.
-A queue for a single producer but multiple consumers can often be implemented
+which are optimized for specific use cases,
+leading to a proliferation of collection types.
+For instance a queue for a single producer but multiple consumers
+can often be implemented
 more efficiently than a queue for multiple producers.
 
 For efficient bulk operations,
 languages such as Scala provide \emph{parallel} collections,
-where operations are executed in parallel.
+which execute operations in parallel.
 Similar to sorting, where some collections do it intrinsically,
-this is also a property that is often provided via operations
+parallel execution is often provided via operations
 external to the collection (cf. \cref{sec:operations}).
 
 \paragraph{Other Properties}
@@ -971,18 +969,22 @@ Languages such as Haskell offer the distinction between \emph{lazy and strict}
 collections to provide control over when operations are executed.
 However, this distinction is not exclusive to lazy languages.
 In conjunction with iteration,
-other languages often also offer the option to perform operations lazily.
+other languages can also offer lazy execution.
 
 % - identity-specific collections
 %   - might be an optimization
 %   - can generally be realized by parametrizable operations for example for comparisons or hashing
 
-Finally, we observed collections such as sets and maps
+Finally, we found sets and maps
 that use \emph{identity} as main distinguishing criterion.
-We presume that these collections are optimizations for a common use case,
-because languages such as Java, Smalltalk, and Dart would allow to construct
+Presumably, these collections are optimizations
+because Java, Smalltalk, and Dart would allow to construct
 maps that can be parameterized with appropriate operations
 for comparison and hashing by identity.
+
+\here
+
+
 
 \subsection{Operation Design}
 \label{sec:operations}
