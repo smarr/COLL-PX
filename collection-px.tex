@@ -986,19 +986,14 @@ for comparison and hashing by identity.
 \label{sec:operations}
 
 % - basic operations
-The design of collection operations is likely influenced to a large degree
-by the language style (cf. \cref{sec:language-style}).
-This influences naming, which operations are offered,
+The design of collection operations depends
+on the language style (cf. \cref{sec:language-style}).
+The style influences naming, which operations are offered,
 how bulk operations are realized, or errors are handled.
 To give just one example, in Smalltalk it is common to pass closures as arguments
 to operations that might fail to provide the failure handling code directly.
 In other languages, return codes or exceptions indicate failure
 and are handled externally to the collection.
-
-\here
-
-
-
 
 % - sorting
 There are other previously mentioned aspects
@@ -1017,8 +1012,8 @@ One important aspect of designing the interfaces of collections is the intended
 degree of polymorphism,
 \ie, whether collections should offer the same interfaces.
 To facilitate code reuse, one might want to design collections
-that have different properties such as being mutable or immutable
-in a way that still allows them to be used mostly interchangeably.
+with different properties such as being mutable or immutable
+so that they can used mostly interchangeably.
 One way of doing this is by using decorators or wrappers around collections
 that add the desired properties, \eg, read-only views or basic synchronization in Java.
 Other options to consider are whether maps should be iterable
@@ -1042,6 +1037,8 @@ to define how to iterate.
 Finally, other concepts such as internal vs external iteration, streams,
 and language-integrated query (LINQ)
 further influence the set of offered operations.
+
+\here
 
 \subsection{Algorithms, Data Structures, and Implementation Choices}
 \label{sec:impl-choices}
