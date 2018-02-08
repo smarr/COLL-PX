@@ -836,7 +836,7 @@ shapes libraries in various ways.
 In dynamically-typed languages,
 we see the need for explicit support of collections for primitive types, \eg,
 to store numeric data efficiently.
-This includes basic sequential collections for numeric elements (\eg \code{Int32Array} in ECMAScript)
+This includes basic sequences for numeric elements (\eg \code{Int32Array} in ECMAScript)
 or primitive maps or sets (\eg \code{IntMap in Scala}).
 %      - templates
 In typed languages,
@@ -896,14 +896,15 @@ Similarly, queues might use a variable size implementation or a fixed sized to
 enforce a bound on the upper queue length.
 
 For many collection types,
-there are variants that are \emph{ordered or unordered}/
+there are variants that are \emph{ordered or unordered}.
 Lists or other sequences commonly maintain insertion order,
 which can be equally beneficial for maps, sets, and other collection types.
 
 % - sorted (absolute, opt-in)
 In addition to ordering, collections can \emph{sort elements}.
-Some collections maintain a sorted order at any point in time,
-while for other collections it is specifically requested.
+Some collections  such a tree-based collections maintain a sorted order at all times and
+provide operations taking advantage of this property.
+Some collections support an operation to sort elements on demand.
 
 \paragraph{Mutability}
 
@@ -918,7 +919,7 @@ Some libraries additionally provide \emph{read-only views} in form of wrappers.
 
 Some immutable collections are implemented as \emph{persistent} data structures,
 which use structural sharing to avoid high memory overhead when producing
-new version of a large collection with only minimal changes.
+a new version of a large collection with only minimal changes.
 
 Special-purpose variations include further
 \emph{copy-on-write} data structures
