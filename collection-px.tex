@@ -731,6 +731,7 @@ for efficient representation in memory.
 % SM: yes, but not in this paper.
 
 \paragraph{Lua 5.3}
+\label{sec:lua53}
 
 \citeurl{Lua}{Lua 5.3}{Lua.org}{}{https://www.lua.org/manual/5.3/}
 is designed as a lightweight language for embedding and scripting.
@@ -1107,8 +1108,6 @@ It also considers Smalltalk arrays
 % \bd{What arrays? OrderedCollection or built-in Smalltalk arrays? Or primitive arrays?}
 and finds that they are used slightly more often than \code{Dictionary}.
 
-\here
-
 \section{A Collection Design for Exploratory Programming}
 
 % key goals to facilitate exploratory programming:
@@ -1121,10 +1120,10 @@ and finds that they are used slightly more often than \code{Dictionary}.
 
 As discussed in \cref{sec:exploratory}, to facilitate exploratory programming
 a collection library needs to help programmers to
-1) focus on problem domain
+1) focus on the problem domain
 2) avoid unnecessary decisions
 and 3) enable the environment to provide feedback in form of
-\eg, errors, hints, tooling, documentation.
+\eg, errors, hints, tooling, and documentation.
 To us, this means we either want to completely avoid a choice
 for or against a specific collection type or property,
 or postpone it as far as possible.
@@ -1147,13 +1146,6 @@ possible criticism, and tradeoffs.
 \subsection{Identifying a Point in the Design Space}
 
 \paragraph{Types of Collections}
-\smtodo{integrate}
-lists as int->obj maps, treating them polymorphic
-This could lead to an argument that ordered maps are sufficient to represent
-any kind of sequence,
-from which we refrain here even though Lua only offers tables.\smtodo{move later, included into the discussion/design section}
-
-\sm{end integrate}
 
 The first and perhaps most important choice seems to be the selection of the
 desired set of collection types.
@@ -1169,15 +1161,40 @@ in a way that one can easily opt into properties or opt out from them.
 However, this should be designed together with tool support
 to avoid losing relevant feedback from the environment.
 \bd{What kind of feedback? Still unclear to me.}
+\sm{unclear, how?
+feedback in form of errors, hints, tooling, documentation. we just said that in the into to sec. 6, no?}
 
-A case could be made here whether to include sets or not.
-Sets can be easily emulated with maps\bd{(albeit with some memory overhead)}, or as set operations on sequences\bd{but inefficient or easy to break the uniqueness invariant then, no?}.
-\bd{Need to clarify if it's just some extra oeprations like addUnique (but then normal add breaks uniqueness) or Ruby-like, which allows set operations on sequences by using a set internally basically, but then no efficient way to mutate the set/add an element after that}
+It can be debated whether to include sets or not.
+Sets can be easily emulated with maps
+% \bd{(albeit with some memory overhead)},
+% SM: we say we don't care, 80% is sufficient,
+%     so, I don't think this needs to be included here
+ or with set operations on sequences.
+% \bd{but inefficient or easy to break the uniqueness invariant then, no?}.
+% \bd{Need to clarify if it's just some extra oeprations like addUnique (but then normal add breaks uniqueness) or Ruby-like, which allows set operations on sequences by using a set internally basically, but then no efficient way to mutate the set/add an element after that}
+% SM: hope the change is clarifying enough
 Since the use and semantics of sets is distinct enough from sequences and maps,
-we would err on the side of slightly bloating the basic set of collections
-and include them, even though there are a number of languages that do not do so.
+and the various possible designs of emulating sets have drawbacks,
+we would % err on the side of slightly bloating the basic set of collections
+and include them directly,
+even though there are a number of languages that do not do so.
+
+Similarly, one can argue that maps are merely lists of pairs
+or that all sequences should be associative arrays.
+We agree that it can be beneficial to threat them as being polymorphic,
+and Lua is a great example that shows having only associative arrays
+(cf. \cref{sec:lua53}) is practical.
+However, we consider the usage of maps and sequences
+as sufficiently distinct to warrant
+the distinction between them. 
+
 Thus, we propose to include \emph{sequences}, \emph{maps}, and \emph{sets}.
-\bd{What's a good use-case for sets? Seems like a map with an unused value to me.}
+% \bd{What's a good use-case for sets? Seems like a map with an unused value to me.}
+% SM: every query where you want a uniqe set of elements at the end
+%     happens plenty of times when processing data
+
+\here
+
 
 \paragraph{Language Style}
 
@@ -1589,6 +1606,19 @@ by a small and versatile collections library,
 I cannot shake the feeling
 that this is a post hoc justification
 for the complexity we add to VMs.
+
+\begin{note}
+  - many types vs. many methods
+    -> few polymorphic types, and many methods help discoverability
+      -> don't have to investigate huge hierarchies 
+  
+  - future work
+    -complete taxonomy
+    -more complete survey
+    -> other languages, language types
+    -> other libraries that complement standard libraries
+\end{note}
+
 
 
 %% ATTIC, Notes on Things Considered, but not included
