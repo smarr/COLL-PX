@@ -1069,9 +1069,6 @@ Some libraries provide separate classes for each possible type and property,
 while others realize the desired properties with decorators,
 \ie, wrapper constructs.
 
-\here
-
-
 \section{Collection Usage}
 \label{sec:usage}
 
@@ -1099,16 +1096,18 @@ About 15\% all instantiation sites were for some set type.
 Again, the large majority was for Java's \code{HashSet}
 with about 10\% of all allocations.
 
-The only other study of the usage of collections we are aware of
+The only other study on collection usage we are aware of
 was included in work by \citet[sec. 9.2]{Bergel:2018}.
 They observed that \code{OrderedCollection} (similar to \code{ArrayList})
 and \code{Dictionary} (a map) are the most frequently used collections
 in some larger Pharo Smalltalk projects.
 While the study is less comprehensive than the Java one,
 it confirms the general trend.
-Interestingly, it also considers arrays\bd{What arrays? OrderedCollection or built-in Smalltalk arrays? Or primitive arrays?}
+It also considers Smalltalk arrays
+% \bd{What arrays? OrderedCollection or built-in Smalltalk arrays? Or primitive arrays?}
 and finds that they are used slightly more often than \code{Dictionary}.
 
+\here
 
 \section{A Collection Design for Exploratory Programming}
 
