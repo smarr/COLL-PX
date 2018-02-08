@@ -982,23 +982,23 @@ because Java, Smalltalk, and Dart would allow to construct
 maps that can be parameterized with appropriate operations
 for comparison and hashing by identity.
 
-\here
-
-
-
 \subsection{Operation Design}
 \label{sec:operations}
 
 % - basic operations
 The design of collection operations is likely influenced to a large degree
-by the language style as mentioned in \cref{sec:language-style}.
-On the one hand, this influences naming of operations,
-on the other hand, it influences which operations might be offered,
-how bulk operations are offered, or how error handling is done.
+by the language style (cf. \cref{sec:language-style}).
+This influences naming, which operations are offered,
+how bulk operations are realized, or errors are handled.
 To give just one example, in Smalltalk it is common to pass closures as arguments
 to operations that might fail to provide the failure handling code directly.
-In other languages, return codes or exceptions are used to indicate failure
-that has to be handled externally to the collection.
+In other languages, return codes or exceptions indicate failure
+and are handled externally to the collection.
+
+\here
+
+
+
 
 % - sorting
 There are other previously mentioned aspects
