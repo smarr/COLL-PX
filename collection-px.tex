@@ -649,20 +649,20 @@ Instead of offering lists, deques, or stacks as separate collections,
 The \code{Hash} map always maintains insertion order,
 and can be instructed with \code{compare_by_identity} to use identity of keys.
 % \bd{Same for compare-by-identity, it's a flag within Hash, but too much details perhaps, although nice anecdote?}
-It also provides variable size and bounded queues for multithreading, a range abstraction,
+It also provides variable size and bounded queues for multithreading and a range abstraction.
 % \bd{Not a collection? Go and others also supports ranges, but seems irrelevant},
-and weak maps.
+%and weak maps. % BD: that's internal (ObjectSpace::WeakMap) and seems not used, only WeakRef at the user-level
 % - freeze, sort
 Immutability of collections is supported by Ruby's mechanism to freeze objects.
 % , \ie, to make them immutable.
 Sorting is not provided as part of separate collection types either.
-Instead \code{Hash} and \code{Array} support \code{sort}.
+Instead \code{Hash} and \code{Array} have a \code{sort} method.
 % \bd{Note: Hash too, it's Enumerable\#sort, which always return an Array}
-Notable is that Ruby's collections provide many internal iteration
-and transformation methods so that external iteration is rarely used
-and consider unidiomatic.
-\bd{Should mention Enumerable contains 56 general iteration+transformation methods for all collections based on \#each? Or Array has 101 methods so iterating loops/iterating by index is rarely needed in Ruby and most used cases are built-in?}
-\sm{something like the above?}
+Ruby's collections provide many internal iteration
+and transformation methods so that external iteration is rarely used.
+%and considered unidiomatic.
+%\bd{Should mention Enumerable contains 56 general iteration+transformation methods for all collections based on \#each? Or Array has 101 methods so iterating loops/iterating by index is rarely needed in Ruby and most used cases are built-in?}
+%\sm{something like the above?}
 
 \paragraph{JavaScript, ECMAScript 2016}
 
