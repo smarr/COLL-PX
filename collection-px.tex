@@ -761,13 +761,12 @@ even so it is not always obviously beneficial.
 % - array
 % - list/vector, tuples, pairs, boxes
 % - bags/multisets
-Consequently,
-the first category of collection types is \emph{bags or sequences}.
+The first category of collection types is \emph{sequences}.
 % \bd{bags are not even cited below}
 % SM: no, bags belong in here
-Considering ordering, mutability, sizing, and representation
+Considering mutability, sizing, and representation
 as orthogonal concerns,
-this category includes arrays, lists, vectors, tuples, pairs, boxes, and bags, \ie, multi-sets.
+this category includes arrays, lists, vectors, tuples, pairs and boxes.
 Generally, these collections provide the ability to store elements
 that are possibly repeating
 and operate on them perhaps by direct access or via iteration.
@@ -780,7 +779,8 @@ and only store a single occurrence based on some equivalence criterion.
 % - map
 % - multi-map
 % - bidirectional map
-The third category is \emph{maps}, which store key-value pairs.
+The third category is \emph{maps}, which maintain a mapping from keys to values.
+We put bags, i.e., multi-sets, in this category as they map keys to a number of occurrences.
 Languages such as Racket allow polymorphism between indexed sequences and maps (the key being the index).
 %\bd{not clear, be more direct: In Racket sequences can be seen as a special case of maps.}\sm{hmmm, but this is saying something different. What I say is they have the same interface. you say lists are a special case. Think what you say is too specific and not generally true (Racket needs the list to be a list of explicit pairs, while a vector is directly a \code{dictionary}).}
 
