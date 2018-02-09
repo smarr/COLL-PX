@@ -1488,8 +1488,8 @@ good performance is still essential to make a collection design practical.
 With the proposed design, it is likely not possible to achieve 100\%
 of the performance that specialized collections can provide
 for specific use cases.
-However, if we can tradeoff some performance for more programmer productivity
-it is likely still beneficial.
+However, if trading some performance for more programmer productivity
+seems beneficial.
 
 % General Solution: adaptive data structures
 %   - chose specific implementation/algorithm/data structure
@@ -1505,24 +1505,23 @@ already contemplated their use.
 More recently, \citet{DeWael:15:JitData} experimented
 with so-called just-in-time data structures,
 which allows a data structure to specialize
-based on the specific usage patterns observed.
-Such techniques have been used successfully
+based on observed usage patterns.
+Such techniques are used successfully
 for collections in dynamic languages.
 %  -> strategies (seq, par)
 %   - Storage strategies for collections in dynamically typed languages
-Storage strategies\citep{Bolz:2013:SSC,Clifford:2015:MMD} are a common technique
-to ensure that homogeneous collections use efficient in-memory representation
-avoiding boxing
-despite the absence of static type information. 
+For example, storage strategies\citep{Bolz:2013:SSC,Clifford:2015:MMD} 
+ensure that homogeneous collections use efficient in-memory representation
+avoiding boxing without static types. 
 % -> statically typed languages 
 %   - compiler for static languages can do certain optimizations ahead of time:
 %     - compiler-level specialization as with miniboxing \citep{Ureche:2013:MIS}
 %     - C++ templates (expanding ones), eager specialization
-In statically type languages, this is typically not an issue,
-since for instance C++ templates enable specialization at compile time,
-and even on top of just-in-time compiling runtimes,
-techniques such as miniboxing allow efficient representation by exploiting
-compile-time information\citep{Ureche:2013:MIS}.
+Statically type languages use perhaps mechanisms such as
+C++ templates to specialize code at compile time.
+% and even on top of just-in-time compiling runtimes,
+% techniques such as miniboxing allow efficient representation by exploiting
+% compile-time information\citep{Ureche:2013:MIS}.
 
 \citet{Xu2013} and \citet{Costa:2018:CS} go beyond simply avoiding boxing.
 They show that collections can be adapted further to take concrete usage
@@ -1551,30 +1550,33 @@ We think this is possible by combining our techniques
 for thread-safe object representations\citep{Daloze:2016:TSO}
 for dynamic languages with storage strategies. % BD: Spoiler alert!
 
-\bd{All quite abstract for sby not knowing storage strategies and friends, maybe give a concrete example?}
+% \bd{All quite abstract for sby not knowing storage strategies and friends, maybe give a concrete example?}
+% SM: I don't want to make the section much longer
+%%    Ideally, it fits on half a page
 
 To gain the last bits of performance,
-one might want to consider the needs of specialized collections
-while designing the generic ones.
-It seems plausible that the operations could be designed to be polymorphic.
+one might want to consider the needs of specialized collections,
+% while designing the generic ones,
+for instance by ensuring that operations conform to a common interface.
+% It seems plausible that the operations are polymorphic.
 In such cases,
-it could be simple to replace the instantiation of a generic collection
+the instantiation of a generic collection could simply be replaced
 with a specialized one, possibly from an external library.
 This might even be facilitated by tooling
 which determines that a specific sequence allocation results in objects being
 always used as a queue.
-At this point, perhaps even the compiler can already decide
-to use a queue implementation.
-In gradually typed languages,
+At this point, a compiler could select a queue implementation.
+In gradually-typed languages,
 this could be further supported by adding types
 where performance becomes relevant,
 which may facilitate the selection of a more efficient implementation
 when only a subset of operations is used.
-In dynamic runtimes, such decisions could even be taken optimistically
-and reversed if the assumption turned out to be violated.
-To ensure learning, dynamic runtimes typically use allocation-site feedback\citep{Clifford:2015:MMD}.
+% In dynamic runtimes, such decisions could even be taken optimistically
+% and reversed if the assumption turned out to be violated.
+% To ensure learning, dynamic runtimes typically use allocation-site feedback\citep{Clifford:2015:MMD}.
 
-\bd{Small summary here to summarize all these hardcore details? We can have good perf for small/versatile collections thanks to these many technicques and many implementations use them.}
+% \bd{Small summary here to summarize all these hardcore details? We can have good perf for small/versatile collections thanks to these many technicques and many implementations use them.}
+% SM: that's for the conclusion
 
 % \begin{note}
 %
