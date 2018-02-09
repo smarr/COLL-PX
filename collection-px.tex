@@ -1194,9 +1194,6 @@ Thus, we propose to include \emph{sequences}, \emph{maps}, and \emph{sets}.
 % SM: every query where you want a uniqe set of elements at the end
 %     happens plenty of times when processing data
 
-\here
-
-
 \paragraph{Language Style}
 
 Generally, we consider the language style as a given from the host language
@@ -1223,7 +1220,6 @@ in its documentation.
 Thus, we advice collection designers to consider this issue
 and ensure that tooling and documentation hide such accidental complexity.
 
-
 \paragraph{Properties}
 
 Because of the various properties collections might want to support,
@@ -1239,7 +1235,7 @@ it is useful to offer for instance constructors
 that allow creating a collection with the desired size and default value.
 % bounded queues are special purpose, and should be provided as need by external library
 Special purpose collections such as bounded queues could then be provided
-as external libraries only.
+as external libraries.
 
 % ordered vs. unordered
 % all collections should maintain insertion order
@@ -1261,7 +1257,9 @@ On the other hand, the choice between having mutable and immutable collections i
 bound to the language style.
 In the interest of maintaining a minimal set of collections only,
 deciding on either mutable or immutable seems to be preferable and avoid confusion and duplication.
-\bd{mutable is more flexible, isn't it? But it might expose some extra complexity to the user}
+% \bd{mutable is more flexible, isn't it? But it might expose some extra complexity to the user}
+% SM: that's a complex debate, and I don't think this is easily argued.
+%     not sure I even agree. good immutable collections look like 
 %% forgo read-only wrappers and copy-on-write things to keep things minimal
 Similarly, we would relegate read-only wrappers or copy-on-write collections
 to external libraries.
@@ -1269,23 +1267,24 @@ to external libraries.
 %% thread-safety
 \label{sec:design-thread-safety}
 %% should be provided implicitly by the language (cf. )
-Thread-safety is desirable for all languages that support multiple threads and sharing collections.
+Thread-safety is desirable for languages
+that support sharing collections between multiple threads.
 As discussed in \cref{sec:impl-techniques},
 we think this can be provided implicitly without drawbacks.
-However, to provide the atomicity on the right level,
-collections need to include commonly-used operations
-such as \code{computeIfAbsent} or \code{putIfAbsent},
+However, to provide atomicity of the right granularity,
+collections need commonly-used operations
+such as \code{computeIfPresent} or \code{putIfAbsent},
 which typically check some condition on the collection,
 potentially perform a user-specified operation, and then modify the collection.
 
 
 %% parallel operations should be provide in orthogonal way
 To keep the set of collections minimal,
-support for parallel execution of bulk operations is
-better introduced by orthogonal means.
+parallel execution of bulk operations is
+best introduced by orthogonal means.
 %%  internal or external parallel operations, possibly in form of streams
 This could mean as part of operations for internal traversal
-or mechanisms for external traversal, possibly in form of streams.
+or mechanisms for external traversal, possibly using streams.
 
 %% laziness
 Whether to support strict or lazy operations seems
@@ -1306,8 +1305,8 @@ which can be easily customized.
 \paragraph{Operation Design}
 
 % language dependent
-For a large part of the design decisions around collection operations,
-we assume that the language type dictates a certain style.
+For a large part,
+we assume that language style and type dictate a certain operation style.
 % operations that are parameterized with closures might help explorability
 However, operations on collections might be especially easy to access
 for instance with good code completion.
@@ -1319,15 +1318,22 @@ Thus, supporting a wide range of internal iteration operations seems useful
 and can support complex queries.
 Concepts such as loops or streams for external iteration
 can still be beneficial, too.
-\bd{There could be an argument internal iteration is much simpler for implementing in your own collection, to integrate with the existing collection framework, but requires lambdas to be convenient. External iteration is also arguably ugly on the caller side for most usages. But maybe out of scope? IMHO streams are a new abstraction which is not needed.}
+We also argue that these operations are easier to discover
+than operations hidden in some complex hierarchy
+of special purpose collection classes.
+Thus, we consider a small set of collection types
+with a large number of operations
+as a choice beneficial for exploratory programming.
+% \bd{There could be an argument internal iteration is much simpler for implementing in your own collection, to integrate with the existing collection framework, but requires lambdas to be convenient. External iteration is also arguably ugly on the caller side for most usages. But maybe out of scope? IMHO streams are a new abstraction which is not needed.}
+% SM: not sure this is true. and ugly is also a matter of style/perspective
 %
 % high degree of polymorphims between collections seems desirable 
 % allows for quickly changing collection type
 % or generalizing code
-Ensuring a high degree of polymorphism between collections
+Furthermore, ensuring a high degree of polymorphism between collections
 seems especially desirable in the exploratory stage,
 because it allows switching between collections or generalizing code
-without much accidental and distracting effort.
+without accidental complexity and technical issues distracting form the problem to be solved.
 
 \paragraph{Algorithms, Data Structures, and Implementation Choices}
 
@@ -1339,6 +1345,10 @@ and instead expect the underlying implementation
 to be \emph{sufficiently smart}.
 As argued in \cref{sec:impl-techniques},
 it seems feasible and practical to make this tradeoff.
+
+\here
+
+
 
 \subsection{Discussion}
 
