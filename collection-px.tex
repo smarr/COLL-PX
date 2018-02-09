@@ -1393,7 +1393,7 @@ an instance of \emph{the blob} anti-pattern.\citep{brown1998antipatterns}
 %    interactions one wants to allow on the collection
 The strongest argument we see is
 that code interacting with the collection is not explicit about
-what is the desired usage.
+the desired usage.
 % \bd{disagreed, see below and let's not shoot ourselves}
 For instance, a sequence can be easily used as a stack, queue, deque, or list.
 % \bd{Well, what if I use it as a deque?}
@@ -1431,15 +1431,17 @@ and provide useful feedback to programmers.
 %Thus, one rarely sees the use of \code{ArrayList} or \code{HashMap}
 %in operation signatures.
 %Instead, the \code{List} and \code{Map} interfaces are used.
-For typed languages such as Java, it is idiomatic to type fields as \code{List} or \code{Map} and not the specific \code{ArrayList} or \code{HashMap}, in order to facilitate reuse.
-This illustrates that the specific type or implementation is of little concern and instead the general collection type or interface is clear enough for the usages of the collection.
+For languages such as Java, it is idiomatic to use \code{List} or \code{Map} instead of the more specific \code{ArrayList} or \code{HashMap} to facilitate reuse.
+This illustrates that in many cases the specific type
+is less desirable than some might argue.
+% or implementation is of little concern and instead the general collection type or interface is clear enough for the usages of the collection.
 
 % -> set/map: implemented as tree or hash table?
 % -> linked list or array list, or linked segments?
 % -> can't make a right choice without knowing exactly what
 %    run time load is going to be
 
-Arguably, performance-driven choices are 
+Furthermore, performance-driven choices are 
 % With a minimal set of collection types,
 % it is also not possible to directly select an implementation strategy.
 % Should a map be realized by a tree or hash table,
