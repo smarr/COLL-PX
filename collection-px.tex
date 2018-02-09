@@ -1626,29 +1626,35 @@ that allows extensions from external libraries.
 
 This paper informally reviews collection libraries of 13 languages to identify
 design dimensions and concerns that impact programming experience.
-Based on the identified dimension
+Based on the identified dimensions
 and a brief literature review of collection usage studies,
 we argue that a small set of collections with versatile operations
 is beneficial for exploratory programming.
-Specifically, we propose to only offer sequences, maps, and sets.
+%Specifically, we propose to only offer sequences, maps, and sets.
+%\bd{and only one user-visible type for each of those}
+Specifically, we propose to only offer three collections, a sequence, a map, and a set.
 We further argue that these collections can be implemented efficiently
 with modern run-time techniques.
 
 From our perspective, this design facilitates exploratory programming,
-because it avoids or relegates many typical implementation decisions.
-Specifically, it avoids deciding upfront on a specific collection types
-or data structures.
+because it avoids many typical implementation decisions or relegates them to the runtime.
+Specifically, it avoids deciding upfront on a specific collection type
+or data structure.
+\bd{
+Switching to another usage with a versatile collection (e.g., using it as a vector instead of a stack) becomes trivial,
+instead of having to carefully review each usage.
+}
 Having a large set of operations on a small set of collections also
 provides better discoverability,
 because specialized operations
 are not lost in complex hierarchies of collection types.
-Thus, collections are likely simpler and more convenient to use.
+Thus, the collection library is likely simpler and more convenient to use.
 
 The drawback is that such collections
 add complexity to language implementations,
 which must provide complex optimizations
 to achieve a performance similar to specialized collections.
-However, many techniques already exist to optimizing these collections
+However, many techniques already exist to optimize these collections
 and increasing language implementation complexity for improved productivity
 seems to be an acceptable tradeoff.
 
@@ -1665,11 +1671,13 @@ seems to be an acceptable tradeoff.
 
 Future work should chart the design space for collection libraries more 
 thoroughly and completely.
+%A taxonomy could be developed to clearly compare the collections types
+%that most languages name differently.
 This is only a first snapshot of a small set of languages and libraries.
 For example, the ecosystems of Java and  C/C++
 offer many other collection libraries,
 with various tradeoffs.
-Other language types for instance for array programming,
+Other types of languages, such as array programming,
 scientific computations, or large-scale parallelism come with their own
 requirements, which have not been considered.
 
