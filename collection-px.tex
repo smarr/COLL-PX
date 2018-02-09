@@ -1640,10 +1640,13 @@ From our perspective, this design facilitates exploratory programming,
 because it avoids many typical implementation decisions or relegates them to the runtime.
 Specifically, it avoids deciding upfront on a specific collection type
 or data structure.
-\bd{
-Switching to another usage with a versatile collection (e.g., using it as a vector instead of a stack) becomes trivial,
-instead of having to carefully review each usage.
-}
+Consequently, adapting the usage of a collection,
+\eg, from a vector to a stack becomes trivial
+and does not interrupt the process of understanding the domain problem.
+% \bd{
+% Switching to another usage with a versatile collection (e.g., using it as a vector instead of a stack) becomes trivial,
+% instead of having to carefully review each usage.
+% }
 Having a large set of operations on a small set of collections also
 provides better discoverability,
 because specialized operations
@@ -1671,6 +1674,9 @@ seems to be an acceptable tradeoff.
 
 Future work should chart the design space for collection libraries more 
 thoroughly and completely.
+It would be useful to develop a common taxonomy for all related concepts
+because there is rarely any agreement on naming or semantics between different
+libraries.
 %A taxonomy could be developed to clearly compare the collections types
 %that most languages name differently.
 This is only a first snapshot of a small set of languages and libraries.
