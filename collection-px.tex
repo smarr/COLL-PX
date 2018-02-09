@@ -1395,16 +1395,13 @@ an instance of \emph{the blob} anti-pattern.\citep{brown1998antipatterns}
 % -> yes, it's an issue, the code is not clear about what kind of 
 %    interactions one wants to allow on the collection
 The strongest argument we see is
-that the code is not explicit about
-what the desired interaction with a collection are.
+that code interacting with the collection is not explicit about
+what is the desired usage.
 % \bd{disagreed, see below and let's not shoot ourselves}
 For instance, a sequence can be easily used as a stack, queue, deque, or list.
 % \bd{Well, what if I use it as a deque?}
 % SM: what's the point? not sure how this is related to anything?
 %     I added deque to the list of examples.
-However, one rarely wants to switch between these uses
-on the same collection instance.
-Mixing up the relevant operations is thus likely a bug.
 %      - some people argue that programs are better understood if these things are explicit: \citep{PeytonJones:1996:BTC}
 %        -> """The type of the object does not specify its invariant (\eg in a set there are no duplicates) and its expected operations (\eg lookup in a infinite map). The lack of these invariants makes the program harder to understand, harder to prove properties about, and harder to maintain."""
 %        -> generic data structures (lists in case of Haskell) might not be optimal
@@ -1412,28 +1409,33 @@ Other arguments, for instance by \citet{PeytonJones:1996:BTC}
 include that such generic types and the lack of specific invariants
 make it harder to understand programs, harder to prove properties about them,
 and harder to maintain them.
-We would argue that advanced type inference and run-time feedback
-enable development environments to detect such issues
-and report them to programmers.
-In our experience, versatile collections
+%
+%However, one rarely wants to switch between different usages
+%on the same collection instance.
+%Mixing up the relevant operations is thus likely a bug. BD: where is this going?
+However, in our experience, versatile collections
 such as JavaScript or Ruby \code{Array}s are in most cases
 used with only a few different operations
 that clearly indicate a specific ``type''.
-For instance, when \code{push} and \code{pop} operations are used to
-make an array behave as a stack,
-it is very rare that other operations are used on the same collection.
+For instance, when \code{push} and \code{pop} operations are used on a sequence,
+it is very clear it is meant to be used as a stack.
+Furthermore, we argue that advanced type inference and run-time feedback
+can enable development environments to detect such patterns
+and provide useful feedback to programmers.
+%and other operations are infrequently used on the same collection. BD: already mentioned above
 % For instance, a collection on which the
 % are used is a stack and a collection on which \code{append} is used a vector.
 % When iterating, the specific type for a sequence does not matter in most cases,
 % we just iterate all elements of the sequence, in the order they were added (cf. \cref{sec:insertion-ordering-choice}).
-For languages such as Java, the idiomatic advise is
-to disregard implementation strategies and performance differences
-in most code to facilitate reuse.
-Thus, one rarely sees the use of \code{ArrayList} or \code{HashMap}
-in operation signatures.
-Instead, the \code{List} and \code{Map} interfaces are used.
-% The experience
-% Even in Java, a statically-typed language, it is idiomatic to type fields as \code{List} or \code{Map} and not the specific \code{ArrayList} or \code{HashMap}, showing that the specific type is of little concern for the usage of the collection and only the general collection type or interface matters.
+%
+%For languages such as Java, the idiomatic advise is
+%to disregard implementation strategies and performance differences
+%in most code to facilitate reuse.
+%Thus, one rarely sees the use of \code{ArrayList} or \code{HashMap}
+%in operation signatures.
+%Instead, the \code{List} and \code{Map} interfaces are used.
+For typed languages such as Java, it is idiomatic to type fields as \code{List} or \code{Map} and not the specific \code{ArrayList} or \code{HashMap}, in order to facilitate reuse.
+This illustrates that the specific type or implementation is of little concern and instead the general collection type or interface is clear enough for the usages of the collection.
 
 % -> set/map: implemented as tree or hash table?
 % -> linked list or array list, or linked segments?
