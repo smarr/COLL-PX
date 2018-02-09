@@ -1488,7 +1488,7 @@ good performance is still essential to make a collection design practical.
 With the proposed design, it is likely not possible to achieve 100\%
 of the performance that specialized collections can provide
 for specific use cases.
-However, if trading some performance for more programmer productivity
+However, trading some performance for more programmer productivity
 seems beneficial.
 
 % General Solution: adaptive data structures
@@ -1517,7 +1517,7 @@ avoiding boxing without static types.
 %   - compiler for static languages can do certain optimizations ahead of time:
 %     - compiler-level specialization as with miniboxing \citep{Ureche:2013:MIS}
 %     - C++ templates (expanding ones), eager specialization
-Statically type languages use perhaps mechanisms such as
+Statically-typed languages can use mechanisms such as
 C++ templates to specialize code at compile time.
 % and even on top of just-in-time compiling runtimes,
 % techniques such as miniboxing allow efficient representation by exploiting
@@ -1525,10 +1525,10 @@ C++ templates to specialize code at compile time.
 
 \citet{Xu2013} and \citet{Costa:2018:CS} go beyond simply avoiding boxing.
 They show that collections can be adapted further to take concrete usage
-in terms of use operations into account.
+in terms of used operations into account.
 For example, if a \code{contains()} operation is used frequently
 on large lists, it can be beneficial to change its implementation to include
-a hash table to speed up the look up.
+a hash table to speed up the lookup.
 % for immutable collections
 %   - Tobias Pape's paper, for functional data structures
 For languages that prefer immutable collections,
