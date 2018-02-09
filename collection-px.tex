@@ -337,7 +337,7 @@ implementation strategies (usually differing in space/time tradeoffs),
 or general properties such as synchronization, modifiability, ordering,
 sorting, and constraints in general.
 %
-This section briefly reviews 17 collection libraries
+This section briefly reviews collection libraries of 13 languages
 to identify the provided collection types
 and high-level design differences.
 
@@ -1351,9 +1351,6 @@ to be \emph{sufficiently smart}.
 As argued in \cref{sec:impl-techniques},
 it seems feasible and practical to make this tradeoff.
 
-\here
-
-
 
 \subsection{Discussion}
 
@@ -1625,35 +1622,70 @@ that allows extensions from external libraries.
 
 \section{Conclusion}
 
-% BD
-In this paper, we argue small and versatile collections are beneficial to the user and can be implemented efficiently.
-They enable better exploratory programming without making early decisions about specific types or implementations and they remain far more flexible than specialized libraries.
-They are also simpler to use, more discoverable (no need to search through many collections to find the right one), and provide a richer way to interact with them which is convenient compared to a small and rigid interface.
-On the other hand, they add complexity to language implementations, which must support and optimize these versatile collections.
-However, many techniques already exist to help optimizing these collections.
+This paper informally reviews collection libraries of 13 languages to identify
+design dimensions and concerns that impact programming experience.
+Based on the identified dimension
+and a brief literature review of collection usage studies,
+we argue that a small set of collections with versatile operations
+is beneficial for exploratory programming.
+Specifically, we propose to only offer sequences, maps, and sets.
+We further argue that these collections can be implemented efficiently
+with modern run-time techniques.
 
-We also observed and documented how varied is the collection design landscape in many languages.
+From our perspective, this design facilitates exploratory programming,
+because it avoids or relegates many typical implementation decisions.
+Specifically, it avoids deciding upfront on a specific collection types
+or data structures.
+Having a large set of operations on a small set of collections also
+provides better discoverability,
+because specialized operations
+are not lost in complex hierarchies of collection types.
+Thus, collections are likely simpler and more convenient to use.
 
-C has the most minimal collection library, and Ruby has the best collection design :D
+The drawback is that such collections
+add complexity to language implementations,
+which must provide complex optimizations
+to achieve a performance similar to specialized collections.
+However, many techniques already exist to optimizing these collections
+and increasing language implementation complexity for improved productivity
+seems to be an acceptable tradeoff.
 
-While I have convinced myself
-that I do prefer the programming style offered
-by a small and versatile collections library,
-I cannot shake the feeling
-that this is a post hoc justification
-for the complexity we add to VMs.
+% We also observed and documented how varied is the collection design landscape in many languages.
+%
+% C has the most minimal collection library, and Ruby has the best collection design :D
 
-\begin{note}
-  - many types vs. many methods
-    -> few polymorphic types, and many methods help discoverability
-      -> don't have to investigate huge hierarchies 
-  
-  - future work
-    -complete taxonomy
-    -more complete survey
-    -> other languages, language types
-    -> other libraries that complement standard libraries
-\end{note}
+% While I have convinced myself
+% that I do prefer the programming style offered
+% by a small and versatile collections library,
+% I cannot shake the feeling
+% that this is a post hoc justification
+% for the complexity we add to VMs.
+
+Future work should chart the design space for collection libraries more 
+thoroughly and completely.
+This is only a first snapshot of a small set of languages and libraries.
+For example, the ecosystems of Java and  C/C++
+offer many other collection libraries,
+with various tradeoffs.
+Other language types for instance for array programming,
+scientific computations, or large-scale parallelism come with their own
+requirements, which have not been considered.
+
+Further work should also investigate the human component and determine whether
+our design is indeed beneficial for productivity.
+Similarly, work on improved collection implementations,
+a better understanding of performance tradeoffs,
+as well as support for feedback from development environments is desirable. 
+
+%
+% \begin{note}
+%
+%   - future work
+%     -complete taxonomy
+%     -more complete survey
+%     -> other languages, language types
+%     -> other libraries that complement standard libraries
+% \end{note}
 
 
 
