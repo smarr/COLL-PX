@@ -533,6 +533,7 @@ is the support for query operations on collections with LINQ\citep{Meijer:2011:W
 which are an addition to the traditional iteration operations.
 
 \paragraph{Scala 2.12}
+\label{sec:scala-col}
 
 \citeurl{Scala's}{Scala Standard Library}{EPFL}{}{http://www.scala-lang.org/api/2.12.4/} standard library
 % comes with collections somewhat similar to Java.\bd{I know some who would disagree...}
@@ -1598,24 +1599,27 @@ when only a subset of operations is used.
 
 
 \section{Related Work}
-\sm{not sure we need this section}
 
-\citet{Odersky:2009} describe their experience
+While collection design seems to be an integral aspect of language design,
+we are not aware of any systematic treatment.
+While there is some work on addressing certain 
+issues\citep{Cook:1992:ISS,Black:2003:ATS,Chakravarty:2005:ATC,Garcia:2007},
+there does not seem to be any general discussion of design tradeoffs.
+However, \citet{Odersky:2009} describe their experience
 redesigning the collection library in Scala.
 Their focus is mostly on how they achieved an implementation and design
 that is more principled, structured, and avoids code duplication
 to avoid bit rot during future maintenance.
-The library itself falls into the category of large and specialized (cf. \cref{sec:scala-col}). 
-
-\citet{Matthes:2000:BT} investigate the question of how to design \emph{bulk types}, i.e., collection libraries, on the intersection to database systems and database programming languages.
+% The library itself is large with many specialized classes (cf. \cref{sec:scala-col}).
+Also somewhat related, \citet{Matthes:2000:BT} investigate the question of how to design \emph{bulk types}, i.e., collection libraries, on the intersection to database systems and database programming languages.
 They discuss the benefits and drawbacks of builtin or library-based designs and favor library-based designs for their extensibility.
-\sm{discussion in paper context: assume we have good knowledge from the various languages and libraries what is necessary, assume that extensibility is not a problem either, because the languages could be dynamic and therefore lent itself naturally to simply changing the collection implementation if required.
-Though, there might be limitations to what can be changed without interfering with optimizations such as strategies\todoref{}.}
-
-
-Live Data Structure Programming \citep{Oka:2017:LDS}
-- visualization
-- generic data structures
+For languages, we argue for a small set of versatile builtin collections
+that allows extensions from external libraries.
+% \sm{discussion in paper context: assume we have good knowledge from the various languages and libraries what is necessary, assume that extensibility is not a problem either, because the languages could be dynamic and therefore lent itself naturally to simply changing the collection implementation if required.
+% Though, there might be limitations to what can be changed without interfering with optimizations such as strategies\todoref{}.}
+% Live Data Structure Programming \citep{Oka:2017:LDS}
+% - visualization
+% - generic data structures
 
 \section{Conclusion}
 
