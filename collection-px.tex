@@ -1160,10 +1160,14 @@ Furthermore, we suggest to design collection properties
 in a way that one can easily opt into properties or opt out from them.
 However, this should be designed together with tool support
 to avoid losing relevant feedback from the environment.
-\bd{What kind of feedback? Still unclear to me.}
-\sm{unclear, how?
-feedback in form of errors, hints, tooling, documentation. we just said that in the into to sec. 6, no?}
-\bd{I'd love an concrete example of feedback, because I don't know what kind of feedback/how smart it is.}
+For instance, if a list is used as a stack,
+the environment should pick up on it,
+and adapt code completion accordingly.
+% \bd{What kind of feedback? Still unclear to me.}
+% \sm{unclear, how?
+% feedback in form of errors, hints, tooling, documentation. we just said that in the into to sec. 6, no?}
+% \bd{I'd love an concrete example of feedback, because I don't know what kind of feedback/how smart it is.}
+% SM: added example
 
 It can be debated whether to include sets or not.
 Sets can be easily emulated with maps
@@ -1389,10 +1393,14 @@ an instance of \emph{the blob} anti-pattern.\citep{brown1998antipatterns}
 
 % -> yes, it's an issue, the code is not clear about what kind of 
 %    interactions one wants to allow on the collection
-The biggest problem we see is
+The strongest argument we see is
 that the code is not explicit about
-what the desired interaction with a collection are.\bd{disagreed, see below and let's not shoot ourselves}
-For instance, a sequence can be easily used as a stack, queue, or list\bd{Well, what if I use it as a deque?}
+what the desired interaction with a collection are.
+% \bd{disagreed, see below and let's not shoot ourselves}
+For instance, a sequence can be easily used as a stack, queue, deque, or list.
+% \bd{Well, what if I use it as a deque?}
+% SM: what's the point? not sure how this is related to anything?
+%     I added deque to the list of examples.
 However, one rarely wants to switch between these uses
 on the same collection instance.
 Mixing up the relevant operations is thus likely a bug.
@@ -1403,53 +1411,62 @@ Other arguments, for instance by \citet{PeytonJones:1996:BTC}
 include that such generic types and the lack of specific invariants
 make it harder to understand programs, harder to prove properties about them,
 and harder to maintain them.
-We hope that advanced type inference or run-time feedback
-enables a development environment to detect such issues
+We would argue that advanced type inference and run-time feedback
+enable development environments to detect such issues
 and report them to programmers.
-
-However, we argue that even though the collection type is generic,
-collections are in most cases used with only a few different operations,
-that clearly indicate what is the specific type.
-For instance, a collection on which the \code{push} and \code{pop} operations
-are used is a stack and a collection on which \code{append} is used a vector.
-When iterating, the specific type for a sequence does not matter in most cases,
-we just iterate all elements of the sequence, in the order they were added (cf. \cref{sec:insertion-ordering-choice}).
-Even in Java, a statically-typed language, it is idiomatic to type fields as \code{List} or \code{Map} and not the specific \code{ArrayList} or \code{HashMap}, showing that the specific type is of little concern for the usage of the collection and only the general collection type or interface matters.
-\bd{We need to refute that clearly here.
-Kind of a static vs dynamic typing discussion. If you don't have the type then how do you know what the collection is anyway?
-It doesn't matter, in practice the collection is how it is used, what operations are used on it. If I use push/pop it's a stack, if I use append, it's a vector. And if I iterate, it doesn't matter what kind of sequence it is.}
-\bd{Could also argue that people rarely use anything but ArrayList and HashMap, so we really only need to discernate those two, and the rest is rarely needed, even less so in exploratory programming.}
-\bd{Even in Java you type stuff as List idiomatically (not ArrayList), so clearly the concrete type matters fairly little only the big types List/Map}
-
-% -> complexity of implementation is a real issue (concurrency issues,
-%    strategies, JIT DS...)
-The implementation of such collections is also much more complex.
-However, the tradeoff is here to push more complexity into the runtime,
-while benefiting more users.
-To optimize for performance, a runtime needs to make many assumptions,
-which likely reduces performance predictability.
-Here we advocate for better tools.
-Ideally, the environment can utilize the knowledge about run-time optimizations
-to provide users with information on performance issues,
-which can be considered by programmers
-at a point when they start caring about performance.
+In our experience, versatile collections
+such as JavaScript or Ruby \code{Array}s are in most cases
+used with only a few different operations
+that clearly indicate a specific ``type''.
+For instance, when \code{push} and \code{pop} operations are used to
+make an array behave as a stack,
+it is very rare that other operations are used on the same collection.
+% For instance, a collection on which the
+% are used is a stack and a collection on which \code{append} is used a vector.
+% When iterating, the specific type for a sequence does not matter in most cases,
+% we just iterate all elements of the sequence, in the order they were added (cf. \cref{sec:insertion-ordering-choice}).
+For languages such as Java, the idiomatic advise is
+to disregard implementation strategies and performance differences
+in most code to facilitate reuse.
+Thus, one rarely sees the use of \code{ArrayList} or \code{HashMap}
+in operation signatures.
+Instead, the \code{List} and \code{Map} interfaces are used.
+% The experience
+% Even in Java, a statically-typed language, it is idiomatic to type fields as \code{List} or \code{Map} and not the specific \code{ArrayList} or \code{HashMap}, showing that the specific type is of little concern for the usage of the collection and only the general collection type or interface matters.
 
 % -> set/map: implemented as tree or hash table?
 % -> linked list or array list, or linked segments?
 % -> can't make a right choice without knowing exactly what
 %    run time load is going to be
 
-With a minimal set of collection types,
-it is also not possible to directly select an implementation strategy.
-Should a map be realized by a tree or hash table,
-or should a list be linked to allow fast insertion at arbitrary positions?
-We argue that these choices are rarely possible in an informed manner during
+Arguably, performance-driven choices are 
+% With a minimal set of collection types,
+% it is also not possible to directly select an implementation strategy.
+% Should a map be realized by a tree or hash table,
+% or should a list be linked to allow fast insertion at arbitrary positions?
+% We argue that these choices are
+rarely possible in an informed manner during
 exploratory programming.
-We have not yet fully understood our problem,
-and we would likely mispredict the distribution of operations at run time.
-Thus, offering the different specialized classes is unlikely to give the desired benefit.
-At run time, we might however be able to optimize without programmer input,
+Having not yet fully understood the problem,
+one would likely mispredict the distribution of operations at run time.
+Thus, specialized classes are unlikely to be beneficial.
+
+% -> complexity of implementation is a real issue (concurrency issues,
+%    strategies, JIT DS...)
+Another argument against versatile collections is
+that their implementation is much more complex.
+However, the complexity is moved into the runtime,
+and thus benefits many users.
+At run time, optimization can become possible
+without requiring programmer input,
 as discussed in the following section.
+For such optimizations, a runtime needs to make however many assumptions,
+which likely reduces performance predictability.
+Here we advocate for better tools.
+Ideally, the environment can utilize the knowledge about run-time optimizations
+to provide users with information on performance issues,
+which can be considered by programmers
+at a point when they start to care about performance.
 
 % - drawback of too specialized classes:
 %   - can become inflexible
