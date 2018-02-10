@@ -299,7 +299,7 @@ With limited forms of understanding,
 we refer essentially to analyses
 that allow programmers to be more implicit than explicit in their programming.
 One aspect of this is typing.
-Traditionally, languages that use type inference
+Languages that use type inference
 or tool-based feedback seem to facilitate exploratory programming better
 than languages that require us to make such aspect explicit.
 %   
@@ -329,11 +329,14 @@ but should not prevent or hinder us from exploring it.
 %   - application performance secondary concern,
 %    as long as feedback is not impaired 
 % - types or at least structure might still be helpful to organize ones thoughts
-Since collections are frequently used for bulk operations
-that might end up being relevant for acceptable performance,
-run-time performance is a relevant aspect and needs to be considered.
-While it is not of highest priority for application performance,
-it should also not impede live feedback.
+Since collections provide bulk operations
+and are relevant for acceptable performance,
+run-time performance needs to be considered,
+even though it is a secondary concern.
+% While it is not of highest priority for application performance,
+% it should also not impede live feedback.
+%% SM: we don't talk in enough detail about analyses, so their performance
+%% is also something we don't go into
 
 \section{Collection Design in the Wild}
 \label{sec:col-wild}
@@ -1709,6 +1712,8 @@ our design is indeed beneficial for productivity.
 Similarly, work on improved collection implementations,
 a better understanding of performance tradeoffs,
 as well as support for feedback from development environments is desirable. 
+To provide appropriate feedback,
+code completion should for instance know how operations relate to each other.
 
 %
 % \begin{note}
