@@ -841,8 +841,8 @@ which are rare and appear for instance in form of range maps or sets.
 \subsection{Language Style}
 \label{sec:language-style}
 
-The second category that has a major influence on the overall collection design
-is the language the library is designed for.
+The second category with a major influence on the collection design
+is the language for which the library is designed.
 
 % - language style
 %   - object-oriented, procedural, functional, ...
@@ -858,11 +858,10 @@ shapes libraries in various ways.
 In dynamically-typed languages,
 we see the need for explicit support of collections for primitive types, \eg,
 to store numeric data efficiently.
-This includes basic sequences for numeric elements (\eg \code{Int32Array} in ECMAScript)
+This includes sequences for numeric elements (\eg \code{Int32Array} in ECMAScript)
 or primitive maps or sets (\eg \code{IntMap in Scala}).
 %      - templates
-In typed languages,
-we see typically some form of generics, type parameters, or templates,
+Typed languages often use some form of generics, type parameters, or templates,
 which help to reduce a proliferation of collections for specific data types.
 %\bd{and imho make the API far more complex}\sm{? not sure what you mean?
 %You're saying Generics make APIs more complex? because of co/contra variance and stuff? sure, but typed languages need them. You want to add anything here?
@@ -924,9 +923,9 @@ which can be equally beneficial for maps, sets, and other collection types.
 
 % - sorted (absolute, opt-in)
 In addition to ordering, collections can \emph{sort elements}.
-Some collections  such a tree-based collections maintain a sorted order at all times and
+Tree-based collections maintain a sorted order at all times and
 provide operations taking advantage of this property.
-Some collections support an operation to sort elements on demand.
+Other collections provide an operation to sort elements on demand.
 
 \paragraph{Mutability}
 
@@ -1035,7 +1034,7 @@ degree of polymorphism,
 \ie, whether collections should offer the same interfaces.
 To facilitate code reuse, one might want to design collections
 with different properties such as being mutable or immutable
-so that they can used mostly interchangeably.
+so that they can be used mostly interchangeably.
 One way of doing this is by using decorators or wrappers around collections
 that add the desired properties, \eg, read-only views or basic synchronization in Java.
 Other options to consider are whether maps should be iterable
