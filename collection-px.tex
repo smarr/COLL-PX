@@ -7,7 +7,7 @@
 % \documentclass[sigconf, 10pt, authordraft]{acmart}
 \settopmatter{printfolios=true,printccs=true,printacmref=false}
 
-\def\Title{Small and Versatile vs. Large and Specialized Collections}
+\def\Title{Few Versatile vs. Many Specialized Collections}
 % \def\ShortTitle{}
 \def\SubTitle{How to design a collection library for exploratory programming?}
 \def\PdfTitle{\Title: \SubTitle}
@@ -89,20 +89,26 @@ to identify possible design dimensions.
 Some languages have surprisingly few but versatile collections,
 while others have large libraries with many specialized collections.
 Based on the identified design dimensions,
-we argue that a small set of collections
+we argue that a small collection library
 with only a sequence, a map, and a set type
 are a suitable choice to facilitate exploratory programming.
-Such a design avoids many upfront implementation decisions
-\bd{implementation decisions is not clear here, so I added `upfront' but maybe still unclear}
-and improves discoverability.
-We further discuss that such libraries can be
+Such a design minimizes the number of implementation decisions programmers
+have to make when dealing with collections,
+ % avoids many upfront implementation decisions
+% \bd{implementation decisions is not clear here, so I added `upfront' but maybe still unclear}
+and it improves discoverability of collection operations.
+We further discuss
+%% SM: removed from abstract, because it isn't separate section
+% that such libraries can be
 %sufficiently
-supported with feedback mechanisms from development environments
-and discuss techniques
+% supported with feedback mechanisms from development environments
+% and consider
+techniques
 that make their implementation practical from a performance perspective.
-Consequently, we argue for small and versatile collection libraries
-for languages that aim to support exploratory programming.
-\bd{Or provide a convenient collection library to users? Seems very restrictive, only exploratory programming.}
+Based on these arguments,
+we conclude that languages, which aim to support exploratory programming
+should strive for small and versatile collection libraries.
+% \bd{Or provide a convenient collection library to users? Seems very restrictive, only exploratory programming.}
 \end{abstract}
 
 %
