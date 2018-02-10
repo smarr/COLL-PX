@@ -1296,7 +1296,7 @@ that support sharing collections between multiple threads.
 As discussed in \cref{sec:impl-techniques},
 we think this can be provided implicitly without drawbacks.
 However, to provide atomicity of the right granularity,
-collections need commonly-used operations
+collections need high-level operations
 such as \code{computeIfPresent} or \code{putIfAbsent},
 which typically check some condition on the collection,
 potentially perform a user-specified operation, and then modify the collection.
