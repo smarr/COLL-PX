@@ -1608,19 +1608,8 @@ Computing Machinery]
       Manuscript submitted to ACM\\
     \else
       \if@ACM@authorversion
-          This is the author's version of the work. It is posted here for
-          your personal use. Not for redistribution. The definitive Version
-          of Record was published in
-          \if@ACM@journal
-            \emph{\@journalName}%
-          \else
-            \emph{\@acmBooktitle}%
-          \fi
-          \ifx\@acmDOI\@empty
-          .
-          \else
-            , \@formatdoi{\@acmDOI}.
-          \fi\\
+          This is a draft. It is posted here for
+          your personal use. Not for redistribution. It is currently under submission at the Programming Experience Workshop PX/18 at <Programming>'18\\
         \else
           \if@ACM@journal
             \@permissionCodeOne/\@acmYear/\@acmMonth-ART\@acmArticle
