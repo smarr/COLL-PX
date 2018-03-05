@@ -1,0 +1,118 @@
+Dear Stefan,
+
+On behalf of the PC, it's my pleasure to accept your submission Few Versatile vs. Many Specialized Collections: How to design a collection library for exploratory programming? to PX18.
+
+We're still working out the specific details of how the programme will look and how we'll fit all the great content in.
+
+But for now, please take a careful look at the review comments, and revise your submissions accordingly.
+
+Thanks again for your submission, 
+
+Luke, on behalf of the chairs and PC
+
+
+----------------------- REVIEW 1 ---------------------
+PAPER: 3
+TITLE: Few Versatile vs. Many Specialized Collections: How to design a collection library for exploratory programming?
+AUTHORS: Stefan Marr and Benoit Daloze
+
+Overall evaluation: 2 (accept)
+
+----------- Overall evaluation -----------
+The paper advances a discussion for what collections tool authors should provide to support explanatory programming. The paper recommends sequences, maps, and sets---although there are some nuances to whether all three of these collections are strictly necessary.
+
+The theoretical basis for this work is fairly limited, and much of the empirical justification rests on a few studies (Collection Usage). Nevertheless, the paper provides a nice overview of a collections for a variety of diversity languages and libraries. I can see this type of work being useful for a student or even researcher who wants an overview for the landscape of collections. I found it interesting to see the differences between the described languages and libraries. In any case, I found the paper to quite appropriate to PX, despite these limitations.
+
+The introduction of the paper was overall well written, but I found the discussion on Newspeak to be distracting. This reasoning might be a good motivation for the authors to conduct the study, but I didn't feel that it added much from the reader's perspective. One improvement here would be to provide some clarification on why these particular languages were studied, although the authors admit that the their review is neither exhaustive and also somewhat informal. The paper also indicates that it reviews 13 languages, but enumerating the list of languages/libraries seems to reveal 14 (am I miscounting somehow?).
+
+I liked the approach in the paper for investigating collections through design spaces. Perhaps one improvement in this section might be to provide a table that summarizes the different dimensions. A similar table that summarizes all of the languages and what makes them interesting from a study perspective might also be a nice addition. The paper talks about how performance is a secondary concern, but I think it tries to hammer this point too many times in the paper.
+
+Overall, I enjoyed the paper. It strikes me as a paper that applies an HCI lens to programming languages, with hints of ethnographic research. The style of writing is relatively casual and flows easily. I would recommend accepting the paper.
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 3
+TITLE: Few Versatile vs. Many Specialized Collections: How to design a collection library for exploratory programming?
+AUTHORS: Stefan Marr and Benoit Daloze
+
+Overall evaluation: 3 (strong accept)
+
+----------- Overall evaluation -----------
+*** Summary ***
+
+The authors observe that many of the collection libraries in use are
+rather complicated and large due to an extensive set of design
+decision targeting language-specific APIs, idioms, and runtime
+optimizations.
+
+Based on this observation, which is backed by an yet informal review
+of several collection libraries, the authors argue that especially in
+exploratory programming scenarios the cognitive load on developers is
+rather high, but unjustified.
+
+Throughout the paper the authors discuss several design dimensions for
+collection libraries in general and then propose a particular point in
+the design space sketched previously to allow for programmers to focus
+on the problem domain, leaving more technical decisions (for example
+related to performance characteristics) to the runtime.
+
+*** Evaluation ***
+
+I enjoyed reading the paper. It is well written and fits PX nicely by
+emphasizing the important role of library and especially API design in
+shaping the interface (UI) between programmers and their programming
+environment, comprised not only of a particular language and tool
+support, but also the set of frameworks und libraries provided and
+used.
+
+When reading the paper, I started to wonder if instead of treating
+exploratory programming as a special (niche) use-case that could
+benefit from small but versatile APIs, it would be the most demanding
+wrt. to UI (API) design and runtime support. Better and simpler APIs
+would yield more expressive (direct) programs that could also be
+optimized much better by the continuously improving runtime available.
+
+While experienced programmers could easily follow the arguments made,
+I could see junior programmers or non-professional developers
+appreciate a specific programming scenario wherein simple decisions
+wrt. collection classes have to be made and where (too) large
+libraries with extensive APIs are rather overwhelming and with that an
+inhibitor in the flow of exploration.
+
+*** Other ***
+
+To get a better idea about the complexity introduced by the collection
+libraries mentioned in the paper, I would have liked to read about
+library size in terms of numbers of classes, interfaces, or methods.
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 3
+TITLE: Few Versatile vs. Many Specialized Collections: How to design a collection library for exploratory programming?
+AUTHORS: Stefan Marr and Benoit Daloze
+
+Overall evaluation: 1 (weak accept)
+
+----------- Overall evaluation -----------
+I was really looking forward to reading this paper. As is often the case, however, I was a little disappointed when I had read it. What exactly is its point? That few, general collections are better during an exploratory phase? 
+
+Much of the contemplation reminded me of UML’s way of tagging associations as ordered, sorted, etc. This allows the programmer to express her intentions, and leaves choice of the collection completely to a later stage (implementation). Would this not be what one needs in exploratory programming, too? Just express properties of a collection, rather than choose an implementation?
+
+Btw: “For languages such as Java, it is idiomatic to use List or Map instead of the more specific ArrayList or HashMap to facilitate reuse. This illustrates that in many cases the specific type is less desirable than some might argue.” Who argues this? The whole point is that programmers subscribe to properties (interfaces), and make implementation a changeable choice. And indeed, there are far fewer collection interfaces than there are classes in the JDK collections library. How do they relate to your three types?
+
+Other than that, I think the investigation underlying the paper (visiting the collections of all those languages) is a solid piece of work that should not be buried by a grumpy reviewer, so I am looking forward to a slightly more inspiring presentation at the workshop.
+
+
+----------------------- REVIEW 4 ---------------------
+PAPER: 3
+TITLE: Few Versatile vs. Many Specialized Collections: How to design a collection library for exploratory programming?
+AUTHORS: Stefan Marr and Benoit Daloze
+
+Overall evaluation: 3 (strong accept)
+
+----------- Overall evaluation -----------
+I learned a lot from this paper. While the design of programming languages has been studied extensively, I haven't read a single paper that focuses on the design of collection libraries.
+
+The paper is structured well and easy to read. I am convinced that a few versatile collection types (sequences, maps, and sets) with many methods would suit exploratory programming. I enjoyed reading the discussion that leads to the desired tool support for improving the programming experience (and potentially performance), enabling run-time optimizations of the developed applications.
+
+While there is not much to add to the paper, for "Literature describes a large variety of special-purpose data structures" (p.6), would you kindly provide some example papers?
