@@ -78,7 +78,6 @@
 
 @inproceedings{Odersky:2009,
   added-at = {2018-01-26T00:38:37.000+0100},
-  address = {Dagstuhl, Germany},
   author = {Odersky, Martin and Moors, Adriaan},
   biburl = {https://www.bibsonomy.org/bibtex/28e7d0424f0a66ab774a92ae61afc2d21/gron},
   booktitle = {IARCS Annual Conference on Foundations of Software Technology and Theoretical Computer Science},
@@ -230,7 +229,6 @@ This paper has two aims: to identify some of the technical difficulties, and to 
 @inbook{Matthes:2000:BT,
   abstract = {Bulk structures play a central r{\^o}le in data-intensive application programming. The issues of bulk type definition and implementation as well as their integration into database programming languages are, therefore, key topics in current DBPL research.},
   added-at = {2018-01-28T20:23:03.000+0100},
-  address = {Berlin, Heidelberg},
   author = {Matthes, Florian and Schmidt, Joachim W.},
   biburl = {https://www.bibsonomy.org/bibtex/2da8e43dba223861c028556c5bdec6fe7/gron},
   booktitle = {Fully Integrated Data Environments: Persistent Programming Languages, Object Stores, and Programming Environments},
@@ -318,7 +316,7 @@ This paper has two aims: to identify some of the technical difficulties, and to 
   added-at = {2018-01-30T15:36:49.000+0100},
   author = {McDirmid, Sean},
   biburl = {https://www.bibsonomy.org/bibtex/2bc613b8c34303deeb9c259225f9402a8/gron},
-  booktitle = {Proceedings of the 22Nd Annual ACM SIGPLAN Conference on Object-oriented Programming Systems and Applications},
+  booktitle = {Proceedings of the 22nd Annual ACM SIGPLAN Conference on Object-oriented Programming Systems and Applications},
   doi = {10.1145/1297027.1297073},
   interhash = {7fa6f5769cc4e86ce75e6f8dcb4143cb},
   intrahash = {bc613b8c34303deeb9c259225f9402a8},
@@ -360,7 +358,6 @@ This paper has two aims: to identify some of the technical difficulties, and to 
   abstract = {Liveness in programming environments generally refers to the ability to modify a running program. Liveness is one form of a more general class of behaviors by a programming environment that provide information to programmers about what they are constructing. This paper gives a brief historical perspective on liveness and proposes an extension of a hierarchy given in 1990, to now account for even more powerful execution-oriented tools for programmers. In addition, while liveness concerns the timeliness of execution feedback, considering a broader array of forms of feedback is helpful both in better understanding liveness and in designing ever more powerful development tools.},
   acmid = {2662735},
   added-at = {2018-01-30T18:23:00.000+0100},
-  address = {Piscataway, NJ, USA},
   author = {Tanimoto, Steven L.},
   biburl = {https://www.bibsonomy.org/bibtex/2848046e30360ec0c07b821433f3199ac/gron},
   booktitle = {Proceedings of the 1st International Workshop on Live Programming},
@@ -488,7 +485,6 @@ This paper discusses these challenges and presents initial experiments for a New
 
 @book{Smalltalk80,
   added-at = {2008-07-09T17:58:26.000+0200},
-  address = {Boston, MA, USA},
   asin = {0201113716},
   author = {Goldberg, Adele and Robson, David},
   biburl = {https://www.bibsonomy.org/bibtex/2d0ef20b658c303d3cf61d2498e7843a8/gron},
@@ -706,4 +702,176 @@ Thus, it can be a foundation for safe and efficient multithreaded VMs for a wide
   volume = 54,
   year = 2011
 }
+
+@inproceedings{Prokopec:2018:CCL,
+  abstract = {Concurrent non-blocking hash tries have good cache locality, and horizontally scalable operations. However, operations on most existing concurrent hash tries run in O(log n) time. In this paper, we show that the concurrent hash trie operations can run in expected constant time. We present a novel lock-free concurrent hash trie design that exerts less pressure on the memory allocator. This hash trie is augmented with a quiescently consistent cache, which permits the basic operations to run in expected O(1) time. We show a statistical analysis for the constant-time bound, which, to the best of our knowledge, is the first such proof for hash tries. We also prove the safety, lock-freedom and linearizability properties. On typical workloads, our implementation demonstrates up to 5X performance improvements with respect to the previous hash trie variants.},
+  acmid = {3178498},
+  added-at = {2018-03-06T10:40:19.000+0100},
+  author = {Prokopec, Aleksandar},
+  biburl = {https://www.bibsonomy.org/bibtex/22532bde27f67b6ce0947ddcef486741b/gron},
+  booktitle = {Proceedings of the 23rd ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming},
+  description = {Cache-tries},
+  doi = {10.1145/3178487.3178498},
+  interhash = {fb796e84d742a25ab9ff363f43980453},
+  intrahash = {2532bde27f67b6ce0947ddcef486741b},
+  isbn = {978-1-4503-4982-6},
+  keywords = {Collections Concurrency Trees},
+  location = {Vienna, Austria},
+  numpages = {15},
+  pages = {137--151},
+  publisher = {ACM},
+  series = {PPoPP'18},
+  timestamp = {2018-03-06T10:40:19.000+0100},
+  title = {{Cache-tries: Concurrent Lock-free Hash Tries with Constant-time Operations}},
+  year = 2018
+}
+
+@inproceedings{InsertionTreePhasers,
+  abstract = {This paper presents an algorithm and a data structure for scalable dynamic synchronization in
+fine-grained parallelism. The algorithm supports the full generality of phasers with
+dynamic, two-phase, and point-to-point synchronization. It retains the scalability of 
+classical tree barriers, but provides unbounded dynamicity by employing a tailor-made
+insertion tree data structure.
+
+It is the first completely documented implementation strategy for a scalable phaser
+synchronization construct. Our evaluation shows that it can be used
+as a drop-in replacement for classic barriers without harming performance, despite its additional
+complexity and potential for performance optimizations.
+Furthermore, our approach overcomes performance and scalability limitations
+which have been present in other phaser proposals.},
+  added-at = {2010-09-22T15:13:52.000+0200},
+  author = {Marr, Stefan and Verhaegen, Stijn and De Fraine, Bruno and D'Hondt, Theo and De Meuter, Wolfgang},
+  biburl = {https://www.bibsonomy.org/bibtex/2e0e488ee39b6fcbeedb6f7d221df958a/gron},
+  blog = {http://stefan-marr.de/2010/07/insertion-tree-phasers-efficient-and-scalable-barrier-synchronization-for-fine-grained-parallelism/},
+  booktitle = {Proceedings of the 12th IEEE International Conference on High Performance Computing and Communications},
+  doi = {10.1109/HPCC.2010.30},
+  isbn = {978-0-7695-4214-0},
+  keywords = {Barrier MeMyPublication Phasers X10 algorithm benchmarks clocks evaluation habanero insertionTree myown tree},
+  month = {September},
+  pages = {130--137},
+  pdf = {http://www.stefan-marr.de/downloads/hpcc2010-marr-etal-insertion-tree-phasers.pdf},
+  publisher = {IEEE Computer Society},
+  timestamp = {2017-06-06T17:45:27.000+0200},
+  title = {Insertion Tree Phasers: Efficient and Scalable Barrier Synchronization  for Fine-grained Parallelism},
+  year = 2010
+}
+
+@article{Hinze:2006:Finger,
+  abstract = {We introduce 2-3 finger trees, a functional representation of persistent sequences supporting access to the ends in amortized constant time, and concatenation and splitting in time logarithmic in the size of the smaller piece. Representations achieving these bounds have appeared previously, but 2-3 finger trees are much simpler, as are the operations on them. Further, by defining the split operation in a general form, we obtain a general purpose data structure that can serve as a sequence, priority queue, search tree, priority search queue and more.},
+  added-at = {2018-03-06T10:46:21.000+0100},
+  author = {Hinze, Ralf and Paterson, Ross},
+  biburl = {https://www.bibsonomy.org/bibtex/2692e237fb5f74a525aa82bbedca66ad0/gron},
+  booktitle = {Journal of Functional Programming},
+  description = {Finger trees: a simple general-purpose data structure | Journal of Functional Programming | Cambridge Core},
+  doi = {10.1017/S0956796805005769},
+  issn = {09567968},
+  keywords = {Collections Immutable Trees},
+  number = 2,
+  pages = {197--217},
+  publisher = {Cambridge University Press},
+  timestamp = {2018-03-06T10:47:03.000+0100},
+  title = {{Finger Trees: A Simple General-purpose Data Structure}},
+  volume = 16,
+  year = 2006
+}
+
+@inproceedings{Hendler:2004:SLS,
+  abstract = {The literature describes two high performance concurrent stack algorithms based on combining funnels and elimination trees. Unfortunately, the funnels are linearizable but blocking, and the elimination trees are non-blocking but not linearizable. Neither is used in practice since they perform well only at exceptionally high loads. The literature also describes a simple lock-free linearizable stack algorithm that works at low loads but does not scale as the load increases. The question of designing a stack algorithm that is non-blocking, linearizable, and scales well throughout the concurrency range, has thus remained open.This paper presents such a concurrent stack algorithm. It is based on the following simple observation: that a single elimination array used as a backoff scheme for a simple lock-free stack is lock-free, linearizable, and scalable. As our empirical results show, the resulting <i>elimination-backoff stack</i> performs as well as the simple stack at low loads, and increasingly outperforms all other methods (lock-based and non-blocking) as concurrency increases. We believe its simplicity and scalability make it a viable practical alternative to existing constructions for implementing concurrent stacks.},
+  added-at = {2012-08-27T00:09:58.000+0200},
+  author = {Hendler, Danny and Shavit, Nir and Yerushalmi, Lena},
+  biburl = {https://www.bibsonomy.org/bibtex/264859aef95fbd1288ce6e95f90a79560/gron},
+  booktitle = {Proceedings of the sixteenth annual ACM symposium on Parallelism in algorithms and architectures},
+  description = {A scalable lock-free stack algorithm},
+  doi = {10.1145/1007912.1007944},
+  isbn = {1-58113-840-7},
+  keywords = {Array Collections Concurrent Elimination LockFree Scalable Stack},
+  location = {Barcelona, Spain},
+  numpages = {10},
+  pages = {206--215},
+  publisher = {ACM},
+  series = {SPAA'04},
+  timestamp = {2018-03-06T10:49:30.000+0100},
+  title = {{A Scalable Lock-free Stack Algorithm}},
+  year = 2004
+}
+
+@article{1146165,
+  abstract = {We present an efficient lock-free algorithm for parallel accessible hash tables with open addressing, which promises more robust performance and reliability than conventional lock-based implementations. "Lock-free" means that it is guaranteed that always at least one process completes its operation within a bounded number of steps. For a single processor architecture our solution is as efficient as sequential hash tables. On a multiprocessor architecture this is also the case when all processors have comparable speeds. The algorithm allows processors that have widely different speeds or come to a halt. It can easily be implemented using C-like languages and requires on average only constant time for insertion, deletion or accessing of elements. The algorithm allows the hash tables to grow and shrink when needed.Lock-free algorithms are hard to design correctly, even when apparently straightforward. Ensuring the correctness of the design at the earliest possible stage is a major challenge in any responsible system development. In view of the complexity of the algorithm, we turned to the interactive theorem prover PVS for mechanical support. We employ standard deductive verification techniques to prove around 200 invariance properties of our algorithm, and describe how this is achieved with the theorem prover PVS.},
+  author = {Gao, H. and Groote, J. F. and Hesselink, W. H.},
+  biburl = {https://www.bibsonomy.org/bibtex/2509fb8a7f4724b236f601adaa80edfd5/gron},
+  description = {Lock-free dynamic hash tables with open addressing},
+  doi = {10.1007/s00446-004-0115-2},
+  interhash = {abbfa322e87da0ac5d588f5b97a46dcc},
+  intrahash = {509fb8a7f4724b236f601adaa80edfd5},
+  issn = {0178-2770},
+  journal = {Distrib. Comput.},
+  keywords = {LockFree Me:ToRead},
+  number = 1,
+  pages = {21--42},
+  publisher = {Springer},
+  timestamp = {2010-04-05T13:11:19.000+0200},
+  title = {Lock-free dynamic hash tables with open addressing},
+  volume = 18,
+  year = 2005
+}
+
+@article{1377094,
+  abstract = {We present a practical lock-free shared data structure that efficiently implements the operations of a concurrent deque as well as a general doubly linked list. The implementation supports parallelism for disjoint accesses and uses atomic primitives which are available in modern computer systems. Previously known lock-free algorithms of doubly linked lists are either based on non-available atomic synchronization primitives, only implement a subset of the functionality, or are not designed for disjoint accesses. Our algorithm only requires single-word compare-and-swap atomic primitives, supports fully dynamic list sizes, and allows traversal also through deleted nodes and thus avoids unnecessary operation retries. We have performed an empirical study of our new algorithm on two different multiprocessor platforms. Results of the experiments performed under high contention show that the performance of our implementation scales linearly with increasing number of processors. Considering deque implementations and systems with low concurrency, the algorithm by Michael shows the best performance. However, as our algorithm is designed for disjoint accesses, it performs significantly better on systems with high concurrency and non-uniform memory architecture.},
+  added-at = {2010-04-05T13:11:35.000+0200},
+  author = {Sundell, H{\aa}kan and Tsigas, Philippas},
+  biburl = {https://www.bibsonomy.org/bibtex/25cd4da6d300ebfcd14fb0a44e51512de/gron},
+  description = {Lock-free deques and doubly linked lists},
+  doi = {10.1016/j.jpdc.2008.03.001},
+  issn = {0743-7315},
+  journal = {J. Parallel Distrib. Comput.},
+  keywords = {LockFree Me:ToRead},
+  number = 7,
+  pages = {1008--1020},
+  publisher = {Academic Press},
+  timestamp = {2010-04-05T13:11:35.000+0200},
+  title = {Lock-free deques and doubly linked lists},
+  volume = 68,
+  year = 2008
+}
+
+@techreport{Pugh:1998:SkipList,
+  abstract = {This papers describes a new approach to providing&#xA;efficient concurrent access to a dynamic search structure. &#xA;Previous approaches have attempted to solve this problem using&#xA;search trees (either balanced or unbalanced). We describe&#xA;methods for performing concurrent access and updates using skip lists.&#xA;Skip lists are a probabilistic alternative to balanced trees that&#xA;provide much of the simplicity of unbalanced trees, together&#xA;with good worst-case expected performance. In this paper, we briefly&#xA;review skip lists, describe simple methods for concurrent maintenance&#xA;of sorted linked lists, formally prove the correctness of these methods,&#xA;and show how they can be extended to provide simple and efficient&#xA;algorithms for concurrent maintenance of skip lists.&#xA;(Also cross-referenced as UMIACS-TR-90-80)},
+  added-at = {2018-03-06T11:11:17.000+0100},
+  author = {Pugh, William},
+  biburl = {https://www.bibsonomy.org/bibtex/219fea80136381feca9b2444507e60a43/gron},
+  description = {Concurrent Maintenance of Skip Lists},
+  institution = {University of Maryland at College Park},
+  interhash = {cc7f6e9e95689ea4d545486451d7ae34},
+  intrahash = {19fea80136381feca9b2444507e60a43},
+  keywords = {Collections SkipLists},
+  number = {UMIACS-TR-90-80},
+  timestamp = {2018-03-06T11:11:17.000+0100},
+  title = {{Concurrent Maintenance of Skip Lists}},
+  type = {Technical Report},
+  url = {http://hdl.handle.net/1903/542},
+  year = 1998
+}
+
+@incollection{Brodal:2013:PQ,
+  abstract = {Back in 1964 Williams introduced the binary heap as a basic priority queue data structure supporting the operations Insert and ExtractMin in logarithmic time. Since then numerous papers have been published on priority queues. This paper tries to list some of the directions research on priority queues has taken the last 50 years.},
+  added-at = {2018-03-06T11:22:35.000+0100},
+  author = {Brodal, Gerth St{\o}lting},
+  biburl = {https://www.bibsonomy.org/bibtex/2727c4b62812575683fd4bfda6dc298af/gron},
+  booktitle = {Space-Efficient Data Structures, Streams, and Algorithms: Papers in Honor of J. Ian Munro on the Occasion of His 66th Birthday},
+  description = {A Survey on Priority Queues | SpringerLink},
+  doi = {10.1007/978-3-642-40273-9_11},
+  editor = {Brodnik, Andrej and López-Ortiz, Alejandro and Raman, Venkatesh and Viola, Alfredo},
+  interhash = {0d98cd2433bf80778749365f054e669e},
+  intrahash = {727c4b62812575683fd4bfda6dc298af},
+  isbn = {978-3-642-40273-9},
+  keywords = {Collections PriorityQueues Queues Survey},
+  pages = {150--163},
+  publisher = {Springer},
+  series = {LNCS},
+  timestamp = {2018-03-06T11:30:47.000+0100},
+  title = {{A Survey on Priority Queues}},
+  volume = 8066,
+  year = 2013
+}
+
 
