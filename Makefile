@@ -10,7 +10,10 @@ TEXSRCS=$(NAME).tex $(wildcard scripts/*.tex) $(wildcard sections/*.tex) $(KNITR
 USE_PDFLATEX=true
 BIBTEXSRCS=references.bib
 
-CLEAN_FILES+=$(wildcard *.synctex.gz) $(wildcard *.fdb_latexmk) $(wildcard *.fls) $(KNITR_TEX) comment.cut
+CLEAN_FILES+=$(wildcard *.synctex.gz) $(wildcard *.fdb_latexmk) \
+             $(wildcard *.fls) $(KNITR_TEX) comment.cut \
+             $(NAME).4ct $(NAME).4tc $(NAME).css $(NAME).html $(NAME).idv \
+             $(NAME).lg $(NAME).tmp $(NAME).xcp $(NAME).xref
 
 ifeq ($(CI_SERVER),yes)
 	GIT_MSG=$(shell git log -1 --pretty=%B | grep -v Signed-off)
