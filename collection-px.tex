@@ -1461,6 +1461,18 @@ For languages such as Java, it is idiomatic to use the \code{List}, \code{Map}, 
 This illustrates that in many cases the specific type
 is less desirable than argued by \citet{PeytonJones:1996:BTC}.
 Furthermore, these three interfaces correspond to the collection types we propose to include.
+
+Another argument supporting our choice is that it is desirable to separate the
+optimization concerns from the algorithms.
+It is a common goal for high-performance computing languages, such as the
+partitioned global address space languages\citep{PGASSurvey},
+to make concerns such as the memory layout and access patterns for matrixes and arrays secondary issues,
+which can be handled as annotations or properties of data structures.
+The goal here is to allow domain experts to build algorithms,
+which then later can be optimized by performance experts that ideally only need
+to add some annotations to ensure an efficient execution.
+
+
 % or implementation is of little concern and instead the general collection type or interface is clear enough for the usages of the collection.
 
 % -> set/map: implemented as tree or hash table?
@@ -1468,7 +1480,7 @@ Furthermore, these three interfaces correspond to the collection types we propos
 % -> can't make a right choice without knowing exactly what
 %    run time load is going to be
 
-Furthermore, performance-driven choices are 
+More generally, we believe that performance-driven choices are 
 % With a minimal set of collection types,
 % it is also not possible to directly select an implementation strategy.
 % Should a map be realized by a tree or hash table,
