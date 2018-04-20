@@ -1495,9 +1495,11 @@ Therefore, specialized classes are unlikely to be beneficial.
 % -> complexity of implementation is a real issue (concurrency issues,
 %    strategies, JIT DS...)
 Another argument against versatile collections is
-that their implementation is much more complex.
-However, the complexity is moved into the runtime,
-and thus benefits many users.
+that their implementation is much more complex
+and removes developers another step from the machine
+and understanding performance tradeoffs.
+From our perspective, moving the complexity into the runtime is beneficial,
+because many users can leverage such optimizations implicitly.
 At run time, optimization can become possible
 without requiring programmer input,
 as discussed in the following section.
