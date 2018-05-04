@@ -2,10 +2,8 @@
 %% sentence parts on separate lines
 
 % TODO: add review
-\documentclass[sigconf, english]{acmart}
-%\documentclass[sigconf, 10pt, review]{acmart}
-% \documentclass[sigconf, 10pt, authordraft]{acmart}
-\settopmatter{printfolios=true,printccs=true,printacmref=false}
+\documentclass[sigconf, screen, english]{acmart}
+\settopmatter{printccs=true,printacmref=false}  % printfolios=true,
 
 \def\Title{Few Versatile vs. Many Specialized Collections}
 % \def\ShortTitle{}
@@ -30,25 +28,14 @@
 \usepackage{balance} % for \balance in references
 
 % Copyright
-%\setcopyright{none}
-%\setcopyright{acmcopyright}
-%\setcopyright{acmlicensed}
-\setcopyright{rightsretained}
-%\setcopyright{usgov}
-%\setcopyright{usgovmixed}
-%\setcopyright{cagov}
-%\setcopyright{cagovmixed}
-
-\acmDOI{} % TODO
-\acmISBN{} % TODO
-
-%Conference
-\acmConference[PX/18]{Programming Experience Workshop}{April 2018}{Nice, France}
+\setcopyright{acmlicensed}
+\acmPrice{15.00}
+\acmDOI{10.1145/3191697.3214334}
 \acmYear{2018}
 \copyrightyear{2018}
+\acmISBN{978-1-4503-5513-1/18/04}
+\acmConference[<Programming>]{2nd International Conference on the Art, Science, and Engineering of Programming}{April 9--12, 2018}{Nice, France}
 
-\acmPrice{}
-\acmSubmissionID{}
 
 \begin{document}
 \title{\Title}
