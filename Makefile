@@ -50,7 +50,7 @@ html5:
 	~/Projects/misc/latex-to-html5/ht-latex $(NAME).tex tmp-html/
 
 zip:
-	zip paper.zip $(TEXSRCS) $(BIBTEXSRCS) scripts/collab.sty ACM-Reference-Format.bst acmart.cls $(NAME).bbl figures/process-view.pdf figures/protocol-class-diagram.pdf figures/protocol-overview.pdf figures/stm-example.pdf figures/system-view.pdf
+	zip paper.zip $(TEXSRCS) $(BIBTEXSRCS) scripts/collab.sty ACM-Reference-Format.bst acmart.cls px18.sty $(NAME).bbl
 
 latexdiff:
 	-mkdir submission-latex
